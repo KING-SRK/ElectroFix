@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="etPhone" type="id"/>
+    <item name="etPassword" type="id"/>
+    <item name="btnSignup" type="id"/>
+    <item name="tvLogin" type="id"/>
+    <item name="btnLogout" type="id"/>
+    <item name="welcome_video" type="id"/>
+    <item name="etLoginPassword" type="id"/>
+    <item name="tvEmail" type="id"/>
+    <item name="tvName" type="id"/>
+    <item name="tvPhone" type="id"/>
+    <item name="tvAddress" type="id"/>
+    <item name="tvDOB" type="id"/>
+    <item name="tvGender" type="id"/>
+    <item name="chipGroup" type="id"/>
+    <item name="etUserName" type="id"/>
+    <item name="etUserEmail" type="id"/>
+    <item name="etMessage" type="id"/>
+    <item name="btnUploadScreenshot" type="id"/>
+    <item name="chipSuggestion" type="id"/>
+    <item name="btnSubmit" type="id"/>
+    <item name="chipIssue" type="id"/>
+</resources>

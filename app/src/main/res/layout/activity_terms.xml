@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+
+    <!-- Back Button & Header Layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/arrow_icon"
+            android:scaleType="fitCenter"
+            android:contentDescription="Back" />
+
+        <!-- Header Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📜 Terms &amp; Conditions"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+    <!-- Scrollable Text Area -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F5F5F5"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loading Terms &amp; Conditions..."
+            android:textSize="16sp"
+            android:textColor="#333"
+            android:lineSpacingExtra="5dp"/>
+    </ScrollView>
+
+    <!-- Accept Button -->
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Accept &amp; Continue"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:backgroundTint="@color/blue"
+        android:padding="12dp"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

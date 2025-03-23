@@ -1,0 +1,506 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_main"
+    android:padding="0dp">
+
+
+
+    <!-- ProgressBar (ডাটা লোডিং দেখানোর জন্য) -->
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/black"
+        style="?android:attr/progressBarStyleLarge" />
+
+
+    <!-- Search View -->
+
+
+    <!-- Icon Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/search_style"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search here..." />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/banner_main"
+        android:layout_marginTop="20dp">
+
+        <!-- Category Heading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OPTIONS"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="0dp">
+
+        <!-- Payment Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnTracking"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="7dp"
+                android:background="@null"
+                android:contentDescription="Payment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/option_traking" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tracking"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Tracking Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnPayment"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="7dp"
+                android:background="@null"
+                android:contentDescription="Tracking"
+                android:scaleType="fitCenter"
+                android:src="@drawable/option_pament" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pament"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Offer Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnBilling"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/billing_history"
+                android:scaleType="fitCenter"
+                android:layout_margin="7dp"
+                android:background="@null"
+                android:contentDescription="Offers"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Bill Hist"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Help & Support Button -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnOffer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/option_offer"
+                android:scaleType="fitCenter"
+                android:layout_margin="7dp"
+                android:background="@null"
+                android:contentDescription="Help and Support"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offers"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+    <!-- Service Section -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/banner_main"
+        android:layout_marginTop="20dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="0dp">
+
+            <!-- Payment Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnHelpSupport"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/option_help_support"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="7dp"
+                    android:background="@null"
+                    android:contentDescription="Payment"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Help"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Tracking Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnUpload"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/upload_issue"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="7dp"
+                    android:background="@null"
+                    android:contentDescription="Tracking"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Issues"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Offer Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnRequest"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/request_complains"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="7dp"
+                    android:background="@null"
+                    android:contentDescription="Offers"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R &amp; C"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Help & Support Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnTerms"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="7dp"
+                    android:background="@null"
+                    android:contentDescription="Help and Support"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/terms_condition" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T &amp; C"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Bottom Navigation Bar -->
+
+
+    <ImageButton
+        android:id="@+id/referralImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:contentDescription="Refarel"
+        android:scaleType="fitCenter"
+        android:src="@drawable/refarel_image" />
+
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="5"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/navigation_bar">
+
+        <!-- Customer Profile Button -->
+        <LinearLayout
+            android:id="@+id/customer_profile_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/customer_profile_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_profile"
+                android:contentDescription="Customer Profile" />
+
+            <TextView
+                android:id="@+id/customer_profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Repairer Profile Button -->
+        <LinearLayout
+            android:id="@+id/repairer_profile_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/repairer_profile_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/repairer_profile_icon"
+                android:contentDescription="Repairer Profile" />
+
+            <TextView
+                android:id="@+id/repairer_profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Home Button -->
+        <LinearLayout
+            android:id="@+id/home_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/home_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_icon"
+                android:contentDescription="Home" />
+
+            <TextView
+                android:id="@+id/home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Category Button -->
+        <LinearLayout
+            android:id="@+id/category_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/category_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/category_icon"
+                android:contentDescription="Category" />
+
+            <TextView
+                android:id="@+id/category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Settings Button -->
+        <LinearLayout
+            android:id="@+id/settings_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/settings_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Settings"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_icon" />
+
+            <TextView
+                android:id="@+id/settings_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

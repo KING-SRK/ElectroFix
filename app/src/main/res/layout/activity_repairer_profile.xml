@@ -1,0 +1,124 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_repairer">
+
+    <!-- প্রধান কন্টেন্ট এলাকা -->
+
+    <!-- Fixed Bottom Navigation Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="80dp">
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/repairerProfileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/repairer_man_logo" />
+
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/repairerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/repairerProfileImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Hi, Name"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!-- View Work History Button -->
+        <Button
+            android:id="@+id/btnViewWorkHistory"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnViewRatings"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/green"
+            android:padding="12dp"
+            android:text="View Work History"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <!-- Edit Profile Button -->
+        <Button
+            android:id="@+id/btnProfileInfo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/repairerName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/skyblue"
+            android:padding="12dp"
+            android:text="Profile Info"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <!-- View Ratings Button -->
+        <Button
+            android:id="@+id/btnViewRatings"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnProfileInfo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/yellow"
+            android:padding="12dp"
+            android:text="Set Budget"
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
+
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnViewWorkHistory"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/red"
+            android:padding="12dp"
+            android:text="Logout"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/navigation_bar"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+    <!-- Circular Home Button (Navigation Bar-এর উপরে ভাসবে) -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"> <!-- এখানে margin বাড়ানো হয়েছে -->
+
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/navigation_circle_bg"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_icon"
+            android:padding="15dp"
+            android:contentDescription="Home" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

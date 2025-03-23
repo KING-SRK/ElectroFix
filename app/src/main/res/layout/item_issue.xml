@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_margin="8dp"> <!-- এখানে android:layout_margin ব্যবহার করা হয়েছে -->
+
+    <!-- ইউজারের নাম -->
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- ইউজারের ইমেইল -->
+    <TextView
+        android:id="@+id/tvUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"/>
+
+    <!-- ইউজারের মেসেজ -->
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Issue/Suggestion টাইপ -->
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+    <!-- স্ক্রিনশট ইমেজ -->
+    <ImageView
+        android:id="@+id/ivScreenshot"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="5dp"/>
+
+    <!-- "Mark as Resolved" বোতাম -->
+    <Button
+        android:id="@+id/btnMarkResolved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mark as Resolved"
+        android:backgroundTint="@color/green"
+        android:textColor="@android:color/white"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <!-- "Delete" বোতাম -->
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:backgroundTint="@color/red"
+        android:textColor="@android:color/white"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>

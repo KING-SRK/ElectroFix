@@ -1,0 +1,216 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_icon"
+            android:layout_gravity="start"
+            android:scaleType="fitCenter"
+            android:padding="0dp"/>
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/repairer_man_logo"
+            android:layout_gravity="center"/>
+
+        <!-- Change Profile Picture Button -->
+        <Button
+            android:id="@+id/btnChangePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Profile Picture"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/skyblue"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+        <!-- Name Input -->
+        <EditText
+            android:id="@+id/editRepairerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Email Input -->
+
+        <!-- Phone Input -->
+
+        <EditText
+            android:id="@+id/editRepairerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E" />
+
+        <EditText
+            android:id="@+id/editRepairerPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Phone"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Skills Input -->
+        <EditText
+            android:id="@+id/editRepairerSkills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Skills"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Location Input -->
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Location"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Location Input -->
+        <EditText
+            android:id="@+id/etPinCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pin Code"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Password Input -->
+        <EditText
+            android:id="@+id/editRepairerCharges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Service Charges"
+            android:inputType="textVisiblePassword"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Work Experience Input -->
+        <EditText
+            android:id="@+id/editRepairerExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Work Experience"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="#7E7E7E"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginTop="10dp"/>
+
+
+        <!-- Availability Status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Availability Check"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txtAvailabilityStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offline"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"/>
+
+                <Switch
+                    android:id="@+id/switchAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumbTint="@color/switch_thumb"
+                    android:trackTint="@color/switch_track"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Change Password -->
+        <Button
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp" />
+
+        <!-- Save Profile Button -->
+        <Button
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Changes"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+</ScrollView>

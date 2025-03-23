@@ -1,0 +1,199 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Profile Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/profile_card_bg"
+            android:padding="20dp"
+            android:elevation="5dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Back Button -->
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/arrow_icon"
+                android:layout_gravity="start"
+                android:padding="0dp"/>
+
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/imgRepairerProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/repairer_man_logo"
+                android:layout_gravity="center"/>
+
+            <!-- Name -->
+            <TextView
+                android:id="@+id/tvRepairerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Doe"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Details Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/details_card_bg"
+            android:padding="16dp"
+            android:elevation="5dp">
+
+            <!-- Phone -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Email Address"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvRepairerEmail"
+                android:text="example@gmail.com"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Phone -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Phone"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvRepairerPhone"
+                android:text="+91 9876543210"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Skills -->
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Skills"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/tvRepairerSkills"
+                android:text="AC Repair, TV Repair"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Location -->
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Location"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/tvRepairerLocation"
+                android:text="Kolkata, India"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Phone -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Pin Code"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvRepairerPinCode"
+                android:text="700000"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Experience -->
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Experience"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/tvRepairerExperience"
+                android:text="5 Years"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Charges -->
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Service Charges"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/tvRepairerCharges"
+                android:text="₹500 per AC Repair"
+                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Availability -->
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:text="Availability"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/tvRepairerAvailability"
+                android:text="Online"
+                android:textColor="@color/green"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Edit Profile Button -->
+        <Button
+            android:id="@+id/btnEditRepairerProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:backgroundTint="@color/blue"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

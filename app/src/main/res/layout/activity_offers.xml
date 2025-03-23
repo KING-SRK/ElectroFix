@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- 🔹 Back Button (Top Left) -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/arrow_icon"
+        android:scaleType="fitCenter"
+        android:contentDescription="Back" />
+
+    <!-- 📌 Center Content (No Offers) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- 📌 "No Offers" Image -->
+
+        <!-- 📌 "No Offers" Text -->
+
+        <ImageView
+            android:id="@+id/noOffersImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/profile_card_bg"
+            android:contentDescription="No Offers Available"
+            android:elevation="10dp"
+            android:src="@drawable/no_offers" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Offers Available"
+            android:textSize="18sp"
+            android:background="@drawable/profile_card_bg"
+            android:elevation="10dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

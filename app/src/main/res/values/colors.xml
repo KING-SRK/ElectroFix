@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="litegray">#B6B6B6</color>
+    <color name="gray">#4D4D4D</color>
+    <color name="blue">#16204E</color>
+    <color name="red">#EF4F4F</color>
+    <color name="yellow">#FFC107</color>
+    <color name="lightyellow">#E1F804</color>
+    <color name="darkyellow">#976800</color>
+    <color name="skyblue">#06D9F4</color>
+    <color name="green">#08D312</color>
+    <color name="perple">#A600FF</color>
+    <color name="orange">#FF2600</color>
+    <color name="pink">#FF00AE</color>
+
+
+    <color name="switch_track">#B0B0B0</color> <!-- Switch OFF হলে Gray -->
+    <color name="switch_track_on">#00FF09</color> <!-- Switch ON হলে Green -->
+    <color name="switch_thumb">#B0B0B0</color> <!-- Switch OFF হলে Thumb (গোল অংশ) White -->
+    <color name="switch_thumb_on">#00FF0B</color> <!-- Switch ON হলে Thumb (গোল অংশ) Dark Green -->
+</resources>
+
+

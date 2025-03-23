@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.survice.electrofix">
+
+    <!-- 🔥 ইন্টারনেট পারমিশন (ম্যাপ ও Firebase-এর জন্য) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 🔥 লোকেশন পারমিশন (GPS ব্যবহার করার জন্য) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- 🔥 লোকেশন সার্ভিস ব্যাকগ্রাউন্ডে চালাতে চাইলে (Android 10+ এর জন্য) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
+    <!-- 🔥 Foreground Service (লোকেশন আপডেট ও নোটিফিকেশনের জন্য) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <!-- 🔥 External Storage পারমিশন (ফাইল সংরক্ষণ ও রিড করার জন্য) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="ElectroFix"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ElectroFix"
+        android:usesCleartextTraffic="true">  <!-- ✅ OSM এর জন্য Cleartext Traffic Enabled -->
+
+        <!-- ✅ OSMDroid ম্যাপের জন্য কনফিগারেশন -->
+        <meta-data
+            android:name="org.osmdroid.config"
+            android:value="osmdroid.config"/>
+
+        <!-- ✅ অ্যাপের সকল Activity লিস্ট -->
+        <activity android:name=".HelpReportIssueActivity" android:exported="false" />
+        <activity android:name=".SplashActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ChoiceActivity" android:exported="false" />
+        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false"/>
+        <activity android:name=".HelpSupportActivity" android:exported="false" />
+        <activity android:name=".OffersActivity" android:exported="false" />
+        <activity android:name=".TermsActivity" android:exported="false" />
+        <activity android:name=".SearchActivity" android:exported="false" />
+        <activity android:name=".CategoryActivity" android:exported="false" />
+        <activity android:name=".CustomerEditProfileActivity" android:exported="false" />
+        <activity android:name=".RepairerProfileActivity" android:exported="false" />
+        <activity android:name=".RepairerEditProfileActivity" android:exported="false" />
+        <activity android:name=".RepairerProfileInfoActivity" android:exported="false" />
+        <activity android:name=".CustomerProfileActivity" android:exported="false" />
+        <activity android:name=".CustomerProfileInfoActivity" android:exported="false" />
+        <activity android:name=".UploadIssueActivity" android:exported="false" />
+
+        <!-- ✅ ট্র্যাকিং সংক্রান্ত Activity -->
+        <activity android:name=".TrackingActivity" android:exported="false" />
+        <activity android:name=".TrackingMapActivity" android:exported="false" />
+
+        <service android:name=".services.LocationUpdateService"/>
+
+    </application>
+</manifest>

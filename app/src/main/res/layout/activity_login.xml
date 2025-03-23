@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:padding="16dp">
+
+    <!-- Back Button (Arrow) -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:contentDescription="Back"
+        android:src="@drawable/arrow_icon" />
+
+    <!-- Main Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <!-- Login Title -->
+        <TextView
+            android:id="@+id/tvLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[As Customer]"
+            android:textSize="30sp"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login your old Account"
+            android:textSize="25sp"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Email Input -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:paddingHorizontal="12dp"
+            android:textColorHint="@color/yellow"
+            android:textSize="16sp"/>
+
+        <!-- Password Input with Toggle -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/yellow"
+                android:paddingEnd="50dp"
+                android:background="@drawable/edit_text_bg"
+                android:minHeight="48dp"
+                android:paddingHorizontal="12dp"
+                android:textSize="16sp"/>
+
+            <!-- Password Toggle Button -->
+            <ImageButton
+                android:id="@+id/btnTogglePassword"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_eye_hide"
+                android:background="@android:color/transparent"
+                android:contentDescription="Show/Hide Password"/>
+        </RelativeLayout>
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:backgroundTint="@color/yellow"
+            android:textColor="#000000"
+            android:padding="14dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Don't have an account? Signup -->
+        <TextView
+            android:id="@+id/tvSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? Signup"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
