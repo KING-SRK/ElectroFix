@@ -1,7 +1,9 @@
 package com.survice.electrofix;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,6 +37,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RepairerEditProfileActivity extends AppCompatActivity {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int STORAGE_PERMISSION_CODE = 100;
 
     private ImageButton btnBack;
     private ImageView imgProfilePicture;
@@ -52,8 +59,6 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
 
     private Uri imageUri;
     private ProgressDialog progressDialog;
-
-    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,13 +98,35 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
         progressDialog.setMessage("Updating Profile...");
 
         btnBack.setOnClickListener(v -> finish());
-        btnChangePicture.setOnClickListener(v -> openGallery());
+        btnChangePicture.setOnClickListener(v -> checkStoragePermission());
         btnSaveProfile.setOnClickListener(v -> saveProfile());
 
         switchAvailability.setOnCheckedChangeListener((buttonView, isChecked) ->
                 txtAvailabilityStatus.setText(isChecked ? "Online" : "Offline"));
 
         loadUserProfile();
+    }
+
+    private void checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        } else {
+            openGallery();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGallery();
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void openGallery() {
@@ -125,7 +152,6 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
 
         profileRef.get().addOnSuccessListener(documentSnapshot -> {
             progressBar.setVisibility(View.GONE);
-
             if (documentSnapshot.exists()) {
                 editRepairerName.setText(documentSnapshot.getString("name"));
                 editRepairerPhone.setText(documentSnapshot.getString("phone"));
@@ -135,7 +161,7 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
                 editRepairerCharges.setText(documentSnapshot.getString("charges"));
                 editRepairerExperience.setText(documentSnapshot.getString("experience"));
 
-                boolean isAvailable = documentSnapshot.getBoolean("availability") != null && documentSnapshot.getBoolean("availability");
+                boolean isAvailable = Boolean.TRUE.equals(documentSnapshot.getBoolean("availability"));
                 switchAvailability.setChecked(isAvailable);
                 txtAvailabilityStatus.setText(isAvailable ? "Online" : "Offline");
 
@@ -154,10 +180,7 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfile() {
-        if (profileRef == null) {
-            Toast.makeText(this, "User profile not found!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        if (profileRef == null) return;
 
         progressDialog.show();
 
@@ -171,38 +194,36 @@ public class RepairerEditProfileActivity extends AppCompatActivity {
         userData.put("experience", editRepairerExperience.getText().toString().trim());
         userData.put("availability", switchAvailability.isChecked());
 
-        profileRef.set(userData).addOnSuccessListener(aVoid -> {
+        profileRef.update(userData).addOnSuccessListener(aVoid -> {
             if (imageUri != null) {
                 uploadProfileImage();
             } else {
                 progressDialog.dismiss();
-                Toast.makeText(this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                 navigateToProfileInfo();
             }
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Toast.makeText(this, "Update Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Profile Update Failed!", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void uploadProfileImage() {
-        StorageReference fileReference = storageReference.child(user.getUid() + ".jpg");
+        final StorageReference fileReference = storageReference.child(user.getUid() + ".jpg");
 
-        fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
-            fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                profileRef.update("profilePicture", uri.toString()).addOnCompleteListener(task -> {
-                    progressDialog.dismiss();
-                    Toast.makeText(this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
-                    navigateToProfileInfo();
-                });
-            });
-        }).addOnFailureListener(e -> progressDialog.dismiss());
+        fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
+                fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    profileRef.update("profileImage", uri.toString()).addOnSuccessListener(aVoid -> {
+                        progressDialog.dismiss();
+                        navigateToProfileInfo();
+                    });
+                })).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Image Upload Failed!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void navigateToProfileInfo() {
-        Intent intent = new Intent(RepairerEditProfileActivity.this, RepairerProfileInfoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivity(new Intent(this, RepairerProfileInfoActivity.class));
         finish();
     }
 }
