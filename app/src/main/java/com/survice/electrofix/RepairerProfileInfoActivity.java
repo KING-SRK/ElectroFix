@@ -17,7 +17,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class RepairerProfileInfoActivity extends AppCompatActivity {
+public class RepairerProfileInfoActivity extends BaseActivity {
 
     private ImageView btnBack, imgRepairerProfile;
     private TextView tvRepairerName, tvRepairerEmail, tvRepairerPhone, tvRepairerSkills, tvRepairerLocation,

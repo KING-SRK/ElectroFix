@@ -1,0 +1,27 @@
+<resources>
+
+
+
+    <!-- Light Theme -->
+    <style name="Theme.ElectroFix" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryVariant">#E64A19</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#FFC107</item>
+        <item name="colorSecondaryVariant">#FFA000</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/nav_bar_color</item>
+
+        <!-- Rounded Button Style Apply -->
+        <item name="materialButtonStyle">@style/RoundedButtonStyle</item>
+    </style>
+
+    <!-- Rounded Button Style -->
+    <style name="RoundedButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">50dp</item> <!-- কোণ গোল -->
+        <item name="android:textStyle">bold</item> <!-- টেক্সট স্টাইল -->
+        <item name="android:padding">12dp</item> <!-- প্যাডিং -->
+    </style>
+
+</resources>

@@ -36,7 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepairerEditProfileActivity extends AppCompatActivity {
+public class RepairerEditProfileActivity extends BaseActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int STORAGE_PERMISSION_CODE = 100;

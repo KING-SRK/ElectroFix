@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerEditProfileActivity extends AppCompatActivity {
+public class CustomerEditProfileActivity extends BaseActivity {
 
     private ImageView imgProfile;
     private EditText etName, etEmail, etPhone, etAddress, etPinCode, etDOB;

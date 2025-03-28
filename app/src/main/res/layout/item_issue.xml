@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@android:color/white"
+    android:background="@color/backgroundColor"
     android:elevation="4dp"
     android:layout_margin="8dp"> <!-- এখানে android:layout_margin ব্যবহার করা হয়েছে -->
 

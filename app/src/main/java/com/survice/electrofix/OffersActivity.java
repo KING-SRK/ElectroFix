@@ -5,7 +5,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageButton;
 
-public class OffersActivity extends AppCompatActivity {
+public class OffersActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

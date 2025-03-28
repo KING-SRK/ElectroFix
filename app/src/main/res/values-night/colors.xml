@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#000000</color> <!-- Dark Mode Background -->
+    <color name="textColor">#FFFFFF</color> <!-- Dark Mode Text Color -->
+
+    <color name="colorPrimary">#121212</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorAccent">#BB86FC</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="backgroundColor">#000000</color>
+    <color name="cardbackgroundColor">#282727</color>
+    <color name="bannerbackgroundColor">#00FFF7</color>
+    <color name="search">#504D4D</color>
+
+
+</resources>

@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HelpSupportActivity extends AppCompatActivity {
+public class HelpSupportActivity extends BaseActivity {
 
     private ImageButton btnBack;
     private Button btnCallSupport, btnEmailSupport, btnChatSupport, btnReportIssue, btnPrivacyPolicy;

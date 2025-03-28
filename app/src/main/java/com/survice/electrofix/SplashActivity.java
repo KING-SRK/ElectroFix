@@ -4,19 +4,28 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splashvideo);
+
+        // 🔹 *Status Bar এবং Notification Bar হাইড করা*
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
+        setContentView(R.layout.activity_splashvideo);
 
         videoView = findViewById(R.id.videoView);
         Uri videoPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash_video);
@@ -28,14 +37,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void navigateToNextScreen() {
-        // SharedPreferences থেকে লগইন স্ট্যাটাস চেক করা
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE); // *ফিক্স করা হয়েছে*
+        // 🔹 *SharedPreferences থেকে লগইন স্ট্যাটাস চেক করা*
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
         if (isLoggedIn) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class)); // লগইন থাকলে MainActivity
         } else {
-            startActivity(new Intent(SplashActivity.this, ChoiceActivity.class)); // না থাকলে UserSelectionActivity
+            startActivity(new Intent(SplashActivity.this, ChoiceActivity.class)); // না থাকলে ChoiceActivity
         }
 
         finish(); // স্প্ল্যাশ স্ক্রিন বন্ধ করবে

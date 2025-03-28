@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundColor"
     tools:context=".TrackingActivity">
 
     <!-- Map View -->
@@ -33,7 +33,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/profile_card_bg"
+        android:background="@drawable/details_card_bg"
         android:elevation="8dp"
         android:orientation="vertical"
         android:padding="16dp"
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Customer Location: Not Available"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Repairer Location: Not Available"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 

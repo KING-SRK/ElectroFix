@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TrackingActivity extends AppCompatActivity {
+public class TrackingActivity extends BaseActivity {
 
     private TextView customerLocation, repairerLocation;
     private Button btnStartTracking;

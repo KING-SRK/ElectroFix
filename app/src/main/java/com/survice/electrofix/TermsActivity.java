@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TermsActivity extends AppCompatActivity {
+public class TermsActivity extends BaseActivity {
 
     private TextView txtTerms;
     private Button btnAccept;

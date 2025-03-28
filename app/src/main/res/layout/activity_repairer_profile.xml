@@ -1,105 +1,121 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_repairer">
+    android:background="@color/backgroundColor">
 
-    <!-- প্রধান কন্টেন্ট এলাকা -->
+    <TextView
+        android:id="@+id/electroFixText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.05"
+        android:shadowColor="#000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="6"
+        android:text="Repairer"
+        android:textColor="@color/yellow"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
-    <!-- Fixed Bottom Navigation Bar -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingBottom="80dp">
 
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/repairerProfileImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/repairer_man_logo" />
+        <!-- প্রধান কন্টেন্ট এলাকা (LinearLayout) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/profile_card_bg"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:paddingBottom="80dp">
 
-        <!-- Phone -->
-        <TextView
-            android:id="@+id/repairerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/repairerProfileImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="Hi, Name"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/repairerProfileImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/repairer_profile_icon" />
 
-        <!-- View Work History Button -->
-        <Button
-            android:id="@+id/btnViewWorkHistory"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnViewRatings"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/green"
-            android:padding="12dp"
-            android:text="View Work History"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            <!-- Phone -->
+            <TextView
+                android:id="@+id/repairerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Hi, Name"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
 
-        <!-- Edit Profile Button -->
-        <Button
-            android:id="@+id/btnProfileInfo"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/repairerName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/skyblue"
-            android:padding="12dp"
-            android:text="Profile Info"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            <!-- Edit Profile Button -->
 
-        <!-- View Ratings Button -->
-        <Button
-            android:id="@+id/btnViewRatings"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnProfileInfo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/yellow"
-            android:padding="12dp"
-            android:text="Set Budget"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
+            <!-- View Ratings Button -->
 
-        <!-- Logout Button -->
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnViewWorkHistory"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/red"
-            android:padding="12dp"
-            android:text="Logout"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnProfileInfo"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:padding="12dp"
+                android:text="Profile Info"
+                android:textColor="@color/blue"
+                android:textStyle="bold" />
 
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/navigation_bar"
-        android:gravity="center"
-        android:orientation="horizontal" />
+            <!-- View Work History Button -->
+            <Button
+                android:id="@+id/btnViewRatings"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:padding="12dp"
+                android:text="Set Budget"
+                android:textColor="@color/blue"
+                android:textStyle="bold" />
+
+            <!-- Logout Button -->
+            <Button
+                android:id="@+id/btnViewWorkHistory"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:padding="12dp"
+                android:text="View Work History"
+                android:textColor="@color/blue"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/red"
+                android:padding="12dp"
+                android:text="Logout"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+
 
     <!-- Circular Home Button (Navigation Bar-এর উপরে ভাসবে) -->
     <RelativeLayout
@@ -107,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"> <!-- এখানে margin বাড়ানো হয়েছে -->
+        android:layout_marginBottom="10dp">
 
         <ImageButton
             android:id="@+id/home_button"
@@ -116,9 +132,9 @@
             android:background="@drawable/navigation_circle_bg"
             android:scaleType="fitCenter"
             android:src="@drawable/home_icon"
-            android:padding="15dp"
+            android:padding="10dp"
             android:contentDescription="Home" />
-    </RelativeLayout>
 
+    </RelativeLayout>
 
 </RelativeLayout>

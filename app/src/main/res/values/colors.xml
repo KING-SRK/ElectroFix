@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="litegray">#B6B6B6</color>
     <color name="gray">#4D4D4D</color>
@@ -9,20 +9,44 @@
     <color name="yellow">#FFC107</color>
     <color name="lightyellow">#E1F804</color>
     <color name="darkyellow">#976800</color>
-    <color name="skyblue">#06D9F4</color>
+    <color name="skyblue">#2FD5E9</color>
     <color name="green">#08D312</color>
     <color name="perple">#A600FF</color>
     <color name="orange">#FF2600</color>
     <color name="pink">#FF00AE</color>
+    <color name="lightgreen">#04F0DA</color>
 
-    <color name="nav_bar_color">#FF5722</color> <!-- লাইট মোডের জন্য -->
-    <color name="nav_bar_dark_color">#000000</color> <!-- ডার্ক মোডের জন্য -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Light Mode Colors -->
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="cardbackgroundColor">#FFFFFF</color>
+    <color name="bannerbackgroundColor">#FFFFFF</color>
+    <color name="search">#FFFFFF</color>
+
+
+
+    <color name="status_bar_color">#2D3845</color>
+    <color name="status_bar_dark_color">#000000</color>
+    <color name="nav_bar_color">#2D3845</color>
+    <color name="nav_bar_dark_color">#000000</color>
+
+    <color name="your_color_pressed">#FF5722</color>
+    <color name="your_color">#FFC107</color>
+
+    <color name="primaryColor">#FFFFFF</color> <!-- Light Mode Background -->
+    <color name="textColor">#000000</color> <!-- Light Mode Text Color -->
+
+
 
 
     <color name="switch_track">#B0B0B0</color> <!-- Switch OFF হলে Gray -->
     <color name="switch_track_on">#00FF09</color> <!-- Switch ON হলে Green -->
     <color name="switch_thumb">#B0B0B0</color> <!-- Switch OFF হলে Thumb (গোল অংশ) White -->
     <color name="switch_thumb_on">#00FF0B</color> <!-- Switch ON হলে Thumb (গোল অংশ) Dark Green -->
+
 </resources>
 
 

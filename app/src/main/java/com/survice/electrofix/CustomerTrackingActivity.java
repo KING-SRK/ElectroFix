@@ -11,7 +11,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.util.GeoPoint;
 
-public class CustomerTrackingActivity extends AppCompatActivity {
+public class CustomerTrackingActivity extends BaseActivity {
 
     private TextView txtOrderStatus;
     private DatabaseReference orderRef, repairerLocationRef;

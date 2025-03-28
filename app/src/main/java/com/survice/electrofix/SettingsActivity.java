@@ -7,19 +7,24 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+
 import java.util.Locale;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     private ImageButton btnBack;
     private Button btnEditProfile, btnChangePassword, btnDeleteAccount, btnPrivacyPolicy, btnTerms, btnLogout, btnClearCache, btnCheckUpdates, btnRateApp, btnShareApp, btnChangeLanguage;
     private Switch switchDarkMode, switchBiometric, switchPushNotification, switchEmailAlerts, switchSmsAlerts;
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private String userType;
@@ -32,9 +37,20 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ✅ Full Screen Mode Enable
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+
         setContentView(R.layout.activity_setting);
 
-        // Initialize Buttons & Switches
+        // Initialize UI Elements
         btnBack = findViewById(R.id.btnBack);
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnChangePassword = findViewById(R.id.btnChangePassword);
@@ -55,16 +71,23 @@ public class SettingsActivity extends AppCompatActivity {
         switchSmsAlerts = findViewById(R.id.switchSmsAlerts);
 
         // SharedPreferences Setup
-        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("AppSettingsPrefs", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         userType = sharedPreferences.getString("userType", "customer"); // Default "customer"
 
         // Load Saved Settings
-        switchDarkMode.setChecked(sharedPreferences.getBoolean("darkMode", false));
+        switchDarkMode.setChecked(sharedPreferences.getBoolean("DarkMode", false));
         switchBiometric.setChecked(sharedPreferences.getBoolean("biometric", false));
         switchPushNotification.setChecked(sharedPreferences.getBoolean("pushNotification", true));
         switchEmailAlerts.setChecked(sharedPreferences.getBoolean("emailAlerts", true));
         switchSmsAlerts.setChecked(sharedPreferences.getBoolean("smsAlerts", true));
+
+        // Dark Mode Apply
+        if (switchDarkMode.isChecked()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         // Back Button
         btnBack.setOnClickListener(v -> finish());
@@ -80,7 +103,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Dark Mode Toggle
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            editor.putBoolean("darkMode", isChecked);
+            AppCompatDelegate.setDefaultNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            editor.putBoolean("DarkMode", isChecked);
             editor.apply();
             Toast.makeText(this, "Dark Mode " + (isChecked ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT).show();
             updateSwitchColor(switchDarkMode, isChecked);
@@ -90,7 +114,6 @@ public class SettingsActivity extends AppCompatActivity {
         switchBiometric.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editor.putBoolean("biometric", isChecked);
             editor.apply();
-            Toast.makeText(this, "Biometric Authentication " + (isChecked ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT).show();
             updateSwitchColor(switchBiometric, isChecked);
         });
 
@@ -117,14 +140,10 @@ public class SettingsActivity extends AppCompatActivity {
         btnChangeLanguage.setOnClickListener(v -> showLanguageDialog());
 
         // Clear Cache
-        btnClearCache.setOnClickListener(v -> {
-            Toast.makeText(this, "Cache Cleared!", Toast.LENGTH_SHORT).show();
-        });
+        btnClearCache.setOnClickListener(v -> Toast.makeText(this, "Cache Cleared!", Toast.LENGTH_SHORT).show());
 
         // Check for Updates
-        btnCheckUpdates.setOnClickListener(v -> {
-            Toast.makeText(this, "No Updates Available", Toast.LENGTH_SHORT).show();
-        });
+        btnCheckUpdates.setOnClickListener(v -> Toast.makeText(this, "No Updates Available", Toast.LENGTH_SHORT).show());
 
         // Rate App
         btnRateApp.setOnClickListener(v -> {
@@ -150,14 +169,10 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // Privacy Policy
-        btnPrivacyPolicy.setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://electrofix.com/privacy")));
-        });
+        btnPrivacyPolicy.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://electrofix.com/privacy"))));
 
         // Terms & Conditions
-        btnTerms.setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://electrofix.com/terms")));
-        });
+        btnTerms.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://electrofix.com/terms"))));
 
         // Switch Color Set Initially
         updateSwitchColor(switchDarkMode, switchDarkMode.isChecked());
@@ -171,30 +186,17 @@ public class SettingsActivity extends AppCompatActivity {
     private void showLanguageDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Language");
-        builder.setItems(languages, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String selectedLanguage = languageCodes[which];
-                saveLanguagePreference(selectedLanguage);
-            }
-        });
+        builder.setItems(languages, (dialog, which) -> saveLanguagePreference(languageCodes[which]));
         builder.show();
     }
 
     private void saveLanguagePreference(String languageCode) {
-        SharedPreferences.Editor editor = getSharedPreferences("AppSettings", MODE_PRIVATE).edit();
         editor.putString("Selected_Language", languageCode);
         editor.apply();
-
-        // নতুন ভাষা সেট এবং অ্যাপ Restart
-        LanguageUtils.setLocale(this, languageCode);
     }
 
-    // Method to Change Switch Color
     private void updateSwitchColor(Switch switchButton, boolean isChecked) {
-        int trackColor = isChecked ? R.color.switch_track_on : R.color.switch_track;
-        int thumbColor = isChecked ? R.color.switch_thumb_on : R.color.switch_thumb;
-        switchButton.getTrackDrawable().setColorFilter(ContextCompat.getColor(this, trackColor), PorterDuff.Mode.SRC_IN);
-        switchButton.getThumbDrawable().setColorFilter(ContextCompat.getColor(this, thumbColor), PorterDuff.Mode.SRC_IN);
+        int color = isChecked ? R.color.switch_thumb_on : R.color.switch_thumb;
+        switchButton.getThumbDrawable().setColorFilter(ContextCompat.getColor(this, color), PorterDuff.Mode.SRC_IN);
     }
 }

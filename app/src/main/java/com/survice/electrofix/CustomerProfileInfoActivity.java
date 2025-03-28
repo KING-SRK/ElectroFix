@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CustomerProfileInfoActivity extends AppCompatActivity {
+public class CustomerProfileInfoActivity extends BaseActivity {
 
     private ImageView imgProfile, btnBack;
     private TextView tvName, tvEmail, tvPhone, tvAddress, tvPinCode, tvDOB, tvGender;

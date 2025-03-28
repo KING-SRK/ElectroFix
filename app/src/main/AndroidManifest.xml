@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.survice.electrofix">
 
     <!-- 🔥 ইন্টারনেট পারমিশন (ম্যাপ ও Firebase-এর জন্য) -->
@@ -35,7 +36,7 @@
             android:value="osmdroid.config"/>
 
         <!-- ✅ অ্যাপের সকল Activity লিস্ট -->
-        <activity android:name=".HelpReportIssueActivity" android:exported="false" />
+
         <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,12 +60,14 @@
         <activity android:name=".CustomerProfileActivity" android:exported="false" />
         <activity android:name=".CustomerProfileInfoActivity" android:exported="false" />
         <activity android:name=".UploadIssueActivity" android:exported="false" />
+        <activity android:name=".HelpReportIssueActivity" android:exported="false" />
 
         <!-- ✅ ট্র্যাকিং সংক্রান্ত Activity -->
         <activity android:name=".TrackingActivity" android:exported="false" />
         <activity android:name=".TrackingMapActivity" android:exported="false" />
 
-        <service android:name=".services.LocationUpdateService"/>
+        <service android:name=".services.LocationUpdateService"
+            tools:ignore="MissingClass" />
 
     </application>
 </manifest>

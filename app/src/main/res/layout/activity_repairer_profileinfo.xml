@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/backgroundColor"
     android:padding="16dp">
 
     <LinearLayout
@@ -31,15 +31,16 @@
                 android:padding="0dp"/>
 
             <!-- Profile Image -->
+
+            <!-- Name -->
             <ImageView
                 android:id="@+id/imgRepairerProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                android:src="@drawable/repairer_man_logo"
-                android:layout_gravity="center"/>
+                android:src="@drawable/repairer_profile_icon" />
 
-            <!-- Name -->
             <TextView
                 android:id="@+id/tvRepairerName"
                 android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
                 android:text="John Doe"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"/>
 
@@ -68,13 +69,13 @@
                 android:layout_width="wrap_content"
                 android:text="Email Address"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/tvRepairerEmail"
                 android:text="example@gmail.com"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Phone -->
@@ -83,13 +84,13 @@
                 android:layout_width="wrap_content"
                 android:text="Phone"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/tvRepairerPhone"
                 android:text="+91 9876543210"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Skills -->
@@ -98,13 +99,13 @@
                 android:layout_width="match_parent"
                 android:text="Skills"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:id="@+id/tvRepairerSkills"
                 android:text="AC Repair, TV Repair"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Location -->
@@ -113,13 +114,13 @@
                 android:layout_width="match_parent"
                 android:text="Location"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:id="@+id/tvRepairerLocation"
                 android:text="Kolkata, India"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Phone -->
@@ -128,13 +129,13 @@
                 android:layout_width="wrap_content"
                 android:text="Pin Code"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/tvRepairerPinCode"
                 android:text="700000"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Experience -->
@@ -143,13 +144,13 @@
                 android:layout_width="match_parent"
                 android:text="Experience"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:id="@+id/tvRepairerExperience"
                 android:text="5 Years"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Charges -->
@@ -158,13 +159,13 @@
                 android:layout_width="match_parent"
                 android:text="Service Charges"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:id="@+id/tvRepairerCharges"
                 android:text="₹500 per AC Repair"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_marginBottom="10dp"/>
 
             <!-- Availability -->
@@ -173,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:text="Availability"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"

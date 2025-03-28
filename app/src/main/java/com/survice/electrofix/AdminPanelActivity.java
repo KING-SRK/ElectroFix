@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class AdminPanelActivity extends AppCompatActivity {
+public class AdminPanelActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private IssueAdapter issueAdapter;

@@ -1,9 +1,10 @@
 package com.survice.electrofix;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -13,6 +14,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     // 🔹 UI Variables
     private ImageButton btnPayment, btnTracking, btnOffer, btnHelpSupport;
@@ -41,9 +46,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 🔹 Dark Mode চেক করা
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettingsPrefs", MODE_PRIVATE);
+        boolean isDarkMode = sharedPreferences.getBoolean("DarkMode", false);
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // 🔹 Status Bar & Navigation Bar Hide করা
+        hideSystemBars();
 
         // 🔹 Firebase ইনিশিয়ালাইজ
         mAuth = FirebaseAuth.getInstance();
@@ -71,22 +88,10 @@ public class MainActivity extends AppCompatActivity {
         loadingProgressBar = findViewById(R.id.loading_progress_bar);
 
         // 🔹 "Upload Issue" Button Click
-        btnUploadIssue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UploadIssueActivity.class);
-                startActivity(intent);
-            }
-        });
+        btnUploadIssue.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UploadIssueActivity.class)));
 
-        // 🔹 Tracking Button Click - *TrackingActivity খুলবে*
-        btnTracking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TrackingActivity.class);
-                startActivity(intent);
-            }
-        });
+        // 🔹 Tracking Button Click
+        btnTracking.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TrackingActivity.class)));
 
         // 🔹 প্রথমে প্রোফাইল লুকিয়ে রাখো
         customerProfileLayout.setVisibility(View.GONE);
@@ -102,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_LONG).show();
         }
 
-        // 🔹 Search View
+        // 🔹 Search View Functionality
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -118,16 +123,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 🔹 অন্যান্য Button Click Listeners
         btnPayment.setOnClickListener(v -> Toast.makeText(this, "Payment Clicked", Toast.LENGTH_SHORT).show());
-        btnOffer.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, OffersActivity.class);
-            startActivity(intent);
-        });
+        btnOffer.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OffersActivity.class)));
         btnHelpSupport.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, HelpSupportActivity.class)));
         btnBilling.setOnClickListener(v -> Toast.makeText(this, "Billing Clicked", Toast.LENGTH_SHORT).show());
-        btnTerms.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, TermsActivity.class);
-            startActivity(intent);
-        });
+        btnTerms.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TermsActivity.class)));
         btnRequest.setOnClickListener(v -> Toast.makeText(this, "Requests Clicked", Toast.LENGTH_SHORT).show());
 
         // 🔹 Bottom Navigation Click Events
@@ -179,5 +178,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // 🔹 Status Bar & Navigation Bar Hide করার জন্য Updated Function
+    private void hideSystemBars() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().setDecorFitsSystemWindows(false); // ✅ এটা নতুন যোগ করা হয়েছে
+
+            WindowInsetsControllerCompat windowInsetsController =
+                    ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+
+            if (windowInsetsController != null) {
+                windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+                windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            }
+        }
     }
 }

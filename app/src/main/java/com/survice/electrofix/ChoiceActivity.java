@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ChoiceActivity extends AppCompatActivity {
+public class ChoiceActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
 

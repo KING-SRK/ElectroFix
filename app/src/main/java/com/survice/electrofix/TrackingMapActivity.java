@@ -28,7 +28,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-public class TrackingMapActivity extends AppCompatActivity implements SensorEventListener {
+public class TrackingMapActivity extends BaseActivity implements SensorEventListener {
 
     private MapView mapView;
     private ImageView btnBack;

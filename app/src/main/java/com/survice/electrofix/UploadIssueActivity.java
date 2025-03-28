@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UploadIssueActivity extends AppCompatActivity {
+public class UploadIssueActivity extends BaseActivity {
 
     private ChipGroup chipGroup;
     private TextInputEditText etUserName, etUserEmail, etMessage;

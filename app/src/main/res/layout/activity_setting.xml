@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:text="Settings"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:layout_gravity="center"
             android:paddingBottom="5dp"/>
 
@@ -36,14 +36,14 @@
             android:text="Account Settings"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="10dp"/>
 
         <Button
             android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:backgroundTint="@color/skyblue"
             android:text="Edit Profile"/>
@@ -52,11 +52,11 @@
             android:id="@+id/btnChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:backgroundTint="@color/yellow"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/skyblue"
             android:text="Change Password"
-            android:layout_marginTop="5dp"/>
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnDeleteAccount"
@@ -74,14 +74,14 @@
             android:text="Notification Settings"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="15dp"/>
 
         <Switch
             android:id="@+id/switchPushNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Enable Push Notifications"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -90,7 +90,7 @@
             android:id="@+id/switchEmailAlerts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Enable Email Alerts"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -99,7 +99,7 @@
             android:id="@+id/switchSmsAlerts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Enable SMS Alerts"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -111,14 +111,14 @@
             android:text="App Theme &amp; Layout"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="15dp"/>
 
         <Switch
             android:id="@+id/switchDarkMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Dark Mode"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -127,8 +127,8 @@
             android:id="@+id/btnChangeLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/skyblue"
+            android:textColor="@color/blue"
             android:text="Change Language"/>
 
         <!-- Security & Privacy -->
@@ -138,14 +138,14 @@
             android:text="Security &amp; Privacy"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="15dp"/>
 
         <Switch
             android:id="@+id/switchBiometric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Enable Biometric Login"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -154,7 +154,7 @@
             android:id="@+id/switchTwoFactor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/textColor"
             android:text="Enable Two-Factor Authentication"
             android:thumbTint="@color/switch_thumb"
             android:trackTint="@color/switch_track"/>
@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/skyblue"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Privacy Policy"/>
 
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/skyblue"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Terms &amp; Conditions"
             android:layout_marginTop="5dp"/>
@@ -185,15 +185,15 @@
             android:text="App Settings"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="15dp"/>
 
         <Button
             android:id="@+id/btnCheckUpdates"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/perple"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/skyblue"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Check for Updates"/>
 
@@ -201,8 +201,8 @@
             android:id="@+id/btnClearCache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/green"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/skyblue"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Clear Cache"/>
 
@@ -210,8 +210,8 @@
             android:id="@+id/btnRateApp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellow"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/skyblue"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Rate This App"/>
 
@@ -220,7 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/skyblue"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             android:text="Share This App"/>
 

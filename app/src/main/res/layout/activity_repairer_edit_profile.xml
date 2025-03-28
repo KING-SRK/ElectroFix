@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundColor"
     android:padding="20dp">
 
     <LinearLayout
@@ -12,13 +12,12 @@
         android:gravity="center_horizontal">
 
         <!-- Back Button -->
-        <ImageButton
+        <ImageView
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/arrow_icon"
             android:layout_gravity="start"
-            android:scaleType="fitCenter"
             android:padding="0dp"/>
 
         <!-- Profile Image -->
@@ -27,7 +26,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/repairer_man_logo"
+            android:src="@drawable/repairer_profile_icon"
             android:layout_gravity="center"/>
 
         <!-- Change Profile Picture Button -->
@@ -55,7 +54,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter Name"
             android:padding="12dp"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textColorHint="#7E7E7E"
             android:background="@android:drawable/edit_text"
             android:layout_marginTop="10dp"/>

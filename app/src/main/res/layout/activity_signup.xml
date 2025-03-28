@@ -58,6 +58,7 @@
             android:background="@drawable/edit_text_bg"
             android:hint="Enter Email"
             android:textColorHint="@color/yellow"
+            android:textColor="@color/yellow"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:padding="10dp" />
@@ -71,6 +72,7 @@
             android:background="@drawable/edit_text_bg"
             android:hint="Enter Phone Number"
             android:textColorHint="@color/yellow"
+            android:textColor="@color/yellow"
             android:inputType="phone"
             android:minHeight="48dp"
             android:padding="10dp" />
@@ -89,6 +91,7 @@
                 android:textColorHint="@color/yellow"
                 android:paddingEnd="50dp"
                 android:background="@drawable/edit_text_bg"
+                android:textColor="@color/yellow"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:textSize="16sp"/>

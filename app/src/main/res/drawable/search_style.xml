@@ -6,9 +6,9 @@
 
 
 
-    <solid android:color="#0F51C5"/>
+    <solid android:color="@color/search"/>
     <stroke android:width="2dp"
-            android:textColor="#041261" />
+            android:textColor="#000000" />
 
 
 
