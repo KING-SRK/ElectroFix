@@ -245,9 +245,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
                     android:gravity="center"
                     android:text="Help"
                     android:textColor="#2FD5E9"
+=======
+                    android:text="H s"
+>>>>>>> f691e77 (Updated something)
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -263,13 +267,13 @@
 
                 <ImageButton
                     android:id="@+id/btnUpload"
-                    android:layout_width="60dp"
+                    android:layout_width="55dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/upload_issue"
-                    android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Tracking"/>
+                    android:contentDescription="Tracking"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/upload_issue" />
 
                 <TextView
                     android:layout_width="wrap_content"
