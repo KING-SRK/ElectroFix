@@ -12,7 +12,8 @@
         <!-- Back Button & Header Layout -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
 
             <!-- Back Button -->
             <ImageButton
@@ -34,7 +35,7 @@
                 android:text="Help &amp; Support"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
 
@@ -45,7 +46,7 @@
             android:text="Contact Support"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:paddingTop="10dp"/>
 
         <LinearLayout
@@ -99,7 +100,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/background_border"
+            android:background="@drawable/details_card_bg"
+            android:elevation="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:padding="10dp">
 
             <TextView
@@ -107,21 +111,21 @@
                 android:layout_height="wrap_content"
                 android:text="• How to book the service?"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• What are the payment methods?"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• How to file a complaint?"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor"/>
         </LinearLayout>
 
         <!-- Report an Issue -->

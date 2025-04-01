@@ -1,215 +1,93 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
-    android:padding="20dp">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
-        <!-- Back Button -->
+        <!-- Profile Picture -->
         <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/arrow_icon"
-            android:layout_gravity="start"
-            android:padding="0dp"/>
-
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/imgProfilePicture"
+            android:id="@+id/profileImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/repairer_profile_icon"
-            android:layout_gravity="center"/>
-
-        <!-- Change Profile Picture Button -->
-        <Button
-            android:id="@+id/btnChangePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Profile Picture"
             android:layout_gravity="center"
-            android:backgroundTint="@color/skyblue"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/repairer_profile_icon" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="center"/>
-
-        <!-- Name Input -->
+        <!-- Name -->
         <EditText
-            android:id="@+id/editRepairerName"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Name"
-            android:padding="12dp"
-            android:textColor="@color/textColor"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Full Name" />
 
-        <!-- Email Input -->
-
-        <!-- Phone Input -->
-
+        <!-- Email (Non-Editable) -->
         <EditText
-            android:id="@+id/editRepairerEmail"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E" />
+            android:hint="Email"
+            android:focusable="false"
+            android:background="@android:color/darker_gray"/>
 
+        <!-- Phone -->
         <EditText
-            android:id="@+id/editRepairerPhone"
+            android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Phone"
-            android:inputType="phone"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Phone Number" />
 
-        <!-- Skills Input -->
+        <!-- Skills -->
         <EditText
-            android:id="@+id/editRepairerSkills"
+            android:id="@+id/etSkills"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your Skills"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Skills (e.g., AC Repair, Mobile Repair)" />
 
-        <!-- Location Input -->
+        <!-- Location -->
         <EditText
-            android:id="@+id/etAddress"
+            android:id="@+id/etLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your Location"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Location" />
 
-        <!-- Location Input -->
+        <!-- Pincode -->
         <EditText
-            android:id="@+id/etPinCode"
+            android:id="@+id/etPincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pin Code"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Pincode" />
 
-        <!-- Password Input -->
+        <!-- Charges -->
         <EditText
-            android:id="@+id/editRepairerCharges"
+            android:id="@+id/etCharge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your Service Charges"
-            android:inputType="textVisiblePassword"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Charge per Service" />
 
-        <!-- Work Experience Input -->
+        <!-- Experience -->
         <EditText
-            android:id="@+id/editRepairerExperience"
+            android:id="@+id/etExperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Work Experience"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#7E7E7E"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginTop="10dp"/>
+            android:hint="Experience (in years)" />
 
-
-        <!-- Availability Status -->
-        <LinearLayout
+        <!-- Availability Toggle -->
+        <Switch
+            android:id="@+id/switchAvailability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:text="Available for Work" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Availability Check"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="5dp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/txtAvailabilityStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Offline"
-                    android:textColor="@color/red"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginRight="10dp"/>
-
-                <Switch
-                    android:id="@+id/switchAvailability"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:thumbTint="@color/switch_thumb"
-                    android:trackTint="@color/switch_track"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Change Password -->
+        <!-- Save Button -->
         <Button
-            android:id="@+id/btnChangePassword"
+            android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Password"
-            android:backgroundTint="@color/blue"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp" />
-
-        <!-- Save Profile Button -->
-        <Button
-            android:id="@+id/btnSaveProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Changes"
-            android:backgroundTint="@color/green"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp" />
+            android:text="Save Profile" />
 
     </LinearLayout>
 </ScrollView>

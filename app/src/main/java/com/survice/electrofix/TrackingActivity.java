@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ public class TrackingActivity extends BaseActivity {
 
     private TextView customerLocation, repairerLocation;
     private Button btnStartTracking;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,15 @@ public class TrackingActivity extends BaseActivity {
         customerLocation = findViewById(R.id.customer_location);
         repairerLocation = findViewById(R.id.repairer_location);
         btnStartTracking = findViewById(R.id.btnStartTracking);
+        backButton = findViewById(R.id.btnBack); // 🔙 Back Button ID
+
+        // Back Button Click Listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // 🔥 Back Press করলে আগের Activity-তে যাবে
+            }
+        });
 
         // Start Tracking Button Click Listener
         btnStartTracking.setOnClickListener(new View.OnClickListener() {

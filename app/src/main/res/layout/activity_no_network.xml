@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/backgroundColor">
+
+    <!-- No Internet Text -->
+    <TextView
+        android:id="@+id/noInternetText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Internet Connection"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- No Internet Image -->
+    <ImageView
+        android:id="@+id/noInternetImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/no_internet_light"
+        android:contentDescription="No Internet Image"/>
+
+    <!-- Retry Button -->
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retry"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/skyblue"
+        android:textColor="@color/textColor"/>
+
+    <!-- Quit Button -->
+    <Button
+        android:id="@+id/quitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quit"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/textColor"/>
+
+</LinearLayout>

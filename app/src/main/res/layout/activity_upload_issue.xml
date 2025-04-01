@@ -27,7 +27,7 @@
         android:text="Report an Issue or Suggestion"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:layout_gravity="center"
         android:paddingBottom="10dp"/>
 

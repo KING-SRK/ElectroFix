@@ -65,6 +65,7 @@
         <!-- ✅ ট্র্যাকিং সংক্রান্ত Activity -->
         <activity android:name=".TrackingActivity" android:exported="false" />
         <activity android:name=".TrackingMapActivity" android:exported="false" />
+        <activity android:name=".NoNetworkActivity" android:exported="false" />
 
         <service android:name=".services.LocationUpdateService"
             tools:ignore="MissingClass" />

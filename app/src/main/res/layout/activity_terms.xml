@@ -10,7 +10,8 @@
     <!-- Back Button & Header Layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
 
         <!-- Back Button -->
         <ImageButton
@@ -32,7 +33,7 @@
             android:text="📜 Terms &amp; Conditions"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
@@ -42,8 +43,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F5F5F5"
-        android:padding="10dp">
+        android:background="@drawable/details_card_bg"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <TextView
             android:id="@+id/txtTerms"
@@ -51,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="Loading Terms &amp; Conditions..."
             android:textSize="16sp"
-            android:textColor="#333"
+            android:textColor="@color/textColor"
             android:lineSpacingExtra="5dp"/>
     </ScrollView>
 

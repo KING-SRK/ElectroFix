@@ -21,4 +21,7 @@
     <item name="chipSuggestion" type="id"/>
     <item name="btnSubmit" type="id"/>
     <item name="chipIssue" type="id"/>
+    <item name="profileImage" type="id"/>
+    <item name="etLocation" type="id"/>
+    <item name="btnSave" type="id"/>
 </resources>

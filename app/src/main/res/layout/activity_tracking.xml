@@ -7,9 +7,24 @@
     android:background="@color/backgroundColor"
     tools:context=".TrackingActivity">
 
+    <!-- Back Button -->
+
     <!-- Map View -->
 
     <!-- Tracking Information Panel -->
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="start"
+        android:padding="0dp"
+        android:src="@drawable/arrow_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.057"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="5dp" />
 
     <ImageView
         android:id="@+id/mapView"
