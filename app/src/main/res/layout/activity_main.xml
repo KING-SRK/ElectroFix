@@ -111,7 +111,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Payment"
+                android:contentDescription="Tracking"
                 android:scaleType="fitCenter"
                 android:src="@drawable/option_traking" />
 
@@ -140,7 +140,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Tracking"
+                android:contentDescription="Payment"
                 android:scaleType="fitCenter"
                 android:src="@drawable/option_pament" />
 
@@ -171,7 +171,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Offers"/>
+                android:contentDescription="Billing History"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Help and Support"/>
+                android:contentDescription="Offers"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -240,7 +240,7 @@
                     android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Payment"/>
+                    android:contentDescription="Help and Support"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -269,7 +269,7 @@
                     android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Tracking"/>
+                    android:contentDescription="Upload Issue"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,7 +298,7 @@
                     android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Offers"/>
+                    android:contentDescription="Request &amp; Condition"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -325,7 +325,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Help and Support"
+                    android:contentDescription="Terms &amp; Condition"
                     android:scaleType="fitCenter"
                     android:src="@drawable/terms_condition" />
 
