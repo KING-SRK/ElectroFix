@@ -54,7 +54,7 @@ public class RepairerProfileInfoActivity extends BaseActivity {
         btnBack.setOnClickListener(v -> finish());
 
         btnEditRepairerProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(RepairerProfileInfoActivity.this, RepairerEditProfileActivity.class);
+            Intent intent = new Intent(RepairerProfileInfoActivity.this, com.survice.electrofix.RepairerEditProfileActivity.class);
             intent.putExtra("repairer_id", repairerId);
             startActivity(intent);
         });
