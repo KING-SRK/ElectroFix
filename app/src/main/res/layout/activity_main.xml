@@ -111,7 +111,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Payment"
+                android:contentDescription="Tracking"
                 android:scaleType="fitCenter"
                 android:src="@drawable/option_traking" />
 
@@ -140,7 +140,11 @@
                 android:layout_height="60dp"
                 android:layout_margin="7dp"
                 android:background="@null"
+<<<<<<< HEAD
                 android:contentDescription="Bill Hist"
+=======
+                android:contentDescription="Payment"
+>>>>>>> cc633e87484a2380f304af4997eea6589a25a4af
                 android:scaleType="fitCenter"
                 android:src="@drawable/option_pament" />
 
@@ -171,7 +175,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Offers"/>
+                android:contentDescription="Billing History"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,7 +204,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="7dp"
                 android:background="@null"
-                android:contentDescription="Help and Support"/>
+                android:contentDescription="Offers"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -239,9 +243,13 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
+<<<<<<< HEAD
                     android:contentDescription="Issues"
                     android:scaleType="fitCenter"
                     android:src="@drawable/option_help_support" />
+=======
+                    android:contentDescription="Help and Support"/>
+>>>>>>> cc633e87484a2380f304af4997eea6589a25a4af
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,9 +275,13 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
+<<<<<<< HEAD
                     android:contentDescription="Tracking"
                     android:scaleType="fitCenter"
                     android:src="@drawable/upload_issue" />
+=======
+                    android:contentDescription="Upload Issue"/>
+>>>>>>> cc633e87484a2380f304af4997eea6589a25a4af
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,7 +310,11 @@
                     android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
+<<<<<<< HEAD
                     android:contentDescription="T &amp; C"/>
+=======
+                    android:contentDescription="Request &amp; Condition"/>
+>>>>>>> cc633e87484a2380f304af4997eea6589a25a4af
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -325,7 +341,11 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
+<<<<<<< HEAD
                     android:contentDescription="Traking"
+=======
+                    android:contentDescription="Terms &amp; Condition"
+>>>>>>> cc633e87484a2380f304af4997eea6589a25a4af
                     android:scaleType="fitCenter"
                     android:src="@drawable/terms_condition" />
 

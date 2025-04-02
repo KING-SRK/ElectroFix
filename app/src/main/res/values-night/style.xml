@@ -21,4 +21,10 @@
         <item name="android:textStyle">bold</item> <!-- টেক্সট স্টাইল -->
         <item name="android:padding">12dp</item> <!-- প্যাডিং -->
     </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
