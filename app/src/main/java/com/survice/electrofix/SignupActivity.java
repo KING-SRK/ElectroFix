@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -133,7 +133,7 @@ public class SignupActivity extends BaseActivity {
                             Toast.makeText(SignupActivity.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
 
                             // Main Screen-এ পাঠানো
-                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                            Intent intent = new Intent(SignupActivity.this, mainActivity.class);
                             intent.putExtra("user_type", userType);
                             startActivity(intent);
                             finish();

@@ -6,8 +6,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class TermsActivity extends BaseActivity {
 
     private TextView txtTerms;
@@ -29,7 +27,7 @@ public class TermsActivity extends BaseActivity {
 
         // 🔹 Accept & Continue Button Click
         btnAccept.setOnClickListener(v -> {
-            Intent intent = new Intent(TermsActivity.this, MainActivity.class);
+            Intent intent = new Intent(TermsActivity.this, mainActivity.class);
             startActivity(intent);
             finish();
         });

@@ -7,18 +7,16 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class activity_repairer_edit_profile extends AppCompatActivity {
 
     private ImageView profileImage;
     private EditText etName, etEmail, etPhone, etSkills, etLocation, etPincode, etCharge, etExperience;
@@ -31,7 +29,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_profile);
+        setContentView(R.layout.activity_repairer_edit_profile);
 
         // Initialize Firebase
         firestore = FirebaseFirestore.getInstance();
@@ -86,13 +84,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         // Load Profile Picture with Glide
                         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
-                            Glide.with(EditProfileActivity.this)
+                            Glide.with(activity_repairer_edit_profile.this)
                                     .load(profilePicUrl)
                                     .into(profileImage);
                         }
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(EditProfileActivity.this, "Failed to load profile!", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(activity_repairer_edit_profile.this, "Failed to load profile!", Toast.LENGTH_SHORT).show());
     }
 
     private void updateProfile() {
@@ -127,9 +125,9 @@ public class EditProfileActivity extends AppCompatActivity {
         firestore.collection("repairers").document(userId)
                 .update(profileUpdates)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(EditProfileActivity.this, "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_repairer_edit_profile.this, "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
                     finish(); // Redirect to Profile Page after update
                 })
-                .addOnFailureListener(e -> Toast.makeText(EditProfileActivity.this, "Update Failed!", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(activity_repairer_edit_profile.this, "Update Failed!", Toast.LENGTH_SHORT).show());
     }
 }

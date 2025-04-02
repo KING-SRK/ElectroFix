@@ -46,7 +46,7 @@
         <activity android:name=".ChoiceActivity" android:exported="false" />
         <activity android:name=".SignupActivity" android:exported="false" />
         <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".mainActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false"/>
         <activity android:name=".HelpSupportActivity" android:exported="false" />
         <activity android:name=".OffersActivity" android:exported="false" />
@@ -66,6 +66,8 @@
         <activity android:name=".TrackingActivity" android:exported="false" />
         <activity android:name=".TrackingMapActivity" android:exported="false" />
         <activity android:name=".NoNetworkActivity" android:exported="false" />
+        <!-- Payment Activity -->
+        <activity android:name=".PaymentActivity"/>
 
         <service android:name=".services.LocationUpdateService"
             tools:ignore="MissingClass" />

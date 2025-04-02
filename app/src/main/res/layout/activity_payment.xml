@@ -1,58 +1,20 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="@drawable/background_border_ui">
+    android:orientation="vertical"
+    android:gravity="center">
 
-    <!-- পেমেন্ট হেডিং -->
     <TextView
-        android:id="@+id/tv_payment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Payment Method"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"/>
+        android:text="Select Payment Method"
+        android:textSize="20sp"
+        android:padding="20dp"/>
 
-    <!-- Google Pay / PhonePe / Paytm Button -->
     <Button
-        android:id="@+id/btn_upi_payment"
-        android:layout_width="match_parent"
+        android:id="@+id/upiPaymentButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pay Using UPI (GPay, PhonePe)"
-        android:background="@color/blue"
-        android:textColor="#FFF"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:layout_below="@id/tv_payment_title"
-        android:layout_marginTop="10dp"/>
-
-    <!-- Card Payment Button -->
-    <Button
-        android:id="@+id/btn_card_payment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pay Using Debit/Credit Card"
-        android:background="@color/blue"
-        android:textColor="#FFF"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:layout_below="@id/btn_upi_payment"
-        android:layout_marginTop="10dp"/>
-
-    <!-- Cash On Delivery Button -->
-    <Button
-        android:id="@+id/btn_cash_payment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cash On Delivery (COD)"
-        android:background="@color/red"
-        android:textColor="#FFF"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:layout_below="@id/btn_card_payment"
-        android:layout_marginTop="10dp"/>
-</RelativeLayout>
+        android:text="Pay via UPI"/>
+</LinearLayout>

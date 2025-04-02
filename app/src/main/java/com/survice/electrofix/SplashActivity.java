@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.VideoView;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends BaseActivity {
     VideoView videoView;
@@ -42,7 +41,7 @@ public class SplashActivity extends BaseActivity {
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
         if (isLoggedIn) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class)); // লগইন থাকলে MainActivity
+            startActivity(new Intent(SplashActivity.this, mainActivity.class)); // লগইন থাকলে MainActivity
         } else {
             startActivity(new Intent(SplashActivity.this, ChoiceActivity.class)); // না থাকলে ChoiceActivity
         }

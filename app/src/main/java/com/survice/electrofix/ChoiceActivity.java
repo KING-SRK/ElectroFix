@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,7 +29,7 @@ public class ChoiceActivity extends BaseActivity {
             if (userType == null) userType = "Customer"; // Default to Customer
 
             // 🔹 Redirect to Main Screen
-            Intent intent = new Intent(ChoiceActivity.this, MainActivity.class);
+            Intent intent = new Intent(ChoiceActivity.this,MainActivity.class);
             intent.putExtra("user_type", userType);
             startActivity(intent);
             finish();

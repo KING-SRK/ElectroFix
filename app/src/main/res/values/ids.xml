@@ -24,4 +24,5 @@
     <item name="profileImage" type="id"/>
     <item name="etLocation" type="id"/>
     <item name="btnSave" type="id"/>
+    <item name="payButton" type="id" />
 </resources>
