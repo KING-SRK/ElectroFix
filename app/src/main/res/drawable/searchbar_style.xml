@@ -8,7 +8,7 @@
 
     <solid android:color="@color/search"/>
     <stroke android:width="2dp"
-            android:textColor="#2FD5E9" />
+        android:textColor="#2FD5E9" />
 
 
 

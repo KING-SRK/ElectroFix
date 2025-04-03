@@ -26,8 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
 
-    private ImageButton btnPayment, btnTracking, btnOffer, btnHelpSupport;
-    private ImageButton btnUploadIssue, btnBilling, btnTerms, btnRequest;
+    private ImageButton btnPayment, btnTracking, btnHelpSupport, btnUploadIssue;
     private ImageButton homeButton, categoryButton, settingsButton;
     private LinearLayout customerProfileLayout, repairerProfileLayout;
     private ImageButton customerProfileButton, repairerProfileButton;
@@ -43,7 +42,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔹 ইন্টারনেট চেক এবং পুনরায় কানেকশন চেষ্টা
         if (!isConnected()) {
             startActivity(new Intent(MainActivity.this, NoNetworkActivity.class));
             finish();
@@ -71,12 +69,8 @@ public class MainActivity extends BaseActivity {
         settingsButton = findViewById(R.id.settings_button);
         btnPayment = findViewById(R.id.btnPayment);
         btnTracking = findViewById(R.id.btnTracking);
-        btnOffer = findViewById(R.id.btnOffer);
         btnHelpSupport = findViewById(R.id.btnHelpSupport);
         btnUploadIssue = findViewById(R.id.btnUpload);
-        btnBilling = findViewById(R.id.btnBilling);
-        btnTerms = findViewById(R.id.btnTerms);
-        btnRequest = findViewById(R.id.btnRequest);
         customerProfileLayout = findViewById(R.id.customer_profile_layout);
         repairerProfileLayout = findViewById(R.id.repairer_profile_layout);
         customerProfileButton = findViewById(R.id.customer_profile_button);
@@ -93,9 +87,7 @@ public class MainActivity extends BaseActivity {
     private void setupButtonClickListeners() {
         btnUploadIssue.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UploadIssueActivity.class)));
         btnTracking.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TrackingActivity.class)));
-        btnOffer.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, OffersActivity.class)));
         btnHelpSupport.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, HelpSupportActivity.class)));
-        btnTerms.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TermsActivity.class)));
         categoryButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CategoryActivity.class)));
         settingsButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
 
@@ -161,5 +153,4 @@ public class MainActivity extends BaseActivity {
         }
         return false;
     }
-
 }

@@ -46,7 +46,7 @@
         <activity android:name=".ChoiceActivity" android:exported="false" />
         <activity android:name=".SignupActivity" android:exported="false" />
         <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".mainActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false"/>
         <activity android:name=".HelpSupportActivity" android:exported="false" />
         <activity android:name=".OffersActivity" android:exported="false" />
