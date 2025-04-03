@@ -1,12 +1,14 @@
 package com.survice.electrofix;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
@@ -49,6 +51,17 @@ public class TrackingMapActivity extends BaseActivity implements SensorEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking_map);
 
+        Intent serviceIntent = new Intent(this, LocationUpdateService.class);
+        startService(serviceIntent);
+
+        // ✅ Repairer-এর লাইভ লোকেশন আপডেট চালু করা
+        startService(new Intent(this, LocationUpdateService.class));
+        findNearbyRepairers(); // 🔥 কাছাকাছি Repairer-দের দেখাও
+
+        startService(new Intent(this, CustomerLocationService.class)); // 🔥 Customer-এর লোকেশন Firebase-এ আপডেট হবে
+
+
+
         // ✅ OSMDroid ম্যাপ সেটআপ
         Configuration.getInstance().setUserAgentValue(getApplicationContext().getPackageName());
         mapView = findViewById(R.id.mapView);
@@ -71,6 +84,8 @@ public class TrackingMapActivity extends BaseActivity implements SensorEventList
 
         // ✅ লোকেশন পারমিশন চেক করা
         checkLocationPermission();
+
+
 
         // ✅ ব্যাক বাটন ফাংশনালিটি
         btnBack = findViewById(R.id.btnBack);
@@ -190,6 +205,36 @@ public class TrackingMapActivity extends BaseActivity implements SensorEventList
         }
     }
 
+    private void findNearbyRepairers() {
+        double userLat = 22.5726;  // 🔥 Replace with actual user latitude
+        double userLng = 88.3639;  // 🔥 Replace with actual user longitude
+        double searchRadius = 10.0; // 🔥 ১০ কিলোমিটার রেঞ্জ
+
+        NearbyRepairers nearbyRepairers = new NearbyRepairers(new NearbyRepairers.NearbyRepairerListener() {
+            @Override
+            public void onRepairerFound(String repairerID, double lat, double lng) {
+                Log.d("TrackingMap", "Nearby Repairer: " + repairerID + " at (" + lat + ", " + lng + ")");
+                // 🔥 OpenStreetMap-এ Repairer-এর Marker যোগ করা
+                addRepairerMarker(lat, lng);
+            }
+
+            @Override
+            public void onRepairerRemoved(String repairerID) {
+                Log.d("TrackingMap", "Repairer Removed: " + repairerID);
+            }
+        });
+
+        nearbyRepairers.findNearbyRepairers(userLat, userLng, searchRadius);
+    }
+    private void addRepairerMarker(double lat, double lng) {
+        GeoPoint repairerLocation = new GeoPoint(lat, lng);
+        Marker repairerMarker = new Marker(mapView);
+        repairerMarker.setPosition(repairerLocation);
+        repairerMarker.setTitle("Nearby Repairer");
+        mapView.getOverlays().add(repairerMarker);
+        mapView.invalidate();
+    }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
@@ -205,4 +250,5 @@ public class TrackingMapActivity extends BaseActivity implements SensorEventList
         super.onPause();
         sensorManager.unregisterListener(this);
     }
+
 }
