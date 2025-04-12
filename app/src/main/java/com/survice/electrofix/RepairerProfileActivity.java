@@ -20,7 +20,7 @@ public class RepairerProfileActivity extends BaseActivity {
 
     private ImageView repairerProfileImage;
     private TextView repairerName;
-    private Button btnProfileInfo, btnViewRatings, btnViewWorkHistory, btnLogout;
+    private Button btnProfileInfo, btnViewBookings, btnViewRatings, btnViewWorkHistory, btnLogout;
     private ImageButton homeButton;
     private FirebaseUser currentUser;
 
@@ -33,37 +33,51 @@ public class RepairerProfileActivity extends BaseActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
         setContentView(R.layout.activity_repairer_profile);
 
+        // UI components initialization
         repairerProfileImage = findViewById(R.id.repairerProfileImage);
         repairerName = findViewById(R.id.repairerName);
         btnProfileInfo = findViewById(R.id.btnProfileInfo);
+        btnViewBookings = findViewById(R.id.btnViewBookings); // এটা booking list button
         btnViewRatings = findViewById(R.id.btnViewRatings);
         btnViewWorkHistory = findViewById(R.id.btnViewWorkHistory);
         btnLogout = findViewById(R.id.btnLogout);
         homeButton = findViewById(R.id.home_button);
 
+        // Get current user
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             logoutUser();
         }
 
+        // Profile Info
         btnProfileInfo.setOnClickListener(v -> {
             Intent intent = new Intent(RepairerProfileActivity.this, RepairerProfileInfoActivity.class);
-            intent.putExtra("repairer_id", currentUser.getUid()); // Repairer ID পাঠানো
+            intent.putExtra("repairer_id", currentUser.getUid());
             startActivity(intent);
         });
 
+        // View Booking List
+        btnViewBookings.setOnClickListener(v -> {
+            Intent intent = new Intent(RepairerProfileActivity.this, RepairerBookingActivity.class);
+            startActivity(intent);
+        });
+
+        // View Ratings
         btnViewRatings.setOnClickListener(v -> {
             Intent intent = new Intent(RepairerProfileActivity.this, RepairerSetBudgetActivity.class);
             startActivity(intent);
         });
 
+        // View Work History
         btnViewWorkHistory.setOnClickListener(v -> {
             Intent intent = new Intent(RepairerProfileActivity.this, RepairerWorkHistoryActivity.class);
             startActivity(intent);
         });
 
+        // Logout
         btnLogout.setOnClickListener(v -> logoutUser());
 
+        // Home button
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(RepairerProfileActivity.this, MainActivity.class);
             startActivity(intent);

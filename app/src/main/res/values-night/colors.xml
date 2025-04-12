@@ -9,7 +9,7 @@
 
     <!-- Dark Mode Colors -->
     <color name="backgroundColor">#000000</color>
-    <color name="cardbackgroundColor">#282727</color>
+    <color name="cardbackgroundColor">#0C0C0C</color>
     <color name="bannerbackgroundColor">#00FFF7</color>
     <color name="search">#504D4D</color>
 

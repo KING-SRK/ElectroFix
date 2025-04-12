@@ -36,7 +36,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/textColor"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
         </RelativeLayout>
 
         <!-- Contact Section -->
@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/textColor"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:text="📞 Call"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/green"/>
+                android:backgroundTint="@color/green" />
 
             <Button
                 android:id="@+id/btnEmailSupport"
@@ -73,7 +73,7 @@
                 android:text="✉ Email"
                 android:backgroundTint="@color/yellow"
                 android:textColor="@color/white"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp" />
 
             <Button
                 android:id="@+id/btnChatSupport"
@@ -83,7 +83,7 @@
                 android:text="💬 Chat"
                 android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp" />
         </LinearLayout>
 
         <!-- FAQ Section -->
@@ -93,8 +93,8 @@
             android:text="Frequently Asked Questions (FAQ)"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:paddingTop="15dp"/>
+            android:textColor="@color/textColor"
+            android:paddingTop="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,21 +111,63 @@
                 android:layout_height="wrap_content"
                 android:text="• How to book the service?"
                 android:textSize="16sp"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/textColor" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• What are the payment methods?"
                 android:textSize="16sp"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/textColor" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• How to file a complaint?"
                 android:textSize="16sp"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+
+        <!-- New Help Articles Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help Articles"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/textColor"
+            android:paddingTop="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/details_card_bg"
+            android:elevation="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• How to use the app?"
+                android:textSize="16sp"
+                android:textColor="@color/textColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Troubleshooting common issues"
+                android:textSize="16sp"
+                android:textColor="@color/textColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• How to get the best service?"
+                android:textSize="16sp"
+                android:textColor="@color/textColor" />
         </LinearLayout>
 
         <!-- Report an Issue -->
@@ -136,7 +178,7 @@
             android:text="⚠ Report an Issue"
             android:backgroundTint="@color/red"
             android:textColor="@color/white"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp" />
 
         <!-- Terms & Privacy -->
         <LinearLayout
@@ -149,13 +191,19 @@
             <Button
                 android:id="@+id/btnPrivacyPolicy"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:text="🔒 Privacy Policy"
                 android:backgroundTint="@color/skyblue"
                 android:textColor="@color/black"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp" />
 
-
+            <Button
+                android:id="@+id/btnTermsOfService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📑 Terms &amp; Conditions"
+                android:backgroundTint="@color/skyblue"
+                android:textColor="@color/black" />
         </LinearLayout>
 
     </LinearLayout>

@@ -51,7 +51,7 @@
 
                 <!-- AC Repair -->
                 <ImageButton
-                    android:id="@+id/ac_repair_button"
+                    android:id="@+id/btn_ac_repair"
                     android:layout_width="320dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="10dp"
@@ -60,7 +60,7 @@
 
                 <!-- Computer Repair -->
                 <ImageButton
-                    android:id="@+id/computer_repair_button"
+                    android:id="@+id/btn_computer_repair"
                     android:layout_width="320dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="10dp"
@@ -69,7 +69,7 @@
 
                 <!-- Washing Machine Repair -->
                 <ImageButton
-                    android:id="@+id/washing_machine_repair_button"
+                    android:id="@+id/btn_washing_machine"
                     android:layout_width="320dp"
                     android:layout_height="150dp"
                     android:layout_marginBottom="10dp"

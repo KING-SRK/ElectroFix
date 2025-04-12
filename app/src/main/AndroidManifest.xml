@@ -20,6 +20,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
@@ -37,6 +40,14 @@
         <meta-data
             android:name="org.osmdroid.config"
             android:value="osmdroid.config"/>
+        <!-- OSM cache config -->
+        <meta-data
+            android:name="osmdroid.basePath"
+            android:value="osmdroid"/>
+        <meta-data
+            android:name="osmdroid.cachePath"
+            android:value="osmdroid/cache"/>
+
 
         <!-- ✅ অ্যাপের সকল Activity লিস্ট -->
 
@@ -64,19 +75,23 @@
         <activity android:name=".CustomerProfileInfoActivity" android:exported="false" />
         <activity android:name=".UploadIssueActivity" android:exported="false" />
         <activity android:name=".HelpReportIssueActivity" android:exported="false" />
+        <activity android:name=".ServiceListActivity" android:exported="false" />
+        <activity android:name=".ServiceDetailsActivity" android:exported="false" />
+        <activity android:name=".BookingActivity" android:exported="false" />
+        <activity android:name=".RepairerBookingActivity" android:exported="false" />
+        <activity android:name=".TrackCustomerActivity" android:exported="false" />
+        <activity android:name=".BookingSuccessActivity" android:exported="false" />
+        <activity android:name=".TrackRepairerActivity" android:exported="false" />
+        <activity android:name=".TrackingActivity" android:exported="false" />
+        <activity android:name=".PrivacyPolicyActivity" android:exported="false" />
 
         <!-- ✅ ট্র্যাকিং সংক্রান্ত Activity -->
-        <activity android:name=".TrackingActivity" android:exported="false" />
-        <activity android:name=".TrackingMapActivity" android:exported="false" />
+
         <activity android:name=".NoNetworkActivity" android:exported="false" />
         <!-- Payment Activity -->
         <activity android:name=".PaymentActivity"/>
 
-        <service
-            android:name=".LocationUpdateService"
-            android:foregroundServiceType="location"/>
 
-        <service android:name=".CustomerLocationService" android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

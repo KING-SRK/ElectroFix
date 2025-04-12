@@ -6,7 +6,6 @@
     android:background="@color/backgroundColor"
     android:padding="0dp">
 
-    <!-- ElectroFix Logo -->
     <ImageView
         android:id="@+id/electrofix_logo"
         android:layout_width="150dp"
@@ -16,7 +15,6 @@
         android:src="@drawable/electrofix_logo"
         android:contentDescription="ElectroFix Logo"/>
 
-    <!-- ProgressBar (ডাটা লোডিং দেখানোর জন্য) -->
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         android:layout_width="70dp"
@@ -25,14 +23,6 @@
         android:visibility="gone"
         android:indeterminateTint="@color/skyblue"
         style="?android:attr/progressBarStyleLarge" />
-
-
-
-
-    <!-- Search View -->
-
-
-    <!-- SearchView এবং Notification Button-এর Parent Layout -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +33,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- SearchView -->
         <SearchView
             android:id="@+id/searchView"
             android:layout_width="0dp"
@@ -54,7 +43,6 @@
             android:iconifiedByDefault="false"
             android:queryHint="Search here..." />
 
-        <!-- Notification Button -->
         <ImageButton
             android:id="@+id/notificationButton"
             android:layout_width="50dp"
@@ -73,11 +61,10 @@
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/details_card_bg"
+        android:background="@drawable/bgcard_animated"
         android:layout_marginTop="40dp"
         android:elevation="10dp">
 
-        <!-- option Heading -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +85,6 @@
             android:gravity="center"
             android:layout_marginTop="0dp">
 
-            <!-- Payment Button -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +113,6 @@
 
             </LinearLayout>
 
-            <!-- Tracking Button -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,8 +141,6 @@
 
             </LinearLayout>
 
-
-            <!-- Issues Button -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,11 +166,8 @@
                     android:textStyle="bold"
                     android:textColor="#2FD5E9"
                     android:gravity="center"/>
-
             </LinearLayout>
 
-
-            <!-- Help & support Button -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,178 +193,49 @@
                     android:textColor="#2FD5E9"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
-
         </LinearLayout>
-
-      <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="0dp">
-
-            <!- Help & support Button
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="0dp"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnHelpSupport"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/option_help_support"
-                    android:scaleType="fitCenter"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:contentDescription="Help and Support"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Help"
-                    android:textColor="#2FD5E9"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <!- Issues Button
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="0dp"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnUpload"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/upload_issue"
-                    android:scaleType="fitCenter"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:contentDescription="Upload Issue"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Issues"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2FD5E9"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <!- Offer Button
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="0dp"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnRequest"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/request_complains"
-                    android:scaleType="fitCenter"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:contentDescription="Request &amp; Condition"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="R &amp; C"
-                    android:textColor="#2FD5E9"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <!
-            - Help & Support Button
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="0dp"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnTerms"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:contentDescription="Terms &amp; Condition"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/terms_condition" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="T &amp; C"
-                    android:textColor="#2FD5E9"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout> -->
-
-
-        <!-- Service Section -->
-
-
-
-
-
     </LinearLayout>
 
-    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
 
-    <ImageButton
-        android:id="@+id/referralImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="190dp"
-        android:layout_marginTop="40dp"
-        android:background="@null"
-        android:contentDescription="Refarel"
-        android:scaleType="fitCenter"
-        android:src="@drawable/refarel_image" />
+        <ImageButton
+            android:id="@+id/referralImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="190dp"
+            android:layout_marginTop="0dp"
+            android:background="@null"
+            android:contentDescription="Refarel"
+            android:scaleType="fitCenter"
+            android:src="@drawable/refarel_image" />
+    </LinearLayout>
 
+
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="80dp"
         android:background="@drawable/navigation_bar"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:weightSum="4">
 
-        <!-- Customer Profile Button -->
         <LinearLayout
             android:id="@+id/customer_profile_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
@@ -409,12 +260,11 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Repairer Profile Button -->
         <LinearLayout
             android:id="@+id/repairer_profile_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
@@ -439,12 +289,11 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Home Button -->
         <LinearLayout
             android:id="@+id/home_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1.2"
             android:gravity="center"
             android:orientation="vertical">
@@ -469,12 +318,11 @@
 
         </LinearLayout>
 
-        <!-- Category Button -->
         <LinearLayout
             android:id="@+id/category_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1.2"
             android:gravity="center"
             android:orientation="vertical">
@@ -498,12 +346,11 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Settings Button -->
         <LinearLayout
             android:id="@+id/settings_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1.2"
             android:gravity="center"
             android:orientation="vertical">

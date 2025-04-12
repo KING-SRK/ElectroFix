@@ -7,79 +7,71 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HelpSupportActivity extends BaseActivity {
 
     private ImageButton btnBack;
-    private Button btnCallSupport, btnEmailSupport, btnChatSupport, btnReportIssue, btnPrivacyPolicy;
+    private Button btnCallSupport, btnEmailSupport, btnChatSupport, btnReportIssue, btnPrivacyPolicy, btnTermsOfService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help_support);
+        setContentView(R.layout.activity_help_support); // তোমার XML layout
 
-        // UI Elements Initialize
+        // Back Button
         btnBack = findViewById(R.id.btnBack);
+
+        // Contact Support Buttons
         btnCallSupport = findViewById(R.id.btnCallSupport);
         btnEmailSupport = findViewById(R.id.btnEmailSupport);
         btnChatSupport = findViewById(R.id.btnChatSupport);
+
+        // Other Buttons
         btnReportIssue = findViewById(R.id.btnReportIssue);
         btnPrivacyPolicy = findViewById(R.id.btnPrivacyPolicy);
+        btnTermsOfService = findViewById(R.id.btnTermsOfService);
 
-
-        // 🔹 Back Button (Go Back)
+        // Back Button functionality
         btnBack.setOnClickListener(v -> onBackPressed());
 
-        // 🔹 Call Support
-        btnCallSupport.setOnClickListener(v -> makeCall("+8801234567890"));
-
-        // 🔹 Email Support
-        btnEmailSupport.setOnClickListener(v -> sendEmail("support@electrofix.com", "Support Request", "Hello Support Team,\n\n"));
-
-        // 🔹 Chat Support
-        btnChatSupport.setOnClickListener(v -> openUrl("https://electrofix.com/chat"));
-
-        // 🔹 Report an Issue
-        btnReportIssue.setOnClickListener(v -> {
-            Intent intent = new Intent(HelpSupportActivity.this, HelpReportIssueActivity.class);
-            startActivity(intent);
+        // Call Support functionality
+        btnCallSupport.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:+919876543210")); // এখানে সাপোর্ট নম্বর দিন
+            startActivity(callIntent);
         });
 
-        // 🔹 Privacy Policy
-        btnPrivacyPolicy.setOnClickListener(v -> openUrl("https://electrofix.com/privacy"));
+        // Email Support functionality
+        btnEmailSupport.setOnClickListener(v -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "support@electrofix.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Help & Support Request");
+            startActivity(Intent.createChooser(emailIntent, "Send Email"));
+        });
 
+        // Chat Support functionality (example - show a message for now)
+        btnChatSupport.setOnClickListener(v -> {
+            Toast.makeText(HelpSupportActivity.this, "Chat Support is coming soon!", Toast.LENGTH_SHORT).show();
+        });
 
+        // Report Issue functionality
+        btnReportIssue.setOnClickListener(v -> {
+            Intent reportIntent = new Intent(HelpSupportActivity.this, UploadIssueActivity.class);
+            startActivity(reportIntent); // Report Issue Activity খুলবে
+        });
 
-    }
+        // Privacy Policy functionality
+        btnPrivacyPolicy.setOnClickListener(v -> {
+            Intent privacyIntent = new Intent(HelpSupportActivity.this, PrivacyPolicyActivity.class);
+            startActivity(privacyIntent); // Privacy Policy Activity খুলবে
+        });
 
-    // 🔸 Function: Call a Number
-    private void makeCall(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
-        startActivity(intent);
-    }
-
-    // 🔸 Function: Send Email
-    private void sendEmail(String email, String subject, String body) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:" + email));
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "No email app found!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // 🔸 Function: Open URL in Browser
-    private void openUrl(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "Unable to open the link!", Toast.LENGTH_SHORT).show();
-        }
+        // Terms of Service functionality
+        btnTermsOfService.setOnClickListener(v -> {
+            Intent termsIntent = new Intent(HelpSupportActivity.this, TermsActivity.class);
+            startActivity(termsIntent); // Terms of Service Activity খুলবে
+        });
     }
 }

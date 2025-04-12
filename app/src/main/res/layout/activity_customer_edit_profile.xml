@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor"
+                android:textColorHint="@color/gray"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Email Address"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor"
+                android:textColorHint="@color/gray"
                 android:inputType="textEmailAddress"
                 android:padding="10dp" />
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor"
+                android:textColorHint="@color/gray"
                 android:inputType="phone"
                 android:padding="10dp" />
 
@@ -92,7 +92,7 @@
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor" />
+                android:textColorHint="@color/gray" />
 
 
             <EditText
@@ -103,7 +103,7 @@
                 android:inputType="textPostalAddress"
                 android:padding="10dp"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor" />
+                android:textColorHint="@color/gray" />
 
             <RadioGroup
                 android:id="@+id/radioGender"
@@ -116,21 +116,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
-                    android:textColor="@color/textColor" />
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"/>
 
                 <RadioButton
                     android:id="@+id/radioFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Female"
-                    android:textColor="@color/textColor" />
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"/>
 
                 <RadioButton
                     android:id="@+id/radioOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Other"
-                    android:textColor="@color/textColor" />
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"/>
             </RadioGroup>
 
             <!-- Date of Birth -->
@@ -140,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Date of Birth (DD/MM/YYYY)"
                 android:textColor="@color/textColor"
-                android:textColorHint="@color/textColor"
+                android:textColorHint="@color/gray"
                 android:inputType="date"
                 android:padding="10dp" />
 

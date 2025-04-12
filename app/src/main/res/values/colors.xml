@@ -12,6 +12,7 @@
     <color name="skyblue">#2FD5E9</color>
     <color name="green">#08D312</color>
     <color name="perple">#A600FF</color>
+    <color name="lightblue">#002FFF</color>
     <color name="orange">#FF2600</color>
     <color name="pink">#FF00AE</color>
     <color name="lightgreen">#04F0DA</color>
@@ -38,6 +39,7 @@
 
     <color name="primaryColor">#FFFFFF</color> <!-- Light Mode Background -->
     <color name="textColor">#000000</color> <!-- Light Mode Text Color -->
+    <color name="textColorHint">#333232</color>
 
 
 

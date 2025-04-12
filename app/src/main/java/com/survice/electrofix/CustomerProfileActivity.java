@@ -34,34 +34,40 @@ public class CustomerProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔹 Full Screen Mode (Hide Status & Navigation Bar)
+        // Full Screen Mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         hideSystemUI();
 
         setContentView(R.layout.activity_customer_profile);
 
-        // 🔹 Firebase Auth Instance
+        // Firebase Initialization
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         userRef = FirebaseDatabase.getInstance().getReference("Customers").child(currentUser.getUid());
 
-        // 🔹 UI Elements
+        // UI Elements
         profileImage = findViewById(R.id.customerProfileImage);
-        headerName = findViewById(R.id.customerHeaderName); // 🔹 "Hi, Name!" Header
-
+        headerName = findViewById(R.id.customerHeaderName);
         orderHistoryButton = findViewById(R.id.customerBookingHistory);
         editProfileButton = findViewById(R.id.customerEditProfile);
         logoutButton = findViewById(R.id.customerLogout);
-        ImageButton homeButton = findViewById(R.id.home_button);
 
-        // 🔹 Load User Info with Realtime Update
+        // Bottom Navigation Buttons
+        ImageButton homeButton = findViewById(R.id.home_button);
+        ImageButton profileButton = findViewById(R.id.customer_profile_button);
+        ImageButton categoryButton = findViewById(R.id.category_button);
+        ImageButton settingsButton = findViewById(R.id.settings_button);
+
+        // Load User Info
         loadUserInfo();
 
-        // 🔹 Edit Profile Button Click -> CustomerEditProfileActivity-তে যাবে
-        editProfileButton.setOnClickListener(v -> startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileInfoActivity.class)));
+        // Profile Edit Button
+        editProfileButton.setOnClickListener(v ->
+                startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileInfoActivity.class))
+        );
 
-        // 🔹 Logout Button Click -> ChoiceActivity-তে যাবে
+        // Logout Button
         logoutButton.setOnClickListener(v -> {
             mAuth.signOut();
             Toast.makeText(CustomerProfileActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
@@ -69,20 +75,41 @@ public class CustomerProfileActivity extends BaseActivity {
             finish();
         });
 
-        // 🔹 Home Button Click -> MainActivity-তে যাবে
+        // Profile Image Click (Pick New Image)
+        profileImage.setOnClickListener(v -> {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(galleryIntent, 100);
+        });
+
+        // Bottom Navigation Clicks
         homeButton.setOnClickListener(v -> {
             startActivity(new Intent(CustomerProfileActivity.this, MainActivity.class));
             finish();
         });
 
-        // 🔹 Profile Image Change Option
-        profileImage.setOnClickListener(v -> {
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, 100);
+        profileButton.setOnClickListener(v -> {
+            // Stay in current profile page
+            startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class));
+            finish();
+        });
+
+        categoryButton.setOnClickListener(v -> {
+            startActivity(new Intent(CustomerProfileActivity.this, CategoryActivity.class));
+            finish();
+        });
+
+        settingsButton.setOnClickListener(v -> {
+            startActivity(new Intent(CustomerProfileActivity.this, SettingsActivity.class));
+            finish();
+        });
+
+        // Booking History
+        orderHistoryButton.setOnClickListener(v -> {
+            startActivity(new Intent(CustomerProfileActivity.this, CustomerBookingHistoryActivity.class));
         });
     }
 
-    // 🔹 Load User Info from Firebase with Real-time Update
+    // Load User Info from Firebase
     private void loadUserInfo() {
         if (currentUser != null) {
             userRef.addValueEventListener(new ValueEventListener() {
@@ -92,14 +119,12 @@ public class CustomerProfileActivity extends BaseActivity {
                         String name = snapshot.child("name").getValue(String.class);
                         String imageUrl = snapshot.child("profileImage").getValue(String.class);
 
-                        // 🔹 Update Header Text
-                        headerName.setText("Hi, " + getValidText(name, "User") );
+                        headerName.setText("Hi, " + getValidText(name, "User"));
 
-                        // 🔹 Load Profile Image
                         if (imageUrl != null && !imageUrl.isEmpty()) {
                             Glide.with(CustomerProfileActivity.this).load(imageUrl).into(profileImage);
                         } else {
-                            profileImage.setImageResource(R.drawable.profile_image); // Default Image
+                            profileImage.setImageResource(R.drawable.profile_image);
                         }
                     }
                 }
@@ -112,7 +137,7 @@ public class CustomerProfileActivity extends BaseActivity {
         }
     }
 
-    // 🔹 Handle Profile Image Selection
+    // When User Picks New Profile Image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -122,11 +147,12 @@ public class CustomerProfileActivity extends BaseActivity {
         }
     }
 
+    // Default Text Validator
     private String getValidText(String text, String defaultText) {
         return (text != null && !text.isEmpty()) ? text : defaultText;
     }
 
-    // 🔹 Hide System UI for Full Screen Experience
+    // Hide Status/Nav Bar
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -138,7 +164,7 @@ public class CustomerProfileActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    // 🔹 Restore UI Visibility when exiting full screen mode
+    // Auto-Hide on Focus Change
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

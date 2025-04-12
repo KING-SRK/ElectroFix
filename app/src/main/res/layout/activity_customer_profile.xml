@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
-    <!-- Header Text -->
+    <!-- Header -->
     <TextView
         android:id="@+id/electroFixText"
         android:layout_width="wrap_content"
@@ -12,16 +12,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
+        android:text="Customer"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.05"
         android:shadowColor="#000000"
         android:shadowDx="4"
         android:shadowDy="4"
-        android:shadowRadius="6"
-        android:text="Customer"
-        android:textColor="@color/yellow"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:shadowRadius="6" />
 
     <!-- Profile Card -->
     <LinearLayout
@@ -35,7 +35,6 @@
         android:padding="20dp"
         android:paddingBottom="40dp">
 
-        <!-- Profile Image -->
         <ImageView
             android:id="@+id/customerProfileImage"
             android:layout_width="120dp"
@@ -45,21 +44,16 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile" />
 
-        <!-- Name -->
         <TextView
             android:id="@+id/customerHeaderName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="Hi, Name"
-            android:textColor="@color/textColor"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textColor="@color/textColor" />
 
-        <!-- Edit Profile Button -->
-
-        <!-- View Booking History Button -->
         <Button
             android:id="@+id/customerEditProfile"
             android:layout_width="match_parent"
@@ -82,7 +76,6 @@
             android:textColor="@color/blue"
             android:textStyle="bold" />
 
-        <!-- Logout Button -->
         <Button
             android:id="@+id/customerLogout"
             android:layout_width="match_parent"
@@ -95,23 +88,125 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- Home Button -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
+        android:orientation="horizontal"
+        android:background="@drawable/navigation_bar"
+        android:weightSum="4"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
-        <ImageButton
-            android:id="@+id/home_button"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/navigation_circle_bg"
-            android:scaleType="fitCenter"
-            android:src="@drawable/home_icon"
-            android:padding="10dp"
-            android:contentDescription="Home" />
-    </RelativeLayout>
+        <!-- Profile -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/customer_profile_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:backgroundTint="@color/nav_bar_color"
+                android:contentDescription="Customer Profile"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_profile" />
+
+            <TextView
+                android:id="@+id/customer_profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Home -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/home_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Home"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_icon" />
+
+            <TextView
+                android:id="@+id/home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Home"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Categories -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/category_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Category"
+                android:scaleType="fitCenter"
+                android:src="@drawable/category_icon" />
+
+            <TextView
+                android:id="@+id/category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Categories"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Settings -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/settings_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Settings"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_icon" />
+
+            <TextView
+                android:id="@+id/settings_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

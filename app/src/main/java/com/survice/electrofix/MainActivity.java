@@ -1,7 +1,9 @@
 package com.survice.electrofix;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 
     private ImageButton btnPayment, btnTracking, btnHelpSupport, btnUploadIssue;
     private ImageButton homeButton, categoryButton, settingsButton;
@@ -60,6 +66,7 @@ public class MainActivity extends BaseActivity {
         initializeUI();
         setupButtonClickListeners();
         checkCurrentUser();
+        checkLocationPermission();
     }
 
     private void initializeUI() {
@@ -145,6 +152,34 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            getUserLocation();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getUserLocation();
+            } else {
+                //Toast.makeText(this, "Location Permission প্রয়োজন! দয়া করে অনুমতি দিন।", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void getUserLocation() {
+        //Toast.makeText(this, "আপনার বর্তমান অবস্থান নেওয়া হচ্ছে...", Toast.LENGTH_SHORT).show();
+    }
+
     private boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -153,4 +188,5 @@ public class MainActivity extends BaseActivity {
         }
         return false;
     }
+
 }

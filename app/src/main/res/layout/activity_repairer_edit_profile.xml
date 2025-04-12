@@ -4,11 +4,22 @@
     android:background="@color/backgroundColor"
     android:padding="16dp">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_icon"
+            android:layout_gravity="start"
+            android:padding="0dp"/>
 
         <!-- Profile Picture -->
         <ImageView
@@ -17,6 +28,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
+            android:layout_marginTop="40dp"
             android:src="@drawable/repairer_profile_icon" />
 
         <!-- Name -->
@@ -25,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Full Name" />
 
         <!-- Email (Non-Editable) -->
@@ -34,6 +47,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Email" />
 
         <!-- Phone -->
@@ -42,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Phone Number" />
 
         <!-- Skills -->
@@ -50,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Skills (e.g., AC Repair, Mobile Repair)" />
 
         <!-- Location -->
@@ -58,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Location" />
 
         <!-- Pincode -->
@@ -66,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Pincode" />
 
         <!-- Charges -->
@@ -74,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Charge per Service" />
 
         <!-- Experience -->
@@ -82,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:hint="Experience (in years)" />
 
         <!-- Availability Toggle -->
@@ -89,6 +109,8 @@
             android:id="@+id/switchAvailability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray"
             android:text="Available for Work" />
 
         <!-- Save Button -->

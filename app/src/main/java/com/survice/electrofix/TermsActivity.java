@@ -27,7 +27,7 @@ public class TermsActivity extends BaseActivity {
 
         // 🔹 Accept & Continue Button Click
         btnAccept.setOnClickListener(v -> {
-            Intent intent = new Intent(TermsActivity.this, MainActivity.class);
+            Intent intent = new Intent(TermsActivity.this, HelpSupportActivity.class);
             startActivity(intent);
             finish();
         });
