@@ -63,7 +63,7 @@
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false"/>
         <activity android:name=".HelpSupportActivity" android:exported="false" />
-        <activity android:name=".OffersActivity" android:exported="false" />
+        <activity android:name=".NotificationActivity" android:exported="false" />
         <activity android:name=".TermsActivity" android:exported="false" />
         <activity android:name=".SearchActivity" android:exported="false" />
         <activity android:name=".CategoryActivity" android:exported="false" />

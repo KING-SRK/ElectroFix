@@ -1,20 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Back Button and Title Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/arrow_icon"
+            android:contentDescription="Back"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/PaymentPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="Pay To ElectroFix"
+            android:textColor="@color/yellow"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.05"
+            android:shadowColor="#000000"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="6" />
+    </LinearLayout>
+
+    <!--Centered QR Scanner Button-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnQRScanner"
+            android:layout_width="73dp"
+            android:layout_height="70dp"
+            android:layout_margin="7dp"
+            android:layout_marginStart="50dp"
+            android:background="@null"
+            android:contentDescription="Tracking"
+            android:scaleType="fitCenter"
+            android:src="@drawable/qr_scanner" />
+
+        <TextView
+            android:id="@+id/ScanQRCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Scan QR Code"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.05"
+            android:shadowColor="@color/nav_bar_color"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_amount_box"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/editTextAmount"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="₹0"
+            android:inputType="number"
+            android:padding="0dp"
+            android:textColor="#000000"
+            android:textColorHint="#888888"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btnClear"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Clear"
+            android:src="@drawable/crosssign_button"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Payment Method"
-        android:textSize="20sp"
-        android:padding="20dp"/>
+        android:id="@+id/autoAmountBox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:padding="12dp"
+        android:text="₹0"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:background="@drawable/bg_amount_box" />
 
-    <Button
-        android:id="@+id/upiPaymentButton"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="318dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/details_card_bg"
+        android:layout_marginTop="0dp"
+        android:elevation="10dp">
+
+        <!-- Button Row 1 -->
+        <LinearLayout
+            android:id="@+id/buttonRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/hundredrsBalence"
+                style="@style/RoundedOrangeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="+100" />
+
+            <Button
+                android:id="@+id/twohundred"
+                style="@style/RoundedOrangeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="+200" />
+
+            <Button
+                android:id="@+id/fivehundred"
+                style="@style/RoundedOrangeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="+500" />
+        </LinearLayout>
+
+        <!-- Button Row 2 -->
+        <LinearLayout
+            android:id="@+id/buttonRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/oneThousand"
+                style="@style/RoundedOrangeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="+1000" />
+
+            <Button
+                android:id="@+id/twoThousand"
+                style="@style/RoundedOrangeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:text="+2000" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pay via UPI"/>
+        android:gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
+        <!-- Pay via UPI Button -->
+        <Button
+            android:id="@+id/upiPaymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="32dp"
+            android:backgroundTint="#FF5722"
+            android:text="PAY NOW"
+            android:textColor="#FFF"
+            android:textStyle="bold" />
+
+        <!-- Billing History Button -->
+        <Button
+            android:id="@+id/billHist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="32dp"
+            android:backgroundTint="#FF5722"
+            android:text="Billing History"
+            android:textColor="#FFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 </LinearLayout>

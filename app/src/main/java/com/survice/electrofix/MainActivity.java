@@ -30,9 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
 
+
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 
     private ImageButton btnPayment, btnTracking, btnHelpSupport, btnUploadIssue;
+
+    private ImageButton  btnNotification;
+
     private ImageButton homeButton, categoryButton, settingsButton;
     private LinearLayout customerProfileLayout, repairerProfileLayout;
     private ImageButton customerProfileButton, repairerProfileButton;
@@ -74,6 +78,7 @@ public class MainActivity extends BaseActivity {
         homeButton = findViewById(R.id.home_button);
         categoryButton = findViewById(R.id.category_button);
         settingsButton = findViewById(R.id.settings_button);
+        btnNotification = findViewById(R.id.btnNotification);
         btnPayment = findViewById(R.id.btnPayment);
         btnTracking = findViewById(R.id.btnTracking);
         btnHelpSupport = findViewById(R.id.btnHelpSupport);
@@ -92,6 +97,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupButtonClickListeners() {
+        
+
+        btnNotification.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NotificationActivity.class)));
+        btnPayment.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PaymentActivity.class)));
         btnUploadIssue.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UploadIssueActivity.class)));
         btnTracking.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TrackingActivity.class)));
         btnHelpSupport.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, HelpSupportActivity.class)));

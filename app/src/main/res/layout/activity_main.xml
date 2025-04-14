@@ -44,7 +44,7 @@
             android:queryHint="Search here..." />
 
         <ImageButton
-            android:id="@+id/notificationButton"
+            android:id="@+id/btnNotification"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"

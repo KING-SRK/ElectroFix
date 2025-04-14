@@ -24,108 +24,108 @@
         android:textStyle="bold" />
 
 
-        <!-- প্রধান কন্টেন্ট এলাকা (LinearLayout) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:orientation="vertical"
-            android:layout_marginTop="85dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/details_card_bg"
-            android:elevation="10dp"
-            android:gravity="center"
-            android:paddingBottom="80dp">
+    <!-- প্রধান কন্টেন্ট এলাকা (LinearLayout) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:orientation="vertical"
+        android:layout_marginTop="85dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/details_card_bg"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:paddingBottom="80dp">
 
-            <!-- Profile Image -->
-            <ImageView
-                android:id="@+id/repairerProfileImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/repairer_profile_icon" />
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/repairerProfileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/repairer_profile_icon" />
 
-            <!-- Phone -->
-            <TextView
-                android:id="@+id/repairerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="Hi, Name"
-                android:textColor="@color/textColor"
-                android:textSize="16sp" />
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/repairerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Hi, Name"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
 
-            <!-- Edit Profile Button -->
+        <!-- Edit Profile Button -->
 
-            <!-- View Ratings Button -->
+        <!-- View Ratings Button -->
 
-            <Button
-                android:id="@+id/btnProfileInfo"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/skyblue"
-                android:padding="12dp"
-                android:text="Profile Info"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnProfileInfo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/skyblue"
+            android:padding="12dp"
+            android:text="Profile Info"
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
 
-            <!-- View Work History Button -->
-            <Button
-                android:id="@+id/btnViewRatings"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="@color/skyblue"
-                android:padding="12dp"
-                android:text="Set Budget"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
+        <!-- View Work History Button -->
+        <Button
+            android:id="@+id/btnViewRatings"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/skyblue"
+            android:padding="12dp"
+            android:text="Set Budget"
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
 
-            <!-- View Booking List Button -->
-            <Button
-                android:id="@+id/btnViewBookings"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="@color/skyblue"
-                android:padding="12dp"
-                android:text="View Booking List"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
+        <!-- View Booking List Button -->
+        <Button
+            android:id="@+id/btnViewBookings"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/skyblue"
+            android:padding="12dp"
+            android:text="View Booking List"
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
 
-            <!-- Logout Button -->
-            <Button
-                android:id="@+id/btnViewWorkHistory"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="@color/skyblue"
-                android:padding="12dp"
-                android:text="View Work History"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/btnViewWorkHistory"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/skyblue"
+            android:padding="12dp"
+            android:text="View Work History"
+            android:textColor="@color/blue"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/red"
-                android:padding="12dp"
-                android:text="Logout"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/red"
+            android:padding="12dp"
+            android:text="Logout"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 

@@ -25,4 +25,7 @@
     <item name="etLocation" type="id"/>
     <item name="btnSave" type="id"/>
     <item name="payButton" type="id" />
+    <item name="ac_repair_button" type="id">@+id/ac_repair_button</item>
+    <item name="computer_repair_button" type="id">@+id/computer_repair_button</item>
+    <item name="washing_machine_repair_button" type="id">@+id/washing_machine_repair_button</item>
 </resources>

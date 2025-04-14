@@ -2,15 +2,14 @@ package com.survice.electrofix;
 
 import android.os.Bundle;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageButton;
 
-public class OffersActivity extends BaseActivity {
+public class NotificationActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offers);
+        setContentView(R.layout.activity_notification);
 
         // 🔹 Back Button Functionality
         ImageButton backButton = findViewById(R.id.btnBack);
