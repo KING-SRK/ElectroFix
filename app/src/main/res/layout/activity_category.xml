@@ -83,7 +83,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+<<<<<<< HEAD
         android:background="@drawable/stratenavigation_bar"
+=======
+        android:background="@drawable/navigation_bar"
+>>>>>>> 511c423 (Added Feature A)
         android:orientation="horizontal"
         android:gravity="center"
         android:weightSum="5">
