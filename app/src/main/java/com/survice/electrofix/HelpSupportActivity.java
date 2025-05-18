@@ -39,7 +39,7 @@ public class HelpSupportActivity extends BaseActivity {
         // Call Support functionality
         btnCallSupport.setOnClickListener(v -> {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:+919876543210")); // এখানে সাপোর্ট নম্বর দিন
+            callIntent.setData(Uri.parse("tel:+918902709631")); // এখানে সাপোর্ট নম্বর দিন
             startActivity(callIntent);
         });
 
@@ -51,10 +51,24 @@ public class HelpSupportActivity extends BaseActivity {
             startActivity(Intent.createChooser(emailIntent, "Send Email"));
         });
 
-        // Chat Support functionality (example - show a message for now)
         btnChatSupport.setOnClickListener(v -> {
-            Toast.makeText(HelpSupportActivity.this, "Chat Support is coming soon!", Toast.LENGTH_SHORT).show();
+            String phoneNumber = "+918902709631";
+            String message = "Hello ElectroFix Support, I need help!";
+
+            try {
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+                sendIntent.putExtra("jid", phoneNumber.replace("+", "") + "@s.whatsapp.net");
+                sendIntent.setPackage("com.whatsapp");
+
+                startActivity(sendIntent);
+            } catch (Exception e) {
+                Toast.makeText(HelpSupportActivity.this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show();
+            }
         });
+
+
 
         // Report Issue functionality
         btnReportIssue.setOnClickListener(v -> {

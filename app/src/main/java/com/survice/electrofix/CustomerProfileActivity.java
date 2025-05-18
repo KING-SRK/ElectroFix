@@ -67,13 +67,30 @@ public class CustomerProfileActivity extends BaseActivity {
                 startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileInfoActivity.class))
         );
 
-        // Logout Button
         logoutButton.setOnClickListener(v -> {
-            mAuth.signOut();
-            Toast.makeText(CustomerProfileActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(CustomerProfileActivity.this, ChoiceActivity.class));
-            finish();
+            android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(CustomerProfileActivity.this)
+                    .setTitle("⚠ Logout")
+                    .setMessage("Are you sure you want to log out from ElectroFix?")
+                    .setIcon(R.drawable.ic_logout_warning) // 🔁 ইচ্ছা হলে warning/logout icon যোগ করো drawable ফোল্ডারে
+                    .setPositiveButton("Yes, Logout", (dialogInterface, i) -> {
+                        mAuth.signOut();
+                        Toast.makeText(CustomerProfileActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(CustomerProfileActivity.this, ChoiceActivity.class));
+                        finish();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create();
+
+            dialog.setOnShowListener(dlg -> {
+                dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(getResources().getColor(R.color.red, null));
+                dialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+                        .setTextColor(getResources().getColor(R.color.green, null));
+            });
+
+            dialog.show();
         });
+
 
         // Profile Image Click (Pick New Image)
         profileImage.setOnClickListener(v -> {

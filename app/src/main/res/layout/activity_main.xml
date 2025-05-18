@@ -1,37 +1,49 @@
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/backgroundColor"
-    android:padding="0dp">
+    android:background="@color/backgroundColor">
+
 
     <ImageView
         android:id="@+id/electrofix_logo"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="ElectroFix Logo"
         android:src="@drawable/electrofix_logo"
-        android:contentDescription="ElectroFix Logo"/>
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintWidth_percent="0.45" />
 
+    <!-- ProgressBar -->
     <ProgressBar
         android:id="@+id/loading_progress_bar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
         android:visibility="gone"
         android:indeterminateTint="@color/skyblue"
-        style="?android:attr/progressBarStyleLarge" />
+        app:layout_constraintTop_toBottomOf="@id/electrofix_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Search & Notification Row -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/search_notif_row"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@id/loading_progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <SearchView
             android:id="@+id/searchView"
@@ -39,7 +51,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/searchbar_style"
-            android:textColor="#2FD5E9"
             android:iconifiedByDefault="false"
             android:queryHint="Search here..." />
 
@@ -49,47 +60,82 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:background="@null"
-            android:contentDescription="Notifications"
+            android:src="@drawable/notification_bell"
             android:scaleType="fitCenter"
-            android:src="@drawable/notification_bell" />
+            android:contentDescription="Notifications" />
     </LinearLayout>
 
+    <!-- Theme Switch Option -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/theme_switch_row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/search_notif_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/themeSwitchLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SWITCH TO DARK MODE"
+            android:textSize="16sp"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
+
+
+        <Switch
+            android:id="@+id/themeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumbTint="@color/skyblue"
+            android:trackTint="@color/white" />
+    </LinearLayout>
+
+
+    <!-- OPTIONS Card -->
+    <LinearLayout
+        android:id="@+id/options_card"
+        android:layout_width="0dp"
         android:layout_height="200dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
-        android:gravity="center"
         android:background="@drawable/bgcard_animated"
-        android:layout_marginTop="40dp"
-        android:elevation="10dp">
+        android:gravity="center"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@id/search_notif_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:gravity="center"
             android:text="OPTIONS"
             android:textColor="#2FD5E9"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="0dp">
+            android:gravity="center">
 
+            <!-- Tracking -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="10dp"
+                android:orientation="vertical"
                 android:gravity="center">
 
                 <ImageButton
@@ -98,9 +144,9 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Tracking"
+                    android:src="@drawable/option_traking"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/option_traking" />
+                    android:contentDescription="Tracking" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,15 +155,15 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2FD5E9"
-                    android:gravity="center"/>
-
+                    android:gravity="center" />
             </LinearLayout>
 
+            <!-- Payment -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="10dp"
+                android:orientation="vertical"
                 android:gravity="center">
 
                 <ImageButton
@@ -126,9 +172,9 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Payment"
+                    android:src="@drawable/option_pament"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/option_pament" />
+                    android:contentDescription="Payment" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,15 +183,15 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2FD5E9"
-                    android:gravity="center"/>
-
+                    android:gravity="center" />
             </LinearLayout>
 
+            <!-- Upload -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="10dp"
+                android:orientation="vertical"
                 android:gravity="center">
 
                 <ImageButton
@@ -154,9 +200,9 @@
                     android:layout_height="60dp"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Upload Issue"
+                    android:src="@drawable/upload_issue"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/upload_issue" />
+                    android:contentDescription="Upload Issue" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,213 +211,164 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2FD5E9"
-                    android:gravity="center"/>
+                    android:gravity="center" />
             </LinearLayout>
 
+            <!-- Help -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="10dp"
+                android:orientation="vertical"
                 android:gravity="center">
 
                 <ImageButton
                     android:id="@+id/btnHelpSupport"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/option_help_support"
-                    android:scaleType="fitCenter"
                     android:layout_margin="7dp"
                     android:background="@null"
-                    android:contentDescription="Help and Support"/>
+                    android:src="@drawable/option_help_support"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Help and Support" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:text="Help"
-                    android:textColor="#2FD5E9"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#2FD5E9"
+                    android:gravity="center" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <ImageButton
-            android:id="@+id/referralImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="190dp"
-            android:layout_marginTop="0dp"
-            android:background="@null"
-            android:contentDescription="Refarel"
-            android:scaleType="fitCenter"
-            android:src="@drawable/refarel_image" />
-    </LinearLayout>
-
+    <!-- Referral -->
+    <ImageButton
+        android:id="@+id/referralImageButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@null"
+        android:src="@drawable/refarel_image"
+        android:scaleType="fitCenter"
+        android:contentDescription="Referral"
+        app:layout_constraintTop_toBottomOf="@id/options_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="H,16:9" />
 
     <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/navigation_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/profile_card_bg"
+        android:elevation="10dp"
         android:orientation="horizontal"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:weightSum="4">
+        android:paddingVertical="6dp"
+        android:weightSum="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Profile -->
         <LinearLayout
-            android:id="@+id/customer_profile_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/profile_layout"
+            style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/customer_profile_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Customer Profile"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile" />
-
-            <TextView
-                android:id="@+id/customer_profile_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/repairer_profile_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
+                style="@style/BottomNavButton"
+                android:src="@drawable/ic_profile"
+                android:visibility="gone"
+                android:contentDescription="Customer Profile" />
 
             <ImageButton
                 android:id="@+id/repairer_profile_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Repairer Profile"
-                android:scaleType="fitCenter"
-                android:src="@drawable/repairer_profile_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/repairer_profile_icon"
+                android:visibility="gone"
+                android:contentDescription="Repairer Profile" />
 
             <TextView
-                android:id="@+id/repairer_profile_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
+        <!-- Home -->
         <LinearLayout
             android:id="@+id/home_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/home_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Home"
-                android:scaleType="fitCenter"
-                android:src="@drawable/home_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/home_icon"
+                android:contentDescription="Home" />
 
             <TextView
-                android:id="@+id/home_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="Home"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
+        <!-- Categories -->
         <LinearLayout
             android:id="@+id/category_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/category_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Category"
-                android:scaleType="fitCenter"
-                android:src="@drawable/category_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/category_icon"
+                android:contentDescription="Categories" />
 
             <TextView
-                android:id="@+id/category_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="Categories"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
+        <!-- Settings -->
         <LinearLayout
             android:id="@+id/settings_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/settings_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Settings"
-                android:scaleType="fitCenter"
-                android:src="@drawable/setting_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/setting_icon"
+                android:contentDescription="Settings" />
 
             <TextView
-                android:id="@+id/settings_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="Settings"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

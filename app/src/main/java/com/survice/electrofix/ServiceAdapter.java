@@ -1,46 +1,60 @@
 package com.survice.electrofix;
 
-import android.content.Intent;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
+public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> implements Filterable {
 
     private List<Service> serviceList;
+    private List<Service> serviceListFull;
+    private Context context;
+    private OnServiceClickListener listener;
 
-    public ServiceAdapter(List<Service> serviceList) {
+    // ক্লিক ইন্টারফেস
+    public interface OnServiceClickListener {
+        void onServiceClick(Service service);
+    }
+
+    // Constructor
+    public ServiceAdapter(List<Service> serviceList, Context context, OnServiceClickListener listener) {
         this.serviceList = serviceList;
+        this.context = context;
+        this.listener = listener;
+        this.serviceListFull = new ArrayList<>(serviceList); // filtering এর জন্য কপি
     }
 
     @NonNull
     @Override
     public ServiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.service_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.service_item, parent, false);
         return new ServiceViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Service service = serviceList.get(position);
-        holder.tvServiceName.setText(service.getName());
-        holder.tvServicePrice.setText(service.getPrice());
-        holder.imgService.setImageResource(service.getImageResId());
 
-        // সার্ভিস ক্লিক করলে বিস্তারিত পেজ ওপেন হবে
+        holder.serviceNameTextView.setText(service.getServiceName());
+        holder.servicePriceTextView.setText(service.getServicePrice());
+        holder.serviceIconImageView.setImageResource(service.getServiceIcon());
+
+        // ক্লিক ইভেন্ট সেট করা
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), ServiceDetailsActivity.class);
-            intent.putExtra("service_name", service.getName());
-            intent.putExtra("service_price", service.getPrice());
-            intent.putExtra("service_image", service.getImageResId());
-            v.getContext().startActivity(intent);
+            if (listener != null) {
+                listener.onServiceClick(service);
+            }
         });
     }
 
@@ -49,15 +63,53 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         return serviceList.size();
     }
 
-    public static class ServiceViewHolder extends RecyclerView.ViewHolder {
-        TextView tvServiceName, tvServicePrice;
-        ImageView imgService;
+    @Override
+    public Filter getFilter() {
+        return serviceFilter;
+    }
 
-        public ServiceViewHolder(@NonNull View itemView) {
+    private Filter serviceFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Service> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(serviceListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Service service : serviceListFull) {
+                    if (service.getServiceName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(service);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            serviceList.clear();
+            if (results != null && results.count > 0) {
+                serviceList.addAll((List<Service>) results.values);
+            }
+            notifyDataSetChanged();
+        }
+    };
+
+    public static class ServiceViewHolder extends RecyclerView.ViewHolder {
+        TextView serviceNameTextView, servicePriceTextView;
+        ImageView serviceIconImageView;
+
+        public ServiceViewHolder(View itemView) {
             super(itemView);
-            tvServiceName = itemView.findViewById(R.id.tv_service_name);
-            tvServicePrice = itemView.findViewById(R.id.tv_service_price);
-            imgService = itemView.findViewById(R.id.img_service);
+            serviceNameTextView = itemView.findViewById(R.id.tv_service_name);
+            servicePriceTextView = itemView.findViewById(R.id.tv_service_price);
+            serviceIconImageView = itemView.findViewById(R.id.img_service);
         }
     }
 }

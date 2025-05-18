@@ -7,9 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class ServiceDetailsActivity extends BaseActivity {
+public class ServiceDetailActivity extends BaseActivity {
 
     private ImageView imgService;
     private TextView tvServiceName, tvServicePrice, tvServiceDescription;
@@ -18,7 +17,7 @@ public class ServiceDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.service_details_activity);
+        setContentView(R.layout.activity_service_detail);
 
         imgService = findViewById(R.id.img_service_detail);
         tvServiceName = findViewById(R.id.tv_service_detail_name);
@@ -45,7 +44,7 @@ public class ServiceDetailsActivity extends BaseActivity {
 
         // "Book Service" বাটনে ক্লিক করলে বুকিং পেজে যাবে
         btnBookService.setOnClickListener(v -> {
-            Intent bookingIntent = new Intent(ServiceDetailsActivity.this, BookingActivity.class);
+            Intent bookingIntent = new Intent(ServiceDetailActivity.this, BookingActivity.class);
             bookingIntent.putExtra("service_name", serviceName);
             bookingIntent.putExtra("service_price", servicePrice);
             startActivity(bookingIntent);

@@ -6,7 +6,7 @@
     android:background="@color/backgroundColor"
     android:padding="0dp">
 
-    <!-- Header -->
+    <!-- Header Title -->
     <TextView
         android:id="@+id/electroFixText"
         android:layout_width="wrap_content"
@@ -17,211 +17,195 @@
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.05"
         android:shadowColor="#000000"
-        android:shadowDx="4"
-        android:shadowDy="4"
-        android:shadowRadius="6"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
         android:text="Categories"
         android:textColor="@color/yellow"
-        android:textSize="40sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
-    <!-- Category Card with ScrollView -->
-    <LinearLayout
+    <!-- Scrollable Category Buttons -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/electroFixText"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="100dp"
-        android:orientation="vertical"
-        android:background="@drawable/details_card_bg"
-        android:padding="20dp"
-        android:elevation="10dp">
+        android:layout_above="@id/bottom_nav"
+        android:fillViewport="true">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingVertical="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+            <!-- Category Buttons -->
+            <ImageButton
+                android:id="@+id/btn_ac_repair"
+                style="@style/CategoryButton"
+                android:background="@drawable/ac_repair"
+                android:contentDescription="AC Repair" />
 
-                <ImageButton
-                    android:id="@+id/btn_ac_repair"
-                    android:layout_width="320dp"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/ac_repair"
-                    android:contentDescription="AC Repair Service"/>
+            <ImageButton
+                android:id="@+id/btn_computer_repair"
+                style="@style/CategoryButton"
+                android:background="@drawable/computer_repair"
+                android:contentDescription="Computer Repair" />
 
-                <ImageButton
-                    android:id="@+id/btn_computer_repair"
-                    android:layout_width="320dp"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/computer_repair"
-                    android:contentDescription="Computer Repair Service"/>
+            <ImageButton
+                android:id="@+id/btn_washing_machine"
+                style="@style/CategoryButton"
+                android:background="@drawable/washing_machine_repair"
+                android:contentDescription="Washing Machine Repair" />
 
-                <ImageButton
-                    android:id="@+id/btn_washing_machine"
-                    android:layout_width="320dp"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/washing_machine_repair"
-                    android:contentDescription="Washing Machine Repair Service"/>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_laptop"
+                style="@style/CategoryButton"
+                android:background="@drawable/laptop_repair"
+                android:contentDescription="Laptop Repair" />
+
+            <ImageButton
+                android:id="@+id/btn_tv"
+                style="@style/CategoryButton"
+                android:background="@drawable/tv_repair"
+                android:contentDescription="TV Repair" />
+
+            <ImageButton
+                android:id="@+id/btn_mobile_phone"
+                style="@style/CategoryButton"
+                android:background="@drawable/mobile_phone_repair"
+                android:contentDescription="Mobile Phone Repair" />
+
+            <ImageButton
+                android:id="@+id/btn_fridge"
+                style="@style/CategoryButton"
+                android:background="@drawable/fridge_repair"
+                android:contentDescription="Fridge Repair" />
+
+            <ImageButton
+                android:id="@+id/btn_fan"
+                style="@style/CategoryButton"
+                android:background="@drawable/fan_repair"
+                android:contentDescription="Fan Repair" />
+
+            <ImageButton
+                android:id="@+id/btn_water_purifier"
+                style="@style/CategoryButton"
+                android:background="@drawable/water_purifier_repair"
+                android:contentDescription="Water Purifier Repair" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-<<<<<<< HEAD
-        android:background="@drawable/stratenavigation_bar"
-=======
-        android:background="@drawable/navigation_bar"
->>>>>>> 511c423 (Added Feature A)
         android:orientation="horizontal"
-        android:gravity="center"
-        android:weightSum="5">
+        android:background="@drawable/navigation_bar"
+        android:weightSum="4"
+        android:paddingVertical="6dp">
 
-        <!-- Customer Profile -->
+        <!-- Profile Section (Customer & Repairer) -->
         <LinearLayout
-            android:id="@+id/customer_profile_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/profile_layout"
+            style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:gravity="center">
 
+            <!-- Customer Profile Button -->
             <ImageButton
                 android:id="@+id/customer_profile_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Customer Profile"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/ic_profile"
+                android:visibility="gone"
+                android:contentDescription="Customer Profile" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <!-- Repairer Profile -->
-        <LinearLayout
-            android:id="@+id/repairer_profile_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
+            <!-- Repairer Profile Button -->
             <ImageButton
                 android:id="@+id/repairer_profile_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Repairer Profile"
-                android:scaleType="fitCenter"
-                android:src="@drawable/repairer_profile_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/repairer_profile_icon"
+                android:visibility="gone"
+                android:contentDescription="Repairer Profile" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
-        <!-- Home -->
+        <!-- Home Section -->
         <LinearLayout
             android:id="@+id/home_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/home_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Home"
-                android:scaleType="fitCenter"
-                android:src="@drawable/home_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/home_icon"
+                android:contentDescription="Home" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
-        <!-- Category -->
+        <!-- Category Section -->
         <LinearLayout
             android:id="@+id/category_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/category_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Category"
-                android:scaleType="fitCenter"
-                android:src="@drawable/category_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/category_icon"
+                android:contentDescription="Categories" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Categories"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
 
-        <!-- Settings -->
+        <!-- Settings Section -->
         <LinearLayout
             android:id="@+id/settings_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            style="@style/BottomNavItem"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/settings_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@null"
-                android:contentDescription="Settings"
-                android:scaleType="fitCenter"
-                android:src="@drawable/setting_icon" />
+                style="@style/BottomNavButton"
+                android:src="@drawable/setting_icon"
+                android:contentDescription="Settings" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Settings"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:gravity="center" />
         </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

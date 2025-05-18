@@ -6,12 +6,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,8 +29,6 @@ public class RepairerEditProfileActivity extends BaseActivity {
     private DocumentReference profileRef;
     private String repairerId;
 
-    private ImageButton homeButton, profileButton, categoryButton, settingsButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +43,6 @@ public class RepairerEditProfileActivity extends BaseActivity {
         }
 
         initViews();
-        initNavigation();
 
         db = FirebaseFirestore.getInstance();
         profileRef = db.collection("Repairers").document(repairerId);
@@ -73,11 +67,6 @@ public class RepairerEditProfileActivity extends BaseActivity {
 
         ImageView btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> onBackPressed());
-
-        homeButton = findViewById(R.id.home_button);
-        profileButton = findViewById(R.id.repairer_profile_button);
-        categoryButton = findViewById(R.id.category_button);
-        settingsButton = findViewById(R.id.settings_button);
     }
 
     private void loadRepairerProfile() {
@@ -145,32 +134,5 @@ public class RepairerEditProfileActivity extends BaseActivity {
                 Log.e("Firestore", "Update failed", task.getException());
             }
         });
-    }
-
-    private void initNavigation() {
-        setSelectedButton(profileButton);
-
-        homeButton.setOnClickListener(v -> navigateTo(MainActivity.class, homeButton));
-        profileButton.setOnClickListener(v -> navigateTo(RepairerProfileActivity.class, profileButton));
-        categoryButton.setOnClickListener(v -> navigateTo(CategoryActivity.class, categoryButton));
-        settingsButton.setOnClickListener(v -> navigateTo(SettingsActivity.class, settingsButton));
-    }
-
-    private void navigateTo(Class<?> activityClass, ImageButton selectedBtn) {
-        setSelectedButton(selectedBtn);
-        startActivity(new Intent(this, activityClass));
-        finish();
-    }
-
-    private void setSelectedButton(ImageButton selectedButton) {
-        ImageButton[] buttons = {homeButton, profileButton, categoryButton, settingsButton};
-
-        for (ImageButton button : buttons) {
-            button.setColorFilter(ContextCompat.getColor(this, R.color.white));
-            button.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
-        }
-
-        selectedButton.setColorFilter(ContextCompat.getColor(this, R.color.yellow));
-        selectedButton.animate().scaleX(1.2f).scaleY(1.2f).setDuration(200).start();
     }
 }

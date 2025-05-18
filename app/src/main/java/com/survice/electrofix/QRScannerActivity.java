@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.survice.electrofix.R;
 
-public class QRScannerActivity extends AppCompatActivity {
+public class QRScannerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

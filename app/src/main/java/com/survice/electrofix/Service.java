@@ -1,25 +1,29 @@
 package com.survice.electrofix;
 
-public class Service {
-    private String name;
-    private String price;
-    private int imageResId;
+import java.io.Serializable;
 
-    public Service(String name, String price, int imageResId) {
-        this.name = name;
-        this.price = price;
-        this.imageResId = imageResId;
+public class Service implements Serializable {
+    private String serviceName;
+    private String servicePrice;
+    private int serviceIcon;
+
+    // Constructor
+    public Service(String serviceName, String servicePrice, int serviceIcon) {
+        this.serviceName = serviceName;
+        this.servicePrice = servicePrice;
+        this.serviceIcon = serviceIcon;
     }
 
-    public String getName() {
-        return name;
+    // Getter Methods
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public String getPrice() {
-        return price;
+    public String getServicePrice() {
+        return servicePrice;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public int getServiceIcon() {
+        return serviceIcon;
     }
 }

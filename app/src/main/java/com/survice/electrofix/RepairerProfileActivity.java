@@ -21,32 +21,42 @@ public class RepairerProfileActivity extends BaseActivity {
     private ImageView repairerProfileImage;
     private TextView repairerName;
     private Button btnProfileInfo, btnViewBookings, btnViewRatings, btnViewWorkHistory, btnLogout;
-    private ImageButton homeButton;
+    private ImageButton homeButton, repairerProfileButton, categoryButton, settingsButton;
     private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Set the activity to fullscreen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_repairer_profile);
 
-        // UI components initialization
+        // Initialize UI components
         repairerProfileImage = findViewById(R.id.repairerProfileImage);
         repairerName = findViewById(R.id.repairerName);
         btnProfileInfo = findViewById(R.id.btnProfileInfo);
-        btnViewBookings = findViewById(R.id.btnViewBookings); // এটা booking list button
+        btnViewBookings = findViewById(R.id.btnViewBookings);
         btnViewRatings = findViewById(R.id.btnViewRatings);
         btnViewWorkHistory = findViewById(R.id.btnViewWorkHistory);
         btnLogout = findViewById(R.id.btnLogout);
         homeButton = findViewById(R.id.home_button);
 
+        // Bottom navigation buttons
+        repairerProfileButton = findViewById(R.id.repairer_profile_button);
+        categoryButton = findViewById(R.id.category_button);
+        settingsButton = findViewById(R.id.settings_button);
+
         // Get current user
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             logoutUser();
+        } else {
+            repairerName.setText(currentUser.getDisplayName()); // Display name of the repairer
+            // You can also set the profile image if you want
         }
 
         // Profile Info
@@ -74,14 +84,49 @@ public class RepairerProfileActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        // Logout
-        btnLogout.setOnClickListener(v -> logoutUser());
+        btnLogout.setOnClickListener(v -> {
+            android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(RepairerProfileActivity.this)
+                    .setTitle("⚠ Logout")
+                    .setMessage("Are you sure you want to log out from ElectroFix?")
+                    .setIcon(R.drawable.ic_logout_warning) // ✅ তোমার drawable-এ একটি custom icon রাখো (যদি না থাকে, বাদ দিতে পারো)
+                    .setPositiveButton("Yes, Logout", (dialogInterface, i) -> logoutUser())
+                    .setNegativeButton("Cancel", null)
+                    .create();
+
+            dialog.setOnShowListener(dlg -> {
+                // Style the buttons
+                dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(getResources().getColor(R.color.red, null));
+                dialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+                        .setTextColor(getResources().getColor(R.color.green, null));
+            });
+
+            dialog.show();
+        });
+
+
 
         // Home button
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(RepairerProfileActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        // Bottom Navigation buttons
+        repairerProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RepairerProfileActivity.this, RepairerProfileActivity.class);
+            startActivity(intent);
+        });
+
+        categoryButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RepairerProfileActivity.this, CategoryActivity.class); // Replace with actual activity
+            startActivity(intent);
+        });
+
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RepairerProfileActivity.this, SettingsActivity.class); // Replace with actual activity
+            startActivity(intent);
         });
     }
 

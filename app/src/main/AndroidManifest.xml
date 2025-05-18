@@ -76,7 +76,7 @@
         <activity android:name=".UploadIssueActivity" android:exported="false" />
         <activity android:name=".HelpReportIssueActivity" android:exported="false" />
         <activity android:name=".ServiceListActivity" android:exported="false" />
-        <activity android:name=".ServiceDetailsActivity" android:exported="false" />
+        <activity android:name=".ServiceDetailActivity" android:exported="false" />
         <activity android:name=".BookingActivity" android:exported="false" />
         <activity android:name=".RepairerBookingActivity" android:exported="false" />
         <activity android:name=".TrackCustomerActivity" android:exported="false" />
@@ -84,6 +84,9 @@
         <activity android:name=".TrackRepairerActivity" android:exported="false" />
         <activity android:name=".TrackingActivity" android:exported="false" />
         <activity android:name=".PrivacyPolicyActivity" android:exported="false" />
+        <activity android:name=".PaymentOptionActivity" android:exported="false" />
+        <activity android:name=".QRScannerActivity" android:exported="false" />
+        <activity android:name=".ChangePasswordActivity" android:exported="false" />
 
         <!-- ✅ ট্র্যাকিং সংক্রান্ত Activity -->
 

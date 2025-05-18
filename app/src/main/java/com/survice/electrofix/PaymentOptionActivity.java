@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class PaymentOptionActivity extends Activity {
+public class PaymentOptionActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
