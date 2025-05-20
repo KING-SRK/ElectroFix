@@ -19,6 +19,7 @@ public class ServiceDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_detail);
 
+        // View গুলো রেফারেন্স নেওয়া
         imgService = findViewById(R.id.img_service_detail);
         tvServiceName = findViewById(R.id.tv_service_detail_name);
         tvServicePrice = findViewById(R.id.tv_service_detail_price);
@@ -34,15 +35,19 @@ public class ServiceDetailActivity extends BaseActivity {
         String servicePrice = intent.getStringExtra("service_price");
         int serviceImage = intent.getIntExtra("service_image", R.drawable.repairer_profile_icon);
 
-        // UI-তে সেট করা
-        tvServiceName.setText(serviceName);
-        tvServicePrice.setText("Price: " + servicePrice);
+        // UI-তে ডাটা সেট করা
+        if (serviceName != null) {
+            tvServiceName.setText(serviceName);
+        }
+        if (servicePrice != null) {
+            tvServicePrice.setText("Price: " + servicePrice);
+        }
         imgService.setImageResource(serviceImage);
 
-        // সার্ভিসের বিবরণ (ডেমো টেক্সট)
+        // সার্ভিসের বিস্তারিত বিবরণ (আপনি চাইলে এখানে ডায়নামিক করে নিতে পারেন)
         tvServiceDescription.setText("This is a detailed description of " + serviceName + ". Here you can add more information about the service.");
 
-        // "Book Service" বাটনে ক্লিক করলে বুকিং পেজে যাবে
+        // বুক সার্ভিস বাটনে ক্লিক ইভেন্ট
         btnBookService.setOnClickListener(v -> {
             Intent bookingIntent = new Intent(ServiceDetailActivity.this, BookingActivity.class);
             bookingIntent.putExtra("service_name", serviceName);

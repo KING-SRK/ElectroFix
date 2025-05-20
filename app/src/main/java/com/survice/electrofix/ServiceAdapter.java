@@ -21,17 +21,24 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private List<Service> serviceListFull;
     private Context context;
     private OnServiceClickListener listener;
+    private boolean onlyNameMode = false; // নতুন ফ্ল্যাগ
 
     // ক্লিক ইন্টারফেস
     public interface OnServiceClickListener {
         void onServiceClick(Service service);
     }
 
-    // Constructor
+    // Default Constructor (ছবি ও দাম সহ)
     public ServiceAdapter(List<Service> serviceList, Context context, OnServiceClickListener listener) {
+        this(serviceList, context, listener, false);
+    }
+
+    // নতুন Constructor (onlyNameMode সহ)
+    public ServiceAdapter(List<Service> serviceList, Context context, OnServiceClickListener listener, boolean onlyNameMode) {
         this.serviceList = serviceList;
         this.context = context;
         this.listener = listener;
+        this.onlyNameMode = onlyNameMode;
         this.serviceListFull = new ArrayList<>(serviceList); // filtering এর জন্য কপি
     }
 
@@ -47,10 +54,18 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         Service service = serviceList.get(position);
 
         holder.serviceNameTextView.setText(service.getServiceName());
-        holder.servicePriceTextView.setText(service.getServicePrice());
-        holder.serviceIconImageView.setImageResource(service.getServiceIcon());
 
-        // ক্লিক ইভেন্ট সেট করা
+        if (onlyNameMode) {
+            holder.servicePriceTextView.setVisibility(View.GONE);
+            holder.serviceIconImageView.setVisibility(View.GONE);
+        } else {
+            holder.servicePriceTextView.setText(service.getServicePrice());
+            holder.serviceIconImageView.setImageResource(service.getServiceIcon());
+            holder.servicePriceTextView.setVisibility(View.VISIBLE);
+            holder.serviceIconImageView.setVisibility(View.VISIBLE);
+        }
+
+        // ক্লিক ইভেন্ট
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onServiceClick(service);
