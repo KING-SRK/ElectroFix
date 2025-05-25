@@ -1,9 +1,12 @@
 package com.survice.electrofix;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,20 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.*;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,24 +29,25 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-public class TrackCustomerActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class TrackCustomerActivity extends BaseActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private static final int LOCATION_REQUEST_CODE_RESOLUTION = 1002;
 
     private GoogleMap mMap;
     private Marker customerMarker, repairerMarker;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
 
-    private double customerLatitude, customerLongitude;
     private LatLng customerLatLng;
+    private Polyline currentPolyline;
 
     private Button btnCustomer, btnRepairer;
     private TextView txtTimeEstimate;
+
+    private static final String GOOGLE_API_KEY = "AIzaSyCuJ7OEIo7gmIQbTIBO-PTihjflx1qm7WY"; // নিজের API KEY ব্যবহার করো
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +60,31 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        customerLatitude = getIntent().getDoubleExtra("latitude", 0);
-        customerLongitude = getIntent().getDoubleExtra("longitude", 0);
+        double customerLatitude = getIntent().getDoubleExtra("latitude", 0);
+        double customerLongitude = getIntent().getDoubleExtra("longitude", 0);
         customerLatLng = new LatLng(customerLatitude, customerLongitude);
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        } else {
+            Toast.makeText(this, "Map Fragment not found!", Toast.LENGTH_SHORT).show();
+        }
+
+        btnCustomer.setOnClickListener(v -> {
+            if (mMap != null) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(customerLatLng, 17));
+            }
+        });
+
+        btnRepairer.setOnClickListener(v -> {
+            if (repairerMarker != null && mMap != null) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(repairerMarker.getPosition(), 17));
+            } else {
+                Toast.makeText(this, "Repairer location not yet available", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -78,7 +92,7 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
         } else {
-            startLocationUpdates();
+            checkLocationSettings();
         }
     }
 
@@ -86,24 +100,57 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
 
-        customerMarker = mMap.addMarker(new MarkerOptions()
-                .position(customerLatLng)
-                .title("Customer Location")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(customerLatLng, 15));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
 
-        btnCustomer.setOnClickListener(v -> {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(customerLatLng, 17));
-        });
+        if (customerLatLng != null) {
+            customerMarker = mMap.addMarker(new MarkerOptions()
+                    .position(customerLatLng)
+                    .title("Customer Location")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
-        btnRepairer.setOnClickListener(v -> {
-            if (repairerMarker != null) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(repairerMarker.getPosition(), 17));
-            } else {
-                Toast.makeText(this, "Repairer location not yet available", Toast.LENGTH_SHORT).show();
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(customerLatLng)
+                    .zoom(17f)
+                    .bearing(90f)
+                    .tilt(30f)
+                    .build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+        }
+
+        startLocationUpdates(); // 🟢 এই লাইনে যোগ করা হয়েছে
+    }
+
+    private void checkLocationSettings() {
+        LocationRequest locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest)
+                .setAlwaysShow(true);
+
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+
+        task.addOnFailureListener(e -> {
+            if (e instanceof ResolvableApiException) {
+                try {
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(this, LOCATION_REQUEST_CODE_RESOLUTION);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
+
+        task.addOnSuccessListener(locationSettingsResponse -> startLocationUpdates()); // ✅ সঠিকভাবে শুরু
     }
 
     private void startLocationUpdates() {
@@ -115,8 +162,9 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 if (locationResult == null) return;
+
                 Location location = locationResult.getLastLocation();
-                if (location != null) {
+                if (location != null && mMap != null) {
                     updateRepairerMarker(location);
                 }
             }
@@ -147,23 +195,27 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
                 customerLatLng.latitude, customerLatLng.longitude,
                 results
         );
-        float distanceInMeters = results[0];
-        float averageSpeedMetersPerSecond = 5.0f;
-        int timeInSeconds = (int) (distanceInMeters / averageSpeedMetersPerSecond);
-        int minutes = timeInSeconds / 60;
-        int seconds = timeInSeconds % 60;
+
+        float distance = results[0];
+        float speed = 5.0f;
+        int time = (int) (distance / speed);
+        int min = time / 60;
+        int sec = time % 60;
 
         txtTimeEstimate.setText(String.format(Locale.getDefault(),
-                "Estimated time: %d min %d sec", minutes, seconds));
+                "Estimated time: %d min %d sec", min, sec));
 
-        drawRoute(repairerLatLng, customerLatLng);
+//        drawRoute(repairerLatLng, customerLatLng);
     }
 
     private void drawRoute(LatLng origin, LatLng destination) {
-        String apiKey = "AIzaSyB-i5EiY3aBPeMAln7nNgTEb6KEUl0TMbE";
         String url = String.format(Locale.getDefault(),
-                "https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=walking&key=%s",
-                origin.latitude, origin.longitude, destination.latitude, destination.longitude, apiKey);
+                "https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=driving&key=%s",
+                origin.latitude, origin.longitude,
+                destination.latitude, destination.longitude,
+                GOOGLE_API_KEY);
+
+        Log.d("RouteURL", url);
 
         new Thread(() -> {
             try {
@@ -171,13 +223,13 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
                 conn.setRequestMethod("GET");
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder responseBuilder = new StringBuilder();
+                StringBuilder response = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    responseBuilder.append(line);
+                    response.append(line);
                 }
 
-                JSONObject json = new JSONObject(responseBuilder.toString());
+                JSONObject json = new JSONObject(response.toString());
                 JSONArray routes = json.getJSONArray("routes");
                 if (routes.length() > 0) {
                     String encodedPoints = routes.getJSONObject(0)
@@ -188,15 +240,22 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
 
                     runOnUiThread(() -> {
                         if (steps != null && !steps.isEmpty()) {
-                            mMap.addPolyline(new PolylineOptions()
+                            if (currentPolyline != null) currentPolyline.remove();
+                            currentPolyline = mMap.addPolyline(new PolylineOptions()
                                     .addAll(steps)
-                                    .width(8f)
-                                    .color(ContextCompat.getColor(this, R.color.blue)));
+                                    .width(10f)
+                                    .color(ContextCompat.getColor(this, R.color.blue))
+                                    .geodesic(true));
                         }
                     });
+                } else {
+                    runOnUiThread(() ->
+                            Toast.makeText(this, "No routes found between current location and customer.", Toast.LENGTH_LONG).show());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Error fetching route from API.", Toast.LENGTH_LONG).show());
             }
         }).start();
     }
@@ -233,6 +292,22 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOCATION_REQUEST_CODE_RESOLUTION) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    startLocationUpdates();
+                }
+            } else {
+                Toast.makeText(this, "Location is required for tracking!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (fusedLocationClient != null && locationCallback != null) {
@@ -246,7 +321,7 @@ public class TrackCustomerActivity extends AppCompatActivity implements OnMapRea
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
                 grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startLocationUpdates();
+            checkLocationSettings();
         } else {
             Toast.makeText(this, "Location permission required!", Toast.LENGTH_SHORT).show();
             finish();
