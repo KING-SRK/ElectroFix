@@ -41,9 +41,12 @@ public class SplashActivity extends BaseActivity {
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
         if (isLoggedIn) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class)); // লগইন থাকলে MainActivity
+            // যদি লগইন করা থাকে, MainActivity তে যাবে
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
         } else {
-            startActivity(new Intent(SplashActivity.this, ChoiceActivity.class)); // না থাকলে ChoiceActivity
+            // 💡 **এই লাইনটি পরিবর্তন করা হয়েছে:**
+            // যদি লগইন করা না থাকে, তাহলেও MainActivity তে যাবে
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }
 
         finish(); // স্প্ল্যাশ স্ক্রিন বন্ধ করবে

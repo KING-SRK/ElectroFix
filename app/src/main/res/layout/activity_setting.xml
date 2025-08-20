@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/home_backgroundColor"
     android:padding="0dp">
 
-    <!-- Scrollable Content -->
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"
-        android:padding="20dp"
-        android:background="@color/backgroundColor">
+        android:id="@+id/home_scrollview"
+        android:layout_width="320dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/fixed_header"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Header Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/textColor"
-                android:layout_gravity="center"
-                android:paddingBottom="5dp"/>
-
-            <!-- Account Settings -->
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="0dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,12 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:backgroundTint="@color/skyblue"
-                android:text="Change Password"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:text="Change Password"
                 android:textColor="@color/blue"
                 android:textStyle="bold" />
 
-            <!-- Notification Settings -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,11 +83,11 @@
                 android:id="@+id/btnChangeLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"
                 android:textColor="@color/blue"
                 android:text="Change Language"/>
 
-            <!-- Security & Privacy -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,8 +119,8 @@
                 android:id="@+id/btnPrivacyPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Privacy Policy"/>
 
@@ -137,13 +128,12 @@
                 android:id="@+id/btnTerms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Terms &amp; Conditions"
                 android:layout_marginTop="5dp"/>
 
-            <!-- App Settings -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,12 +143,21 @@
                 android:textColor="@color/textColor"
                 android:paddingTop="15dp"/>
 
+            <Switch
+                android:id="@+id/themeSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dark Mode"
+                android:textColor="@color/textColor"
+                android:thumbTint="@color/switch_thumb"
+                android:trackTint="@color/switch_track"/>
+
             <Button
                 android:id="@+id/btnCheckUpdates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Check for Updates"/>
 
@@ -166,8 +165,8 @@
                 android:id="@+id/btnClearCache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Clear Cache"/>
 
@@ -175,8 +174,8 @@
                 android:id="@+id/btnRateApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Rate This App"/>
 
@@ -184,12 +183,11 @@
                 android:id="@+id/btnShareApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/blue"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/colorAccent"                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Share This App"/>
 
-            <!-- Logout -->
             <Button
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
@@ -210,115 +208,144 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/fixed_header"
+        android:layout_width="410dp"
+        android:layout_height="80dp"
+        android:background="@color/home_backgroundColor"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Bottom Navigation Bar -->
+        <ImageView
+            android:id="@+id/electrofix_logo"
+            android:layout_width="200dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:contentDescription="ElectroFix Logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/electrofix_text" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_navigation_bar"
+        android:elevation="10dp"
         android:orientation="horizontal"
-        android:background="@drawable/navigation_bar"
+        android:paddingVertical="6dp"
         android:weightSum="4"
-        android:paddingVertical="6dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Profile Section (Customer & Repairer) -->
+
         <LinearLayout
+
             android:id="@+id/profile_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
-            <!-- Customer Profile Button -->
             <ImageButton
                 android:id="@+id/customer_profile_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/ic_profile"
-                android:visibility="gone"
-                android:contentDescription="Customer Profile" />
-
-            <!-- Repairer Profile Button -->
-            <ImageButton
-                android:id="@+id/repairer_profile_button"
-                style="@style/BottomNavButton"
-                android:src="@drawable/repairer_profile_icon"
-                android:visibility="gone"
-                android:contentDescription="Repairer Profile" />
+                android:contentDescription="Profile" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/customer_profile_text"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Profile"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Home Section -->
         <LinearLayout
+
             android:id="@+id/home_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/home_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/home_icon"
                 android:contentDescription="Home" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:textSize="12sp"
-                android:textColor="@color/white"
+                android:textColor="@color/navigation_text"
                 android:gravity="center" />
         </LinearLayout>
 
-        <!-- Category Section -->
         <LinearLayout
+
             android:id="@+id/category_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/category_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/category_icon"
                 android:contentDescription="Categories" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Categories"
                 android:textSize="12sp"
-                android:textColor="@color/white"
+                android:textColor="@color/navigation_text"
                 android:gravity="center" />
         </LinearLayout>
 
-        <!-- Settings Section -->
         <LinearLayout
+
             android:id="@+id/settings_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/settings_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/setting_icon"
                 android:contentDescription="Settings" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Settings"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

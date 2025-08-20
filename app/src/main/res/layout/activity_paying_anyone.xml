@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  res/layout/activity_payment.xml  -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true">
+    <!-- ───────── ①  HEADER  ───────── -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/arrow_icon"
+        android:contentDescription="Back"
+        app:tint="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"/>
+
+    <!-- guideline so content never touches header -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBelowHeader"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="72dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:layout_width="413dp"
+        android:layout_height="732dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp">
+
+        <!-- Profile Card -->
+
+        <!-- ───────── ②  AMOUNT  +  NOTE  (center)───────── -->
+        <LinearLayout
+            android:layout_width="372dp"
+            android:layout_height="209dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/classy_card_bg"
+            android:elevation="6dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="98dp"
+                android:layout_marginStart="-120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Bank Icon"
+                android:scaleType="centerInside"
+                android:src="@drawable/bank_icon_rupee" />
+
+            <TextView
+                android:id="@+id/textPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="-85dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Adam Shaw"
+                android:textColor="#222222"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/textUpiId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="monospace"
+                android:text="8100652596@okbizaxis"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollCentre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/quickRow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidelineBelowHeader">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <EditText
+                    android:id="@+id/editTextAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:hint="₹0"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:padding="8dp"
+                    android:textColor="#000"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="168dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/bg_classy_editbox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <EditText
+                android:id="@+id/btnAddNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Add Note"
+                android:inputType="numberDecimal"
+                android:paddingStart="16dp"
+                android:paddingEnd="48dp"
+                android:textColor="#000000"
+                android:textColorHint="#999999"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btnClear"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Clear"
+                android:scaleType="centerInside"
+                android:src="@drawable/crosssign_button" />
+        </FrameLayout>
+
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/upiPaymentButton"
+            android:layout_width="233dp"
+            android:layout_height="74dp"
+            android:layout_marginStart="-75dp"
+            android:layout_marginTop="110dp"
+            android:backgroundTint="#02AD0A"
+            android:fontFamily="sans-serif-medium"
+            android:text="Proceed to Pay"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="139dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="-72dp"
+            android:backgroundTint="#FB1403"
+            android:fontFamily="sans-serif-medium"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

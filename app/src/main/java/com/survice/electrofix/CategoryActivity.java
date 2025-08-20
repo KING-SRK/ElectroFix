@@ -1,5 +1,6 @@
 package com.survice.electrofix;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,9 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,19 +25,21 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CategoryActivity extends BaseActivity {
 
-    private ImageButton homeButton, customerProfileButton, repairerProfileButton, categoryButton, settingsButton;
+    private ImageButton homeButton, customerProfileButton, categoryButton, settingsButton;
 
     private ImageButton btnAcRepair, btnComputerRepair, btnWashingMachine,
             btnLaptop, btnTv, btnMobilePhone, btnFridge, btnFan, btnWaterPurifier;
-
+    private TextView customerProfileText;
     private FirebaseAuth mAuth;
-    private DatabaseReference userDatabase;
-    private String currentUserType;
+    private ProgressBar loadingProgressBar;
 
+    private DatabaseReference userDatabase;
+    private String currentUserType = "";
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Fullscreen Mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -45,17 +51,21 @@ public class CategoryActivity extends BaseActivity {
         initViews();
         initBottomNavigation();
         initCategoryButtons();
-
+        setupButtonClickListeners();
         new Handler().postDelayed(this::checkCurrentUser, 200);
+
+        customerProfileButton = findViewById(R.id.customer_profile_button);  // ✅ must match XML id
+        checkCurrentUser();
+        customerProfileText = findViewById(R.id.customer_profile_text
+        );
     }
 
     private void initViews() {
         homeButton = findViewById(R.id.home_button);
-        customerProfileButton = findViewById(R.id.customer_profile_button);
-        repairerProfileButton = findViewById(R.id.repairer_profile_button);
+        customerProfileButton = findViewById(R.id.customer_profile_button);// নতুন single profile button
         categoryButton = findViewById(R.id.category_button);
+        customerProfileText = findViewById(R.id.customer_profile_text);
         settingsButton = findViewById(R.id.settings_button);
-
         btnAcRepair = findViewById(R.id.btn_ac_repair);
         btnComputerRepair = findViewById(R.id.btn_computer_repair);
         btnWashingMachine = findViewById(R.id.btn_washing_machine);
@@ -65,36 +75,125 @@ public class CategoryActivity extends BaseActivity {
         btnFridge = findViewById(R.id.btn_fridge);
         btnFan = findViewById(R.id.btn_fan);
         btnWaterPurifier = findViewById(R.id.btn_water_purifier);
-
-        // Hide both profile buttons initially
-        customerProfileButton.setVisibility(View.GONE);
-        repairerProfileButton.setVisibility(View.GONE);
+        loadingProgressBar = findViewById(R.id.loading_progress_bar);
+        if (customerProfileButton != null) customerProfileButton.setVisibility(View.GONE);
+        if (loadingProgressBar != null) loadingProgressBar.setVisibility(View.VISIBLE);
     }
-
     private void initBottomNavigation() {
         homeButton.setOnClickListener(v -> startNewActivity(MainActivity.class));
 
-        customerProfileButton.setOnClickListener(v -> {
-            if ("Customer".equals(currentUserType)) {
-                startNewActivity(CustomerProfileActivity.class);
-            } else {
-                Toast.makeText(this, "Access Denied! You are a Repairer.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        repairerProfileButton.setOnClickListener(v -> {
-            if ("Repairer".equals(currentUserType)) {
-                startNewActivity(RepairerProfileActivity.class);
-            } else {
-                Toast.makeText(this, "Access Denied! You are a Customer.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        categoryButton.setOnClickListener(v -> {
-            // Already in Category
-        });
+        categoryButton.setOnClickListener(v ->
+                Toast.makeText(CategoryActivity.this, "You are already in Category", Toast.LENGTH_SHORT).show());
 
         settingsButton.setOnClickListener(v -> startNewActivity(SettingsActivity.class));
+    }
+
+    private void setupButtonClickListeners() {
+        // ✅ Profile (restricted) - Now correctly inside the method
+        if (customerProfileButton != null) {
+            customerProfileButton.setOnClickListener(v -> {
+                if (isLoggedIn()) {
+                    startActivity(new Intent(CategoryActivity.this, CustomerProfileActivity.class));
+                } else {
+                    showLoginPrompt("Please login to access your profile.");
+                }
+            });
+        }
+        // Add other button listeners here if this method is meant to manage them
+        // For example:
+        // if (homeButton != null) {
+        //    homeButton.setOnClickListener(v -> startNewActivity(MainActivity.class));
+        // }
+    }
+    private boolean isLoggedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
+    }
+    private void showLoginPrompt(String message) {
+        new android.app.AlertDialog.Builder(CategoryActivity.this)
+                .setTitle("Login Required")
+                .setMessage(message)
+                .setPositiveButton("Login / Signup", (dialog, which) -> {
+                    startActivity(new Intent(CategoryActivity.this, SignupActivity.class));
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+    private void checkCurrentUser() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (loadingProgressBar != null) {
+            loadingProgressBar.setVisibility(View.VISIBLE); // Show loader while checking
+        }
+
+        if (currentUser == null) {
+            // Not logged in → show button with login popup
+            if (customerProfileButton != null) customerProfileButton.setVisibility(View.VISIBLE);
+            if (customerProfileText != null) customerProfileText.setVisibility(View.VISIBLE);
+
+            if (customerProfileButton != null) {
+                customerProfileButton.setOnClickListener(v ->
+                        showLoginPrompt("Please login to access your profile.")
+                );
+            }
+            // Hide the loader as authentication status is known (not logged in)
+            if (loadingProgressBar != null) loadingProgressBar.setVisibility(View.GONE);
+
+        } else {
+            // User is logged in, now fetch their userType from the Realtime Database
+            String uid = currentUser.getUid(); // Get the unique Firebase Auth User ID
+
+            userDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Hide loader here, as database read is complete
+                    if (loadingProgressBar != null) loadingProgressBar.setVisibility(View.GONE);
+
+                    if (snapshot.exists()) {
+                        // Assuming UserModel has public fields or appropriate getters
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+
+                        if (userModel != null && "Customer".equals(userModel.userType)) {
+                            // User is a customer, proceed normally
+                            currentUserType = userModel.userType; // Update currentUserType variable
+                            if (customerProfileButton != null) {
+                                customerProfileButton.setVisibility(View.VISIBLE);
+                                customerProfileText.setVisibility(View.VISIBLE);
+                                customerProfileButton.setOnClickListener(v -> {
+                                    Intent intent = new Intent(CategoryActivity.this, CustomerProfileActivity.class);
+                                    startActivity(intent);
+                                });
+                            }
+                            // Any other customer-specific UI adjustments or data loads can go here
+                        } else {
+                            // User type is not "Customer" or UserModel conversion failed
+                            Toast.makeText(CategoryActivity.this,
+                                    "This app is only for Customers. Please use Technician app or signup with a customer account.",
+                                    Toast.LENGTH_LONG).show();
+                            FirebaseAuth.getInstance().signOut(); // Force sign out
+                            startActivity(new Intent(CategoryActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    } else {
+                        // User data (including userType) not found in Realtime Database for this UID
+                        Toast.makeText(CategoryActivity.this, "User profile data not found! Please complete registration or contact support.", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut(); // Force sign out
+                        startActivity(new Intent(CategoryActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Hide loader on error
+                    if (loadingProgressBar != null) loadingProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(CategoryActivity.this, "Database error checking user type: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    // Log.e("CategoryActivity", "Firebase Database Error: " + error.getMessage(), error.toException()); // Add proper TAG
+                    FirebaseAuth.getInstance().signOut(); // Force sign out on error
+                    startActivity(new Intent(CategoryActivity.this, LoginActivity.class));
+                    finish();
+                }
+            });
+        }
     }
 
     private void initCategoryButtons() {
@@ -121,14 +220,6 @@ public class CategoryActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    private void checkCurrentUser() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            checkUserType(currentUser.getUid());
-        } else {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void checkUserType(String userId) {
         userDatabase.child(userId).child("userType").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,9 +227,8 @@ public class CategoryActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     currentUserType = snapshot.getValue(String.class);
-                    updateProfileVisibility();
                 } else {
-                    Toast.makeText(CategoryActivity.this, "User type not found!", Toast.LENGTH_SHORT).show();
+                    currentUserType = "";
                 }
             }
 
@@ -149,18 +239,6 @@ public class CategoryActivity extends BaseActivity {
         });
     }
 
-    private void updateProfileVisibility() {
-        if ("Customer".equalsIgnoreCase(currentUserType)) {
-            customerProfileButton.setVisibility(View.VISIBLE);
-            repairerProfileButton.setVisibility(View.GONE);
-        } else if ("Repairer".equalsIgnoreCase(currentUserType)) {
-            customerProfileButton.setVisibility(View.GONE);
-            repairerProfileButton.setVisibility(View.VISIBLE);
-        } else {
-            customerProfileButton.setVisibility(View.GONE);
-            repairerProfileButton.setVisibility(View.GONE);
-        }
-    }
 
     private void hideSystemUI() {
         getWindow().getDecorView().setSystemUiVisibility(

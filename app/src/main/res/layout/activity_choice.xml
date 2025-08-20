@@ -4,17 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/blue"
+    android:background="#E0E4E7"
     android:padding="20dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Your Role"
+        android:text="Select a Type"
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginBottom="30dp"
-        android:textColor="@color/yellow"/>
+        android:textColor="@color/blue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login as Customer"
+                android:text="User"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/skyblue"
@@ -68,10 +68,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login as Repairer"
+                android:text="Technician"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/green"
+                android:textColor="@color/skyblue"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
 

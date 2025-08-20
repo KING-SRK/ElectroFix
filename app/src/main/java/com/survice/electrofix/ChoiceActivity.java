@@ -44,14 +44,14 @@ public class ChoiceActivity extends BaseActivity {
 
         // Customer Button Click
         btnCustomer.setOnClickListener(v -> {
-            Toast.makeText(this, "Customer Selected", Toast.LENGTH_SHORT).show();
-            navigateToSignup("Customer");
+            Toast.makeText(this, "User Selected", Toast.LENGTH_SHORT).show();
+            navigateToSignup("User");
         });
 
         // Repairer Button Click
         btnRepairer.setOnClickListener(v -> {
-            Toast.makeText(this, "Repairer Selected", Toast.LENGTH_SHORT).show();
-            navigateToSignup("Repairer");
+            Toast.makeText(this, "Technician Selected", Toast.LENGTH_SHORT).show();
+            navigateToSignup("Technician");
         });
     }
 

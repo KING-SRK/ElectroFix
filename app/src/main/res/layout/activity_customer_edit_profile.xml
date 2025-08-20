@@ -1,173 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="@color/backgroundColor">
+    android:background="@color/home_backgroundColor"
+    android:fitsSystemWindows="true">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back_arrow"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="14dp" />
+    <TextView
+        android:id="@+id/PaymentPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-50dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:letterSpacing="0.04"
+        android:text="Edit or Add Details"
+        android:textColor="#2E4057"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+
+    <!-- Avatar Section -->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="-600dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-        <!-- 🔹 Back Button (Top Left) -->
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/arrow_icon"
-            android:scaleType="fitCenter"
-            android:contentDescription="Back" />
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imgGalleryIcon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="50dp">
-
-            <!-- Profile Image -->
-
-            <ImageView
-                android:id="@+id/imgProfile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile" />
-
-            <Button
-                android:id="@+id/btnChangeProfilePic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Change Profile Picture"
-                android:backgroundTint="@color/skyblue"
-                android:textColor="@color/black"/>
-
-            <!-- Name Field -->
-            <EditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Full Name"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray"
-                android:inputType="textPersonName"
-                android:padding="10dp" />
-
-            <!-- Email Field -->
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email Address"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray"
-                android:inputType="textEmailAddress"
-                android:padding="10dp" />
-
-            <!-- Phone Field -->
-            <EditText
-                android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Phone Number"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray"
-                android:inputType="phone"
-                android:padding="10dp" />
-
-            <!-- Address Field -->
-
-            <!-- Gender Selection -->
-
-            <EditText
-                android:id="@+id/etAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address"
-                android:inputType="textPostalAddress"
-                android:padding="10dp"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray" />
-
-
-            <EditText
-                android:id="@+id/etPinCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Pin Code"
-                android:inputType="textPostalAddress"
-                android:padding="10dp"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray" />
-
-            <RadioGroup
-                android:id="@+id/radioGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:textColor="@color/textColor"
-                    android:textColorHint="@color/gray"/>
-
-                <RadioButton
-                    android:id="@+id/radioFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:textColor="@color/textColor"
-                    android:textColorHint="@color/gray"/>
-
-                <RadioButton
-                    android:id="@+id/radioOther"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Other"
-                    android:textColor="@color/textColor"
-                    android:textColorHint="@color/gray"/>
-            </RadioGroup>
-
-            <!-- Date of Birth -->
-            <EditText
-                android:id="@+id/etDOB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Date of Birth (DD/MM/YYYY)"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/gray"
-                android:inputType="date"
-                android:padding="10dp" />
-
-            <!-- Change Password -->
-            <Button
-                android:id="@+id/btnChangePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Change Password"
-                android:backgroundTint="@color/blue"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp" />
-
-            <!-- Save Profile Button -->
-            <Button
-                android:id="@+id/btnSaveProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save Changes"
-                android:backgroundTint="@color/green"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp" />
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/avatar_circle_bg"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_default_avatar" />
 
     </RelativeLayout>
-</ScrollView>
+
+    <LinearLayout
+        android:layout_width="375dp"
+        android:layout_height="474dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="20dp">
+        <!-- Name Field -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+        <!-- Email Field -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray" />
+
+        <!-- Phone Field -->
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray" />
+
+        <!-- Address Field -->
+
+        <!-- Gender Selection -->
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPostalAddress"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray" />
+
+
+        <EditText
+            android:id="@+id/etPinCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pin Code"
+            android:inputType="textPostalAddress"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray" />
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/gray" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/gray" />
+
+            <RadioButton
+                android:id="@+id/radioOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/gray" />
+        </RadioGroup>
+
+        <!-- Date of Birth -->
+        <EditText
+            android:id="@+id/etDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date of Birth (DD/MM/YYYY)"
+            android:inputType="date"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/gray" />
+
+        <Button
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/green"
+            android:paddingVertical="14dp"
+            android:text="Save Changes"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChangeProfilePic"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/skyblue"
+        android:text="Change"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:cornerRadius="10dp"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="222dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

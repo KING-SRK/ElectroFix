@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +25,12 @@ public class CustomerProfileActivity extends BaseActivity {
 
     private ImageView profileImage;
     private TextView headerName;
-    private Button orderHistoryButton, editProfileButton, logoutButton;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference userRef;
+
+    // New: LinearLayouts for buttons
+    private LinearLayout profileInfoBtn, bookingHistoryBtn, logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,11 @@ public class CustomerProfileActivity extends BaseActivity {
         // UI Elements
         profileImage = findViewById(R.id.customerProfileImage);
         headerName = findViewById(R.id.customerHeaderName);
-        orderHistoryButton = findViewById(R.id.customerBookingHistory);
-        editProfileButton = findViewById(R.id.customerEditProfile);
-        logoutButton = findViewById(R.id.customerLogout);
+
+        // New: Find LinearLayouts
+        profileInfoBtn = findViewById(R.id.btnProfileInfo);
+        bookingHistoryBtn = findViewById(R.id.btnBookingHistory);
+        logoutBtn = findViewById(R.id.btnLogout);
 
         // Bottom Navigation Buttons
         ImageButton homeButton = findViewById(R.id.home_button);
@@ -62,20 +66,26 @@ public class CustomerProfileActivity extends BaseActivity {
         // Load User Info
         loadUserInfo();
 
-        // Profile Edit Button
-        editProfileButton.setOnClickListener(v ->
+        // Profile Info Button
+        profileInfoBtn.setOnClickListener(v ->
                 startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileInfoActivity.class))
         );
 
-        logoutButton.setOnClickListener(v -> {
+        // Booking History Button
+        bookingHistoryBtn.setOnClickListener(v ->
+                startActivity(new Intent(CustomerProfileActivity.this, CustomerBookingHistoryActivity.class))
+        );
+
+        // Logout Button
+        logoutBtn.setOnClickListener(v -> {
             android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(CustomerProfileActivity.this)
                     .setTitle("⚠ Logout")
                     .setMessage("Are you sure you want to log out from ElectroFix?")
-                    .setIcon(R.drawable.ic_logout_warning) // 🔁 ইচ্ছা হলে warning/logout icon যোগ করো drawable ফোল্ডারে
+                    .setIcon(R.drawable.ic_logout_warning)
                     .setPositiveButton("Yes, Logout", (dialogInterface, i) -> {
                         mAuth.signOut();
-                        Toast.makeText(CustomerProfileActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(CustomerProfileActivity.this, ChoiceActivity.class));
+                        Toast.makeText(CustomerProfileActivity.this, "Logged Out Conformed", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(CustomerProfileActivity.this, MainActivity.class));
                         finish();
                     })
                     .setNegativeButton("Cancel", null)
@@ -91,7 +101,6 @@ public class CustomerProfileActivity extends BaseActivity {
             dialog.show();
         });
 
-
         // Profile Image Click (Pick New Image)
         profileImage.setOnClickListener(v -> {
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -105,7 +114,6 @@ public class CustomerProfileActivity extends BaseActivity {
         });
 
         profileButton.setOnClickListener(v -> {
-            // Stay in current profile page
             startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class));
             finish();
         });
@@ -118,11 +126,6 @@ public class CustomerProfileActivity extends BaseActivity {
         settingsButton.setOnClickListener(v -> {
             startActivity(new Intent(CustomerProfileActivity.this, SettingsActivity.class));
             finish();
-        });
-
-        // Booking History
-        orderHistoryButton.setOnClickListener(v -> {
-            startActivity(new Intent(CustomerProfileActivity.this, CustomerBookingHistoryActivity.class));
         });
     }
 
@@ -141,7 +144,7 @@ public class CustomerProfileActivity extends BaseActivity {
                         if (imageUrl != null && !imageUrl.isEmpty()) {
                             Glide.with(CustomerProfileActivity.this).load(imageUrl).into(profileImage);
                         } else {
-                            profileImage.setImageResource(R.drawable.profile_image);
+                            profileImage.setImageResource(R.drawable.ic_profile);
                         }
                     }
                 }
@@ -154,7 +157,6 @@ public class CustomerProfileActivity extends BaseActivity {
         }
     }
 
-    // When User Picks New Profile Image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -164,12 +166,10 @@ public class CustomerProfileActivity extends BaseActivity {
         }
     }
 
-    // Default Text Validator
     private String getValidText(String text, String defaultText) {
         return (text != null && !text.isEmpty()) ? text : defaultText;
     }
 
-    // Hide Status/Nav Bar
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -181,7 +181,6 @@ public class CustomerProfileActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    // Auto-Hide on Focus Change
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

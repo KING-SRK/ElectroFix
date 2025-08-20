@@ -25,7 +25,16 @@
     <item name="etLocation" type="id"/>
     <item name="btnSave" type="id"/>
     <item name="payButton" type="id" />
-    <item name="ac_repair_button" type="id">@+id/ac_repair_button</item>
-    <item name="computer_repair_button" type="id">@+id/computer_repair_button</item>
-    <item name="washing_machine_repair_button" type="id">@+id/washing_machine_repair_button</item>
+    <item name="ac_repair_button" type="id"/>
+    <item name="computer_repair_button" type="id"/>
+    <item name="washing_machine_repair_button" type="id"/>
+    <item name="dummyDim" type="id" />
+    <item name="avtar1" type="id"/>
+    <item name="avatar2" type="id"/>
+    <item name="avatar3" type="id"/>
+    <item name="avatar4" type="id"/>
+    <item name="avatar1" type="id"/>
+    <item name="avatar5" type="id"/>
+    <item name="avatar6" type="id"/>
+    <item name="avatar7" type="id"/>
 </resources>

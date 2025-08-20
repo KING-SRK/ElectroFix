@@ -85,7 +85,7 @@ public class RepairerProfileInfoActivity extends BaseActivity {
                 tvRepairerAvailability.setText(isAvailable ? "Online" : "Offline");
                 tvRepairerAvailability.setTextColor(isAvailable ? Color.GREEN : Color.RED);
                 String profileImageUrl = snapshot.getString("profileImageUrl");
-                Glide.with(this).load(profileImageUrl).placeholder(R.drawable.repairer_man_logo).into(imgRepairerProfile);
+                Glide.with(this).load(profileImageUrl).placeholder(R.drawable.ic_profile).into(imgRepairerProfile);
             }
         });
     }

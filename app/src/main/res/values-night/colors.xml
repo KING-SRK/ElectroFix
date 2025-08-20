@@ -5,16 +5,19 @@
 
     <color name="colorPrimary">#121212</color>
     <color name="colorPrimaryVariant">#3700B3</color>
-    <color name="colorAccent">#BB86FC</color>
+    <color name="colorAccent">#03DAC5</color>
 
     <color name="search_text_color">#FFFFFF</color>
     <color name="search_icon_color">#FFFFFF</color>
 
     <!-- Dark Mode Colors -->
-    <color name="backgroundColor">#000000</color>
+    <color name="home_backgroundColor">#151419</color>
     <color name="cardbackgroundColor">#0C0C0C</color>
+    <color name="option_card_text">#2FD5E9</color>
     <color name="bannerbackgroundColor">#00FFF7</color>
     <color name="search">#504D4D</color>
+    <color name="navigation_text">#FFFFFF</color>
 
-
+    <color name="colorSelectedDot">#00FFF7</color>
+    <color name="colorUnselectedDot">#808080</color>
 </resources>

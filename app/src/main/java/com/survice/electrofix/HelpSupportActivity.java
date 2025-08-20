@@ -76,11 +76,7 @@ public class HelpSupportActivity extends BaseActivity {
             startActivity(reportIntent); // Report Issue Activity খুলবে
         });
 
-        // Privacy Policy functionality
-        btnPrivacyPolicy.setOnClickListener(v -> {
-            Intent privacyIntent = new Intent(HelpSupportActivity.this, PrivacyPolicyActivity.class);
-            startActivity(privacyIntent); // Privacy Policy Activity খুলবে
-        });
+
 
         // Terms of Service functionality
         btnTermsOfService.setOnClickListener(v -> {

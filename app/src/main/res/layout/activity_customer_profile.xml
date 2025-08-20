@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
+    android:background="@color/home_backgroundColor">
 
     <!-- Header -->
     <TextView
@@ -25,80 +25,138 @@
 
     <!-- Profile Card -->
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/profileCard"
+        android:layout_width="330dp"
+        android:layout_height="330dp"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:background="@drawable/profile_card_bg"
-        android:elevation="10dp"
         android:gravity="center"
+        android:background="@drawable/coustomer_rounded_box"
         android:padding="20dp"
-        android:paddingBottom="40dp">
+        android:elevation="12dp">
 
+        <!-- Profile Image -->
         <ImageView
             android:id="@+id/customerProfileImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:src="@drawable/coustomer_profile"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_profile" />
+            android:padding="15dp" />
 
+        <!-- Name -->
         <TextView
             android:id="@+id/customerHeaderName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Hi, Name"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/navigation_text"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="8" />
 
-        <Button
-            android:id="@+id/customerEditProfile"
+        <!-- Buttons Row -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/skyblue"
-            android:padding="12dp"
-            android:text="Profile Info"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-        <Button
-            android:id="@+id/customerBookingHistory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/skyblue"
-            android:padding="12dp"
-            android:text="View Booking History"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
+            <!-- Profile Info -->
+            <LinearLayout
+                android:id="@+id/btnProfileInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/customerLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/red"
-            android:padding="12dp"
-            android:text="Logout"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="0dp"
+                    android:src="@drawable/profile_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile Info"
+                    android:textColor="@color/navigation_text"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+
+            <!-- Booking History -->
+            <LinearLayout
+                android:id="@+id/btnBookingHistory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="0dp"
+                    android:src="@drawable/coustomer_booking_history_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Booking History"
+                    android:textColor="@color/navigation_text"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+
+            <!-- Logout -->
+            <LinearLayout
+                android:id="@+id/btnLogout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="0dp"
+                    android:src="@drawable/coustomer_logout_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:textColor="@color/navigation_text"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:background="@drawable/navigation_bar"
-        android:weightSum="4"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp">
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:paddingVertical="6dp"
+        android:weightSum="4">
+
+
 
         <!-- Profile -->
         <LinearLayout
@@ -110,8 +168,8 @@
 
             <ImageButton
                 android:id="@+id/customer_profile_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
                 android:backgroundTint="@color/nav_bar_color"
                 android:contentDescription="Customer Profile"
@@ -123,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/navigation_text"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -137,8 +195,8 @@
 
             <ImageButton
                 android:id="@+id/home_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
                 android:contentDescription="Home"
                 android:scaleType="fitCenter"
@@ -150,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Home"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/navigation_text"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -164,8 +222,8 @@
 
             <ImageButton
                 android:id="@+id/category_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
                 android:contentDescription="Category"
                 android:scaleType="fitCenter"
@@ -177,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Categories"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/navigation_text"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -191,8 +249,8 @@
 
             <ImageButton
                 android:id="@+id/settings_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
                 android:contentDescription="Settings"
                 android:scaleType="fitCenter"
@@ -204,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Settings"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/navigation_text"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/home_backgroundColor"
     tools:context=".TrackingActivity">
 
     <!-- Back Button -->
@@ -13,33 +13,148 @@
 
     <!-- Tracking Information Panel -->
 
-    <ImageView
+    <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="start"
+        android:layout_marginTop="-30dp"
         android:padding="0dp"
         android:src="@drawable/arrow_icon"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.057"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="5dp" />
+        tools:layout_editor_absoluteX="5dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        />
 
-    <ImageView
-        android:id="@+id/mapView"
-        android:layout_width="350dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/vartualmap"
-        android:elevation="10dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/tracking_info"
+    <TextView
+        android:id="@+id/PaymentPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:letterSpacing="0.04"
+        android:text="Track Booking"
+        android:textColor="@color/skyblue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginStart="-50dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/start_journey_card"
+        android:layout_width="350dp"
+        android:layout_height="180dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="-480dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/start_journey_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rgb_animated_card_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="START YOUR JOURNEY"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_classy_editbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/btnMObile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top|start"
+            android:hint="Add Mobile NO."
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="4"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:textColor="#000000"
+            android:textColorHint="#999999"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btnClear"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Clear"
+            android:scaleType="centerInside"
+            android:src="@drawable/crosssign_button" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/bg_classy_editbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/btnreference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top|start"
+            android:hint="Add Track Ref ID."
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="4"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:textColor="#000000"
+            android:textColorHint="#999999"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btncut"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Clear"
+            android:scaleType="centerInside"
+            android:src="@drawable/crosssign_button" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/tracking_info"
@@ -47,7 +162,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/details_card_bg"
         android:elevation="8dp"
         android:orientation="vertical"
@@ -55,27 +169,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.844">
 
-        <!-- Customer & Repairer Info -->
-        <TextView
-            android:id="@+id/customer_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Customer Location: Not Available"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/repairer_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Repairer Location: Not Available"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
         <!-- Start Tracking Button -->
         <Button

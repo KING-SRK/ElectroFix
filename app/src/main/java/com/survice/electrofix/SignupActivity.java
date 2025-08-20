@@ -1,150 +1,499 @@
 package com.survice.electrofix;
 
-import android.app.ProgressDialog;
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.WindowManager;
+import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
+import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser; // Add this import
+import com.google.firebase.database.DataSnapshot; // Add this import
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import java.util.HashMap;
+import com.google.firebase.database.Query; // Add this import
+import com.google.firebase.database.ValueEventListener; // Add this import
 
-public class SignupActivity extends BaseActivity {
 
-    private EditText etEmail, etPhone, etPassword;
-    private CheckBox cbRememberMe;
-    private ImageView ivShowHidePassword;
-    private ImageButton btnBack;  // ✅ Back Button
-    private Button btnSignup;
-    private TextView tvLogin, tvSignupTitle;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+
+public class SignupActivity extends AppCompatActivity {
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private static final String TAG = "SignupActivity";
+    private EditText etUserId, etPassword, etConfirmPassword, etEmail, etPhone, etAddress;
+    private TextView tvUserIdError, tvPasswordError, tvConfirmPasswordError, tvEmailError, tvPhoneError;
+    private TextView tvLogin;
+    private Button btnSignup, btnUseLocation;
+    private ImageView ivShowHidePassword, ivShowHideConfirmPassword;
+    private ProgressBar progressBar;
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
     private FirebaseAuth mAuth;
     private DatabaseReference userDatabase;
-    private boolean isPasswordVisible = false;
-    private String userType;
-    private ProgressDialog progressDialog; // ✅ ProgressDialog Object
+    private ImageButton btnBack;
+    private FusedLocationProviderClient fusedLocationClient;
+    private double currentLocationLat, currentLocationLng;
+    private String currentLocationString = "";
 
+    // Define UserModel as a public static nested class or a separate top-level class
+    // This is important for Firebase to be able to deserialize it properly
+    public static class UserModel { // Made static
+        public String userId, email, phone, address, userType; // Added 'userType'
+
+        public UserModel() {} // empty constructor required for Firebase
+
+        public UserModel(String userId, String email, String phone, String address) {
+            this.userId = userId;
+            this.email = email;
+            this.phone = phone;
+            this.address = address;
+            this.userType = "Customer"; // Set default userType here for new signups
+        }
+    }
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Initialize Firebase
+        // Firebase initialization
         mAuth = FirebaseAuth.getInstance();
-        userDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        userDatabase = FirebaseDatabase.getInstance().getReference("Users"); // "Users" is good
 
-        // Get user type from intent
-        userType = getIntent().getStringExtra("user_type");
-
-        // UI Elements
-        btnBack = findViewById(R.id.btnBack); // ✅ Back Button
-        tvSignupTitle = findViewById(R.id.tvSignupTitle);
+        // UI element binding (looks correct)
+        progressBar = findViewById(R.id.progressBar);
+        etUserId = findViewById(R.id.etUserId);
+        etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
-        etPassword = findViewById(R.id.etPassword);
-        cbRememberMe = findViewById(R.id.cbRememberMe);
-        ivShowHidePassword = findViewById(R.id.ivShowHidePassword);
-        btnSignup = findViewById(R.id.btnSignup);
+        etAddress = findViewById(R.id.etAddress);
+        btnSignup = findViewById(R.id.btnsignup);
+        btnUseLocation = findViewById(R.id.btnUseMyLocation);
         tvLogin = findViewById(R.id.tvLogin);
+        btnBack = findViewById(R.id.btnBack); // Changed from btnBack as per common practice, verify your XML
+        ivShowHidePassword = findViewById(R.id.ivShowHidePassword);
+        ivShowHideConfirmPassword = findViewById(R.id.ivShowHideConfirmPassword);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Initialize ProgressDialog ✅
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Signing up...");
-        progressDialog.setCancelable(false);
+        // Bind Error TextViews (important for displaying validation errors)
+        tvUserIdError = findViewById(R.id.tvUserIdError);
+        tvPasswordError = findViewById(R.id.tvPasswordError);
+        tvConfirmPasswordError = findViewById(R.id.tvConfirmPasswordError);
+        tvEmailError = findViewById(R.id.tvEmailError);
+        tvPhoneError = findViewById(R.id.tvPhoneError);
 
-        // Set Signup Title
-        tvSignupTitle.setText(userType.equals("Customer") ? "[As Customer]" : "[As Repairer]");
+        // TextWatchers for real-time validation (good practice)
+        etUserId.addTextChangedListener(simpleWatcher(etUserId));
+        etPhone.addTextChangedListener(simpleWatcher(etPhone));
+        etEmail.addTextChangedListener(simpleWatcher(etEmail));
+        etPassword.addTextChangedListener(simpleWatcher(etPassword));
+        etConfirmPassword.addTextChangedListener(simpleWatcher(etConfirmPassword));
 
-        // Password Show/Hide Functionality
-        ivShowHidePassword.setOnClickListener(v -> togglePasswordVisibility());
+        // Password toggle (looks correct)
+        ivShowHidePassword.setOnClickListener(v -> togglePasswordVisibility(etPassword, true));
+        ivShowHideConfirmPassword.setOnClickListener(v -> togglePasswordVisibility(etConfirmPassword, false));
 
-        // ✅ Back Button Functionality
+        // Button listeners (looks correct)
         btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(SignupActivity.this, ChoiceActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(SignupActivity.this, MainActivity.class));
             finish();
         });
 
-        // Signup Button Click
-        btnSignup.setOnClickListener(v -> registerUser());
+        btnUseLocation.setOnClickListener(v -> checkLocationPermission());
 
-        // Already have an account? Go to Login
         tvLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            intent.putExtra("user_type", userType);
+            Intent intent = new Intent(SignupActivity.this,LoginActivity .class);
             startActivity(intent);
             finish();
         });
+
+        btnSignup.setOnClickListener(v -> {
+            // Validate all fields before attempting signup
+            boolean validUserId = validateUserId();
+            boolean validPassword = validatePassword();
+            boolean validConfirm = validateConfirmPassword();
+            boolean validEmail = validateEmail();
+            boolean validPhone = validatePhone();
+
+            if (validUserId && validPassword && validConfirm && validEmail && validPhone) {
+                // All fields correct → proceed with signup
+                registerUser();
+            } else {
+                // Show errors
+                Toast.makeText(this, "Please fix errors before signup", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    private void togglePasswordVisibility() {
-        if (isPasswordVisible) {
-            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            ivShowHidePassword.setImageResource(R.drawable.ic_eye_hide);
+    // `simpleWatcher` is a good way to handle multiple EditTexts
+    private TextWatcher simpleWatcher(final Object o) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not used
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Call respective validation when text changes
+                if (o == etUserId) {
+                    validateUserId();
+                } else if (o == etPhone) {
+                    validatePhone();
+                } else if (o == etEmail) {
+                    validateEmail();
+                } else if (o == etPassword) {
+                    validatePassword();
+                } else if (o == etConfirmPassword) {
+                    validateConfirmPassword();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Optional, can be left empty
+            }
+        };
+    }
+
+    // Validation methods are well-defined
+    private boolean validatePassword() {
+        String password = etPassword.getText().toString().trim();
+        // 10–15 chars, at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{10,15}$";
+
+        if (!password.matches(passwordRegex)) {
+            tvPasswordError.setText("Password must be 10-15 chars, contain uppercase, lowercase, digit, and special char."); // Add a helpful message
+            tvPasswordError.setVisibility(View.VISIBLE);
+            return false;
         } else {
-            etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
-            ivShowHidePassword.setImageResource(R.drawable.ic_eye_show);
+            tvPasswordError.setVisibility(View.GONE);
+            return true;
         }
-        etPassword.setSelection(etPassword.getText().length());
-        isPasswordVisible = !isPasswordVisible;
     }
 
+    private boolean validateConfirmPassword() {
+        String password = etPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
+
+        if (confirmPassword.isEmpty()) {
+            tvConfirmPasswordError.setText("Confirm password cannot be empty."); // Add a helpful message
+            tvConfirmPasswordError.setVisibility(View.VISIBLE);
+            return false;
+        } else if (!confirmPassword.equals(password)) {
+            tvConfirmPasswordError.setText("Passwords do not match."); // Add a helpful message
+            tvConfirmPasswordError.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            tvConfirmPasswordError.setVisibility(View.GONE);
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        String email = etEmail.getText().toString().trim();
+
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tvEmailError.setText("Please enter a valid email address."); // Add a helpful message
+            tvEmailError.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            tvEmailError.setVisibility(View.GONE);
+            return true;
+        }
+    }
+
+    private boolean validatePhone() {
+        String phone = etPhone.getText().toString().trim();
+
+        if (phone.isEmpty()) {
+            tvPhoneError.setText("Phone number cannot be empty.");
+            tvPhoneError.setVisibility(View.VISIBLE);
+            return false;
+        } else if (!phone.matches("^[6-9]\\d{9}$")) { // Indian 10-digit numbers starting with 6–9
+            tvPhoneError.setText("Please enter a valid 10-digit Indian phone number (starts with 6-9)."); // Add a helpful message
+            tvPhoneError.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            tvPhoneError.setVisibility(View.GONE);
+            return true;
+        }
+    }
+
+    private boolean validateUserId() {
+        String userId = etUserId.getText().toString().trim();
+        if (userId.isEmpty()) {
+            tvUserIdError.setText("User ID cannot be empty.");
+            tvUserIdError.setVisibility(View.VISIBLE);
+            return false;
+        } else if (!userId.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}$")) {
+            tvUserIdError.setText("User ID must be 8-20 characters, contain letters and digits."); // Add a helpful message
+            tvUserIdError.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            tvUserIdError.setVisibility(View.GONE);
+            return true;
+        }
+    }
+
+    private void togglePasswordVisibility(EditText editText, boolean isPassword) {
+        if (isPassword) {
+            isPasswordVisible = !isPasswordVisible;
+            if (isPasswordVisible) {
+                editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                ivShowHidePassword.setImageResource(R.drawable.ic_eye_show);
+            } else {
+                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                ivShowHidePassword.setImageResource(R.drawable.ic_eye_hide);
+            }
+        } else {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
+            if (isConfirmPasswordVisible) {
+                editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                ivShowHideConfirmPassword.setImageResource(R.drawable.ic_eye_show);
+            } else {
+                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                ivShowHideConfirmPassword.setImageResource(R.drawable.ic_eye_hide);
+            }
+        }
+        editText.setSelection(editText.getText().length());
+    }
+
+    // Location related methods are fine, assuming necessary permissions are requested in Manifest
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            checkGPSAndFetchLocation();
+        }
+    }
+
+    private void checkGPSAndFetchLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            showGPSDialog();
+        } else {
+            getUserLocation();
+        }
+    }
+
+    private void showGPSDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("Location is required for this feature. Please enable Location.")
+                .setCancelable(false)
+                .setPositiveButton("Turn On Location", (dialog, which) ->
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getUserLocation() {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, location -> {
+                    if (location != null) {
+                        updateAddressWithLocation(location);
+                    } else {
+                        Toast.makeText(this, "Unable to get location. Try again.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error getting location: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+    }
+
+    private void updateAddressWithLocation(Location location) {
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            Log.d(TAG, "Device Location: Lat=" + latitude + ", Lng=" + longitude);
+
+            currentLocationLat = latitude;
+            currentLocationLng = longitude;
+
+            // Run geocoder in background thread
+            new Thread(() -> {
+                Geocoder geocoder = new Geocoder(SignupActivity.this, Locale.getDefault());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    runOnUiThread(() -> {
+                        if (addresses != null && !addresses.isEmpty()) {
+                            Address returnedAddress = addresses.get(0);
+                            StringBuilder strReturnedAddress = new StringBuilder();
+                            for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                                strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                            }
+                            currentLocationString = strReturnedAddress.toString();
+                            etAddress.setText(currentLocationString);
+                            Toast.makeText(SignupActivity.this, "Address found and set!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            currentLocationString = "Lat: " + latitude + ", Lng: " + longitude;
+                            etAddress.setText(currentLocationString);
+                            Toast.makeText(SignupActivity.this, "Could not find a specific address. Using coordinates.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (IOException e) {
+                    runOnUiThread(() -> {
+                        currentLocationString = "Lat: " + latitude + ", Lng: " + longitude;
+                        etAddress.setText(currentLocationString);
+                        Toast.makeText(SignupActivity.this, "Failed to get address. Using coordinates.", Toast.LENGTH_LONG).show();
+                    });
+                }
+            }).start();
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
     private void registerUser() {
+        String userId = etUserId.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
 
-        if (email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+        // Re-check fields (good final safeguard)
+        if (userId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE); // Ensure progress bar is hidden on error
             return;
         }
 
-        // ✅ Show ProgressDialog (Loading Animation Start)
-        progressDialog.show();
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE); // Ensure progress bar is hidden on error
+            return;
+        }
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null) {
-                    String userId = user.getUid();
+        progressBar.setVisibility(View.VISIBLE); // Show progress bar at the start of the async operation
 
-                    // Firebase-এ User Data সংরক্ষণ করা
-                    HashMap<String, String> userData = new HashMap<>();
-                    userData.put("email", email);
-                    userData.put("phone", phone);
-                    userData.put("userType", userType);
+        // --- STEP 1: Check if userId (username) already exists in the Realtime Database ---
+        Query userIdQuery = userDatabase.orderByChild("userId").equalTo(userId);
+        userIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // If snapshot exists, it means a user with this userId already exists
+                    progressBar.setVisibility(View.GONE); // Hide progress bar
+                    Toast.makeText(SignupActivity.this, "This User ID is already taken. Please choose another.", Toast.LENGTH_LONG).show();
+                    etUserId.setError("User ID already exists"); // Set an error on the EditText
+                } else {
+                    // --- STEP 2: If userId is unique, proceed with Firebase Authentication (Email uniqueness) ---
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(task -> {
+                                progressBar.setVisibility(View.GONE); // Hide progress bar regardless of auth outcome
+                                if (task.isSuccessful()) {
+                                    // Successfully authenticated a new user
+                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                    if (firebaseUser != null) {
+                                        String uid = firebaseUser.getUid(); // Get Firebase Auth UID
 
-                    userDatabase.child(userId).setValue(userData).addOnCompleteListener(task1 -> {
-                        // ✅ Hide ProgressDialog (Loading Animation Stop)
-                        progressDialog.dismiss();
+                                        // ✅ CORRECT WAY TO INSTANTIATE UserModel for saving to DB
+                                        // This creates the UserModel object ONLY when needed for saving
+                                        UserModel newUser = new UserModel(userId, email, phone, address);
+                                        // userType is now set in the UserModel constructor
 
-                        if (task1.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
-
-                            // Main Screen-এ পাঠানো
-                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                            intent.putExtra("user_type", userType);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
+                                        // Save user details to Realtime Database under their Firebase Auth UID
+                                        userDatabase.child(uid).setValue(newUser)
+                                                .addOnCompleteListener(saveTask -> {
+                                                    if (saveTask.isSuccessful()) {
+                                                        Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                                        finish();
+                                                    } else {
+                                                        // This is a rare case where Auth succeeded but DB save failed.
+                                                        // Consider deleting the Firebase Auth user here to prevent orphaned accounts.
+                                                        // Or, guide the user to try again later.
+                                                        Toast.makeText(SignupActivity.this, "Failed to save user details. Please try again or contact support.", Toast.LENGTH_LONG).show();
+                                                        Log.e(TAG, "Firebase Database Save Error: ", saveTask.getException());
+                                                        // Option to delete Firebase Auth user if DB write fails
+                                                        firebaseUser.delete().addOnCompleteListener(deleteTask -> {
+                                                            if(deleteTask.isSuccessful()) Log.d(TAG, "Orphaned Firebase Auth user deleted.");
+                                                            else Log.e(TAG, "Failed to delete orphaned Firebase Auth user.");
+                                                        });
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(SignupActivity.this, "Firebase user is null after registration.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // Firebase Authentication failed (e.g., email already in use, weak password)
+                                    String errorMessage = "Signup failed.";
+                                    if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                                        errorMessage += " Password is too weak.";
+                                    } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                        errorMessage += " Invalid email format or email already in use.";
+                                    } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        errorMessage += " This email address is already registered.";
+                                    } else if (task.getException() != null) {
+                                        errorMessage += " " + task.getException().getMessage();
+                                    }
+                                    Toast.makeText(SignupActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                    Log.e(TAG, "Firebase Auth Signup Error: ", task.getException());
+                                }
+                            });
                 }
-            } else {
-                // ✅ Hide ProgressDialog if signup fails
-                progressDialog.dismiss();
-                Toast.makeText(SignupActivity.this, "Signup Failed! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressBar.setVisibility(View.GONE); // Hide progress bar on error
+                Toast.makeText(SignupActivity.this, "Database error during User ID check: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e(TAG, "User ID check failed: ", error.toException());
             }
         });
+    }
+    // Handle permission result (looks correct)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkGPSAndFetchLocation();
+            } else {
+                Toast.makeText(this, "Location permission denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

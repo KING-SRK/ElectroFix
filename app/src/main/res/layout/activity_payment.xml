@@ -1,249 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true">
 
-    <!-- Back Button and Title Row -->
-    <LinearLayout
+    <!-- Overlay (must come after layout content, NOT duplicated) -->
+    <FrameLayout
+        android:id="@+id/dummyDim"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingBottom="8dp">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AAFFFFFF" />
+    </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/arrow_icon"
-            android:contentDescription="Back"
-            android:scaleType="fitCenter" />
-
-        <TextView
-            android:id="@+id/PaymentPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:text="PAYMENT MODE"
-            android:textColor="@color/yellow"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:letterSpacing="0.05"
-            android:shadowColor="#000000"
-            android:shadowDx="4"
-            android:shadowDy="4"
-            android:shadowRadius="6" />
-    </LinearLayout>
-
-    <!--Centered QR Scanner Button-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp">
-
-        <ImageButton
-            android:id="@+id/btnQRScanner"
-            android:layout_width="73dp"
-            android:layout_height="70dp"
-            android:layout_margin="7dp"
-            android:layout_marginStart="50dp"
-            android:background="@null"
-            android:contentDescription="Tracking"
-            android:scaleType="fitCenter"
-            android:src="@drawable/qr_scanner" />
-
-        <TextView
-            android:id="@+id/ScanQRCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:text="Scan QR Code"
-            android:textColor="@color/orange"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:letterSpacing="0.05"
-            android:shadowColor="@color/nav_bar_color"
-            android:shadowDx="4"
-            android:shadowDy="4"
-            android:shadowRadius="6" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="12dp"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_amount_box"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:id="@+id/editTextAmount"
-            android:layout_width="0dp"
-            android:layout_height="47dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="₹0"
-            android:inputType="number"
-            android:padding="0dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-
-
-        <TextView
-            android:id="@+id/Watermark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="10dp"
-            android:text="Add Amount"
-            android:textColor="#888888"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:letterSpacing="0.05"
-            android:shadowColor="#000000"
-            android:shadowDx="4"
-            android:shadowDy="4"
-            android:shadowRadius="6" />
-
-        <ImageButton
-            android:id="@+id/btnClear"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="Clear"
-            android:src="@drawable/crosssign_button"
-            android:scaleType="fitCenter"/>
-
-    </LinearLayout>
-
-
+    <!-- Header -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/arrow_icon"
+        android:contentDescription="Back"
+        android:scaleType="fitCenter"
+        app:tint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:elevation="10dp"/>
 
     <TextView
-        android:id="@+id/autoAmountBox"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="12dp"
-        android:padding="12dp"
-        android:text="Pay ₹0"
-        android:textSize="28sp"
-        android:textColor="#03C80B"
+        android:id="@+id/PaymentPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PAYMENT MODE"
+        android:textColor="@color/skyblue"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.04"
         android:gravity="center"
-        android:background="@drawable/bg_amount_box" />
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintEnd_toStartOf="@id/btnQRScanner"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
 
+    <ImageButton
+        android:id="@+id/btnQRScanner"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@null"
+        android:src="@drawable/qr_scanner"
+        android:contentDescription="QR Scanner"
+        android:scaleType="fitCenter"
+        app:tint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        android:layout_marginEnd="16dp"/>
 
-    <LinearLayout
-        android:layout_width="318dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/details_card_bg"
-        android:layout_marginTop="0dp"
-        android:elevation="10dp">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBelowHeader"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="72dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
-        <!-- Button Row 1 -->
+    <!-- Center Amount Input -->
+    <ScrollView
+        android:id="@+id/scrollCentre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/guidelineBelowHeader"
+        app:layout_constraintBottom_toTopOf="@id/quickRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <LinearLayout
-            android:id="@+id/buttonRow1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="12dp">
+
+            <!-- Amount Input -->
+            <EditText
+                android:id="@+id/editTextAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="₹0"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:background="@null"
+                android:textColor="#000"
+                android:textColorHint="#9E9E9E"
+                android:padding="8dp"/>
+
+            <!-- Note Input Field + Clear -->
+            <FrameLayout
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_classy_editbox">
+                <EditText
+                    android:id="@+id/btnAddNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="top|start"
+                    android:hint="Add Note"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLines="4"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="48dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#999999"
+                    android:textSize="18sp"
+                    android:imeOptions="actionDone" />
+
+
+                <ImageButton
+                    android:id="@+id/btnClear"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Clear"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/crosssign_button" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Quick Amount Horizontal Buttons -->
+    <HorizontalScrollView
+        android:id="@+id/quickRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/upiPaymentButton">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="3">
+            android:paddingHorizontal="12dp"
+            android:gravity="center_vertical">
 
             <Button
                 android:id="@+id/hundredrsBalence"
-                style="@style/RoundedOrangeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:text="+100" />
-
+                style="@style/RoundedBlueButton"
+                android:text="+100"/>
             <Button
                 android:id="@+id/twohundred"
-                style="@style/RoundedOrangeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:text="+200" />
-
+                style="@style/RoundedBlueButton"
+                android:layout_marginStart="8dp"
+                android:text="+200"/>
             <Button
                 android:id="@+id/fivehundred"
-                style="@style/RoundedOrangeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:text="+500" />
-        </LinearLayout>
-
-        <!-- Button Row 2 -->
-        <LinearLayout
-            android:id="@+id/buttonRow2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="2">
-
+                style="@style/RoundedBlueButton"
+                android:layout_marginStart="8dp"
+                android:text="+500"/>
             <Button
                 android:id="@+id/oneThousand"
-                style="@style/RoundedOrangeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:text="+1000" />
-
+                style="@style/RoundedBlueButton"
+                android:layout_marginStart="8dp"
+                android:text="+1000"/>
             <Button
                 android:id="@+id/twoThousand"
-                style="@style/RoundedOrangeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:text="+2000" />
+                style="@style/RoundedBlueButton"
+                android:layout_marginStart="8dp"
+                android:text="+2000"/>
         </LinearLayout>
-    </LinearLayout>
+    </HorizontalScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Proceed Button -->
+    <Button
+        android:id="@+id/upiPaymentButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:orientation="vertical">
-        <!-- Pay via UPI Button -->
+        android:backgroundTint="#02AD09"
+        android:text="PROCEED TO PAY"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:paddingVertical="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/locationFrame"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Location Access -->
+    <FrameLayout
+        android:id="@+id/locationFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:elevation="10dp">
+
         <Button
-            android:id="@+id/upiPaymentButton"
+            android:id="@+id/LocationAccessbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp"
-            android:backgroundTint="#02AD09"
-            android:text="Proceed to Pay"
-            android:textColor="#FFF"
-            android:textStyle="bold" />
+            android:backgroundTint="#0FC4D9"
+            android:text="TURN ON LOCATION"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:paddingVertical="14dp"/>
+    </FrameLayout>
 
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

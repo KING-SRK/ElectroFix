@@ -1,211 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/home_backgroundColor"
     android:padding="0dp">
-
-    <!-- Header Title -->
-    <TextView
-        android:id="@+id/electroFixText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:fontFamily="sans-serif-black"
-        android:letterSpacing="0.05"
-        android:shadowColor="#000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4"
-        android:text="Categories"
-        android:textColor="@color/yellow"
-        android:textSize="32sp"
-        android:textStyle="bold" />
 
     <!-- Scrollable Category Buttons -->
     <ScrollView
+        android:id="@+id/home_scrollview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/fixed_header"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/electroFixText"
-        android:layout_above="@id/bottom_nav"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="0dp">
+                <!-- Category Buttons -->
+                <ImageButton
+                    android:id="@+id/btn_ac_repair"
+                    style="@style/CategoryButton"
+                    android:layout_width="319dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/ac_repair"
+                    android:contentDescription="AC Repair" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingVertical="16dp">
+                <ImageButton
+                    android:id="@+id/btn_computer_repair"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/computer_repair"
+                    android:contentDescription="Computer Repair" />
 
-            <!-- Category Buttons -->
-            <ImageButton
-                android:id="@+id/btn_ac_repair"
-                style="@style/CategoryButton"
-                android:background="@drawable/ac_repair"
-                android:contentDescription="AC Repair" />
+                <ImageButton
+                    android:id="@+id/btn_washing_machine"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/washing_machine_repair"
+                    android:contentDescription="Washing Machine Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_computer_repair"
-                style="@style/CategoryButton"
-                android:background="@drawable/computer_repair"
-                android:contentDescription="Computer Repair" />
+                <ImageButton
+                    android:id="@+id/btn_laptop"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/laptop_repair"
+                    android:contentDescription="Laptop Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_washing_machine"
-                style="@style/CategoryButton"
-                android:background="@drawable/washing_machine_repair"
-                android:contentDescription="Washing Machine Repair" />
+                <ImageButton
+                    android:id="@+id/btn_tv"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/tv_repair"
+                    android:contentDescription="TV Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_laptop"
-                style="@style/CategoryButton"
-                android:background="@drawable/laptop_repair"
-                android:contentDescription="Laptop Repair" />
+                <ImageButton
+                    android:id="@+id/btn_mobile_phone"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/mobile_phone_repair"
+                    android:contentDescription="Mobile Phone Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_tv"
-                style="@style/CategoryButton"
-                android:background="@drawable/tv_repair"
-                android:contentDescription="TV Repair" />
+                <ImageButton
+                    android:id="@+id/btn_fridge"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/fridge_repair"
+                    android:contentDescription="Fridge Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_mobile_phone"
-                style="@style/CategoryButton"
-                android:background="@drawable/mobile_phone_repair"
-                android:contentDescription="Mobile Phone Repair" />
+                <ImageButton
+                    android:id="@+id/btn_fan"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/fan_repair"
+                    android:contentDescription="Fan Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_fridge"
-                style="@style/CategoryButton"
-                android:background="@drawable/fridge_repair"
-                android:contentDescription="Fridge Repair" />
+                <ImageButton
+                    android:id="@+id/btn_water_purifier"
+                    style="@style/CategoryButton"
+                    android:background="@drawable/water_purifier_repair"
+                    android:contentDescription="Water Purifier Repair" />
 
-            <ImageButton
-                android:id="@+id/btn_fan"
-                style="@style/CategoryButton"
-                android:background="@drawable/fan_repair"
-                android:contentDescription="Fan Repair" />
-
-            <ImageButton
-                android:id="@+id/btn_water_purifier"
-                style="@style/CategoryButton"
-                android:background="@drawable/water_purifier_repair"
-                android:contentDescription="Water Purifier Repair" />
-
-        </LinearLayout>
+            </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/fixed_header"
+        android:layout_width="410dp"
+        android:layout_height="80dp"
+        android:background="@color/home_backgroundColor"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Bottom Navigation Bar -->
+        <ProgressBar
+            android:id="@+id/loading_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminateTint="@color/skyblue"
+            android:layout_marginBottom="6dp" />
+
+        <ImageView
+            android:id="@+id/electrofix_logo"
+            android:layout_width="200dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:contentDescription="ElectroFix Logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/electrofix_text" />
+        </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_navigation_bar"
+        android:elevation="10dp"
         android:orientation="horizontal"
-        android:background="@drawable/navigation_bar"
+        android:paddingVertical="6dp"
         android:weightSum="4"
-        android:paddingVertical="6dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Profile Section (Customer & Repairer) -->
         <LinearLayout
             android:id="@+id/profile_layout"
             style="@style/BottomNavItem"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <!-- Customer Profile Button -->
             <ImageButton
                 android:id="@+id/customer_profile_button"
                 style="@style/BottomNavButton"
-                android:src="@drawable/ic_profile"
-                android:visibility="gone"
-                android:contentDescription="Customer Profile" />
-
-            <!-- Repairer Profile Button -->
-            <ImageButton
-                android:id="@+id/repairer_profile_button"
-                style="@style/BottomNavButton"
-                android:src="@drawable/repairer_profile_icon"
-                android:visibility="gone"
-                android:contentDescription="Repairer Profile" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Profile"
+                android:src="@drawable/ic_profile" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/customer_profile_text"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Profile"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Home Section -->
         <LinearLayout
+
             android:id="@+id/home_layout"
             style="@style/BottomNavItem"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/home_button"
                 style="@style/BottomNavButton"
-                android:src="@drawable/home_icon"
-                android:contentDescription="Home" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Home"
+                android:src="@drawable/home_icon" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Home"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Category Section -->
         <LinearLayout
+
             android:id="@+id/category_layout"
             style="@style/BottomNavItem"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/category_button"
                 style="@style/BottomNavButton"
-                android:src="@drawable/category_icon"
-                android:contentDescription="Categories" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Categories"
+                android:src="@drawable/category_icon" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Categories"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Settings Section -->
         <LinearLayout
+
             android:id="@+id/settings_layout"
             style="@style/BottomNavItem"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/settings_button"
                 style="@style/BottomNavButton"
-                android:src="@drawable/setting_icon"
-                android:contentDescription="Settings" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Settings"
+                android:src="@drawable/setting_icon" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Settings"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

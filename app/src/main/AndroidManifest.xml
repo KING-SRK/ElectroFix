@@ -5,14 +5,29 @@
 
     <!-- 🔥 Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
 
     <application
         android:allowBackup="true"
@@ -37,7 +52,10 @@
         </activity>
 
         <activity android:name=".ChoiceActivity" android:exported="false" />
-        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" />
@@ -62,12 +80,15 @@
         <activity android:name=".BookingSuccessActivity" android:exported="false" />
         <activity android:name=".TrackRepairerActivity" android:exported="false" />
         <activity android:name=".TrackingActivity" android:exported="false" />
-        <activity android:name=".PrivacyPolicyActivity" android:exported="false" />
-        <activity android:name=".PaymentOptionActivity" android:exported="false" />
-        <activity android:name=".QRScannerActivity" android:exported="false" />
         <activity android:name=".ChangePasswordActivity" android:exported="false" />
         <activity android:name=".NoNetworkActivity" android:exported="false" />
         <activity android:name=".PaymentActivity" android:exported="false" />
+        <activity android:name=".QRScannerActivity" android:exported="false" />
+        <activity android:name=".PayingAnyoneActivity" android:exported="false" />
+        <activity android:name=".PaymentConformationActivity" android:exported="false" />
+        <activity android:name=".ForgotPasswordActivity" android:exported="true" android:theme="@style/Theme.ElectroFix" />
+
+
 
     </application>
 

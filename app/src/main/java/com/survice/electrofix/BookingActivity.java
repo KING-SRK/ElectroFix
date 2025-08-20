@@ -39,6 +39,7 @@ public class BookingActivity extends BaseActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private FirebaseFirestore firestore;
     private ProgressBar progressBar;
+
     private boolean isBookingInProgress = false;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
@@ -50,7 +51,7 @@ public class BookingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booking_activity);
+        setContentView(R.layout.activity_booking_form);
 
         progressBar = findViewById(R.id.progress_bar);
 
@@ -260,4 +261,5 @@ public class BookingActivity extends BaseActivity {
             Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

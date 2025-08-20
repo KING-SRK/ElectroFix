@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="banner_page_margin">16dp</dimen>
+    <dimen name="banner_viewpager_width">300dp</dimen>
+</resources>

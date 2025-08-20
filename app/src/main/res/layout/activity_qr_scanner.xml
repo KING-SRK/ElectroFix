@@ -1,31 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/qrScannerLayout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#000000">
+    android:background="#CC000000">
 
-    <!-- Heading -->
-    <TextView
-        android:id="@+id/scannerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scan QR Code"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
+    <!-- Camera Preview -->
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:zxing_framing_rect_width="220dp"
+        app:zxing_framing_rect_height="220dp"
+        app:zxing_scanner_layout="@layout/zxing_barcode_scanner" >
 
-    <!-- Scanner Placeholder -->
-    <ImageView
-        android:id="@+id/scannerView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/qr_placeholder"
-        android:contentDescription="QR Scanner"
-        android:background="#222222"
-        android:scaleType="centerInside" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <!-- Close Button -->
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Close"
+                android:src="@drawable/ic_close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.041"
+                app:tint="@android:color/white" />
+
+            <!-- Scan Title -->
+            <TextView
+                android:id="@+id/scanTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="SCAN ANY UPI QR"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.07" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/scanSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="PHONEPE · PAYTM · GPAY · BHIM"
+                android:textColor="#B3FFFFFF"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scanTitle" />
+
+            <!-- QR Scanner Frame -->
+
+            <!-- QR Scanner Frame -->
+
+            <!--  BHIM UPI Logo -->
+
+            <View
+                android:id="@+id/qrScannerFrame"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:background="@drawable/ic_corner_frame"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.499" />
+
+            <TextView
+                android:id="@+id/tvScanning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:shadowColor="#AA000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="SCANNING..."
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.674"
+                tools:ignore="UnknownId" />
+
+            <ImageView
+                android:id="@+id/imgBhimUpi"
+                android:layout_width="264dp"
+                android:layout_height="95dp"
+                android:contentDescription="BHIM UPI"
+                android:src="@drawable/bhim_upi_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.564"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.922" />
+
+            <!-- Gallery Button -->
+            <ImageView
+                android:id="@+id/galleryBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Gallery"
+                android:src="@drawable/ic_gallery"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.072"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.955" />
+
+            <!-- Flash Button -->
+            <ImageView
+                android:id="@+id/flashbtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Flash"
+                android:src="@drawable/ic_flash_on"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.956"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.955" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <!-- Overlay UI -->
+</FrameLayout>

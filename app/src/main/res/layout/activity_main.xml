@@ -1,272 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
+    android:clipChildren="false"
+    android:background="@color/home_backgroundColor">
 
-
-    <ImageView
-        android:id="@+id/electrofix_logo"
+    <ScrollView
+        android:id="@+id/home_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="ElectroFix Logo"
-        android:src="@drawable/electrofix_logo"
-        android:scaleType="fitCenter"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.10"
-        app:layout_constraintWidth_percent="0.45" />
-
-    <!-- ProgressBar -->
-    <ProgressBar
-        android:id="@+id/loading_progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        android:indeterminateTint="@color/skyblue"
-        app:layout_constraintTop_toBottomOf="@id/electrofix_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Search & Notification Row -->
-    <LinearLayout
-        android:id="@+id/search_notif_row"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/loading_progress_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/searchbar_style"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search here..." />
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:src="@drawable/notification_bell"
-            android:scaleType="fitCenter"
-            android:contentDescription="Notifications" />
-    </LinearLayout>
-
-    <!-- Theme Switch Option -->
-    <LinearLayout
-        android:id="@+id/theme_switch_row"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/search_notif_row"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/themeSwitchLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SWITCH TO DARK MODE"
-            android:textSize="16sp"
-            android:textColor="@color/textColor"
-            android:textStyle="bold" />
-
-
-        <Switch
-            android:id="@+id/themeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:thumbTint="@color/skyblue"
-            android:trackTint="@color/white" />
-    </LinearLayout>
-
-
-    <!-- OPTIONS Card -->
-    <LinearLayout
-        android:id="@+id/options_card"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical"
-        android:background="@drawable/bgcard_animated"
-        android:gravity="center"
-        android:elevation="10dp"
-        app:layout_constraintTop_toBottomOf="@id/search_notif_row"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OPTIONS"
-            android:textColor="#2FD5E9"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="24dp"
+            android:clipChildren="false"
+            android:paddingTop="180dp"
+            android:background="@color/home_backgroundColor">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/image_slider_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:clipToPadding="true"
+                android:clipChildren="true"
+                android:overScrollMode="never"/>
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_indicator"
+                android:layout_width="120dp"
+                android:layout_height="6dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_slider_viewpager"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabPaddingBottom="2dp"
+                app:tabPaddingEnd="6dp"
+                app:tabPaddingStart="6dp"
+                app:tabPaddingTop="2dp"
+                app:tabRippleColor="@android:color/transparent" />
+
+
+            <LinearLayout
+                android:id="@+id/options_card"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/home_icon_bgcard"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tab_layout_indicator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="OPTIONS"
+                    android:textColor="@color/option_card_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnTracking"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="7dp"
+                            android:background="@null"
+                            android:contentDescription="Tracking"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/option_traking" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Track"
+                            android:textColor="@color/option_card_text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnPayment"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="7dp"
+                            android:background="@null"
+                            android:contentDescription="Payment"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/option_pament" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Pay"
+                            android:textColor="@color/option_card_text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnNotification"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="7dp"
+                            android:background="@null"
+                            android:contentDescription="Upload Issue"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/notification_bell" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Bell"
+                            android:textColor="@color/option_card_text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnHelpSupport"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="7dp"
+                            android:background="@null"
+                            android:contentDescription="Help and Support"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/option_help_support" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Help"
+                            android:textColor="@color/option_card_text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/referralImageButton"
+                android:layout_width="448dp"
+                android:layout_height="195dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="26dp"
+                android:background="@null"
+                android:contentDescription="Referral"
+                android:scaleType="fitCenter"
+                android:src="@drawable/refarel_image"
+                app:layout_constraintDimensionRatio="H,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/options_card" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/fixed_header"
+        android:layout_width="0dp"
+        android:layout_height="202dp"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp"
+        android:background="@color/home_backgroundColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/electrofix_logo"
+            android:layout_width="200dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="5dp"
+            android:contentDescription="ElectroFix Logo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/electrofix_text" />
+
+        <ProgressBar
+            android:id="@+id/loading_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminateTint="@color/skyblue"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:id="@+id/search_notif_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
 
-            <!-- Tracking -->
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:background="@drawable/searchbar_style"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search here..." />
 
-                <ImageButton
-                    android:id="@+id/btnTracking"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:src="@drawable/option_traking"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="Tracking" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tracking"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2FD5E9"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Payment -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnPayment"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:src="@drawable/option_pament"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="Payment" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Payment"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2FD5E9"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Upload -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnUpload"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:src="@drawable/upload_issue"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="Upload Issue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Issues"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2FD5E9"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Help -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageButton
-                    android:id="@+id/btnHelpSupport"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="7dp"
-                    android:background="@null"
-                    android:src="@drawable/option_help_support"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="Help and Support" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Help"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2FD5E9"
-                    android:gravity="center" />
-            </LinearLayout>
         </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:clipToPadding="false" >
+            <LinearLayout
+            android:id="@+id/Category_notif_row"
+            android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnAC"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_ac"
+                android:scaleType="fitCenter"
+                android:contentDescription="AC" />
+
+
+            <ImageButton
+                android:id="@+id/btnPC"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_pc"
+                android:scaleType="fitCenter"
+                android:contentDescription="PC" />
+
+                <ImageButton
+                    android:id="@+id/btnphone"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/home_mini_rounded_card"
+                    android:contentDescription="Phone"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/product_phone" />
+
+                <ImageButton
+                    android:id="@+id/btnfan"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/home_mini_rounded_card"
+                    android:contentDescription="Fan"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/product_fan" />
+
+                <ImageButton
+                android:id="@+id/btnwashingmachine"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_washingmachine"
+                android:scaleType="fitCenter"
+                android:contentDescription="Washing Machine" />
+
+                <ImageButton
+                android:id="@+id/btntv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_tv"
+                android:scaleType="fitCenter"
+                android:contentDescription="TV" />
+
+            <ImageButton
+                android:id="@+id/btnxerox"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_xerox"
+                android:scaleType="fitCenter"
+                android:contentDescription="Xerox" />
+
+            <ImageButton
+                android:id="@+id/btnfridge"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/home_mini_rounded_card"
+                android:src="@drawable/product_fridge"
+                android:scaleType="fitCenter"
+                android:contentDescription="Fridge" />
+
+        </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
-    <!-- Referral -->
-    <ImageButton
-        android:id="@+id/referralImageButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@null"
-        android:src="@drawable/refarel_image"
-        android:scaleType="fitCenter"
-        android:contentDescription="Referral"
-        app:layout_constraintTop_toBottomOf="@id/options_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="H,16:9" />
-
-    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_nav"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/profile_card_bg"
+        android:background="@drawable/main_navigation_bar"
         android:elevation="10dp"
         android:orientation="horizontal"
         android:paddingVertical="6dp"
@@ -275,100 +385,106 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Profile -->
+
         <LinearLayout
+
             android:id="@+id/profile_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/customer_profile_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/ic_profile"
-                android:visibility="gone"
-                android:contentDescription="Customer Profile" />
-
-            <ImageButton
-                android:id="@+id/repairer_profile_button"
-                style="@style/BottomNavButton"
-                android:src="@drawable/repairer_profile_icon"
-                android:visibility="gone"
-                android:contentDescription="Repairer Profile" />
+                android:contentDescription="Profile" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/customer_profile_text"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Profile"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Home -->
         <LinearLayout
+
             android:id="@+id/home_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/home_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/home_icon"
                 android:contentDescription="Home" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:textSize="12sp"
-                android:textColor="@color/white"
+                android:textColor="@color/navigation_text"
                 android:gravity="center" />
         </LinearLayout>
 
-        <!-- Categories -->
         <LinearLayout
+
             android:id="@+id/category_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/category_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/category_icon"
                 android:contentDescription="Categories" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Categories"
                 android:textSize="12sp"
-                android:textColor="@color/white"
+                android:textColor="@color/navigation_text"
                 android:gravity="center" />
         </LinearLayout>
 
-        <!-- Settings -->
         <LinearLayout
+
             android:id="@+id/settings_layout"
             style="@style/BottomNavItem"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/settings_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/BottomNavButton"
                 android:src="@drawable/setting_icon"
                 android:contentDescription="Settings" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Settings"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:gravity="center" />
+                android:textColor="@color/navigation_text"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

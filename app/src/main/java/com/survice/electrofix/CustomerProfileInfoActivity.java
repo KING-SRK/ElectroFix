@@ -3,14 +3,14 @@ package com.survice.electrofix;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,9 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 public class CustomerProfileInfoActivity extends BaseActivity {
 
     private ImageView imgProfile, btnBack;
-    private TextView tvName, tvEmail, tvPhone, tvAddress, tvPinCode, tvDOB, tvGender;
+    private TextView tvFullName, tvEmail, tvPhone, tvAddress, tvPinCode, tvDOB, tvGender, tvProgressText;
     private Button btnEditProfile;
     private DatabaseReference userRef;
+    private ProgressBar profileProgressBar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,14 +35,18 @@ public class CustomerProfileInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_profileinfo);
 
-        // 🔹 Firebase Reference
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         userRef = FirebaseDatabase.getInstance().getReference("Customers").child(currentUser.getUid());
 
-        // 🔹 UI Elements
+        // UI Elements
         imgProfile = findViewById(R.id.imgProfile);
-        btnBack = findViewById(R.id.btnBack); // 🔙 Back Button
-        tvName = findViewById(R.id.tvName);
+        btnBack = findViewById(R.id.btnBack);
+        tvFullName = findViewById(R.id.Fullname); // XML এ @id/Fullname
         tvEmail = findViewById(R.id.tvEmail);
         tvPhone = findViewById(R.id.tvPhone);
         tvAddress = findViewById(R.id.tvAddress);
@@ -49,39 +54,46 @@ public class CustomerProfileInfoActivity extends BaseActivity {
         tvDOB = findViewById(R.id.tvDOB);
         tvGender = findViewById(R.id.tvGender);
         btnEditProfile = findViewById(R.id.btnEditProfile);
+        profileProgressBar = findViewById(R.id.profileProgressBar);
+        tvProgressText = findViewById(R.id.tvProgressText);
 
-        // 🔹 Load User Profile (Live Data Update)
         loadUserProfile();
 
-        // 🔹 Edit Profile Button Click
         btnEditProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(CustomerProfileInfoActivity.this, CustomerEditProfileActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(CustomerProfileInfoActivity.this, CustomerEditProfileActivity.class));
         });
 
-        // 🔙 Back Button Click
         btnBack.setOnClickListener(v -> onBackPressed());
     }
 
-    // 🔹 Firebase থেকে লাইভ প্রোফাইল ডাটা লোড করার মেথড
     private void loadUserProfile() {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    tvName.setText(snapshot.child("name").getValue(String.class));
-                    tvEmail.setText(snapshot.child("email").getValue(String.class));
-                    tvPhone.setText(snapshot.child("phone").getValue(String.class));
-                    tvAddress.setText(snapshot.child("address").getValue(String.class));
-                    tvDOB.setText(snapshot.child("dob").getValue(String.class));
-                    tvGender.setText(snapshot.child("gender").getValue(String.class));
+                if (!snapshot.exists()) return;
 
-                    // 🔹 Profile Image Load
-                    String imageUrl = snapshot.child("profileImage").getValue(String.class);
-                    if (imageUrl != null && !imageUrl.isEmpty()) {
-                        Glide.with(CustomerProfileInfoActivity.this).load(imageUrl).into(imgProfile);
-                    }
+                int filledFields = 0;
+                int totalFields = 7; // name, email, phone, address, pincode, dob, gender
+
+                if (setTextIfAvailable(tvFullName, snapshot.child("name").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvEmail, snapshot.child("email").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvPhone, snapshot.child("phone").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvAddress, snapshot.child("address").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvPinCode, snapshot.child("pinCode").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvDOB, snapshot.child("dob").getValue(String.class))) filledFields++;
+                if (setTextIfAvailable(tvGender, snapshot.child("gender").getValue(String.class))) filledFields++;
+
+                // Profile Image Load
+                String imageUrl = snapshot.child("profileImage").getValue(String.class);
+                if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+                    Glide.with(CustomerProfileInfoActivity.this).load(imageUrl).into(imgProfile);
+                } else {
+                    imgProfile.setImageResource(R.drawable.ic_default_avatar);
                 }
+
+                // Calculate percentage
+                int percent = (filledFields == 0) ? 0 : (int) ((filledFields / (float) totalFields) * 100);
+                animateProgress(percent);
             }
 
             @Override
@@ -91,7 +103,38 @@ public class CustomerProfileInfoActivity extends BaseActivity {
         });
     }
 
-    // 🔙 ফোনের Back Button প্রেস করলে Activity বন্ধ হবে
+    private boolean setTextIfAvailable(TextView textView, String value) {
+        if (value != null && !value.trim().isEmpty()) {
+            textView.setText(value);
+            return true;
+        } else {
+            textView.setText("Not set");
+            return false;
+        }
+    }
+
+    private void animateProgress(int target) {
+        profileProgressBar.setProgress(0);
+        tvProgressText.setText("0%");
+        Handler handler = new Handler();
+        new Thread(() -> {
+            int progress = 0;
+            while (progress <= target) {
+                int finalProgress = progress;
+                handler.post(() -> {
+                    profileProgressBar.setProgress(finalProgress);
+                    tvProgressText.setText(finalProgress + "%");
+                });
+                try {
+                    Thread.sleep(20); // smooth animation
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                progress++;
+            }
+        }).start();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

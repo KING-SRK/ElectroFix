@@ -6,11 +6,11 @@
 
 
 
-    <solid android:color="#1D7CAF"/>
+    <solid android:color="#E0E4E7"/>
 
-    <stroke android:width="3dp" android:color="#FFC107"/>
+    <stroke android:width="3dp" android:color="#16204E"/>
 
-    <corners android:radius="100dp"/>
+    <corners android:radius="10dp"/>
 
 
 
