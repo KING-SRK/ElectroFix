@@ -45,11 +45,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query; // Add this import
 import com.google.firebase.database.ValueEventListener; // Add this import
 
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -64,6 +62,8 @@ public class SignupActivity extends AppCompatActivity {
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
     private FirebaseAuth mAuth;
+    // Change your userDatabase reference
+    private DatabaseReference usernamesDatabase;
     private DatabaseReference userDatabase;
     private ImageButton btnBack;
     private FusedLocationProviderClient fusedLocationClient;
@@ -72,17 +72,24 @@ public class SignupActivity extends AppCompatActivity {
 
     // Define UserModel as a public static nested class or a separate top-level class
     // This is important for Firebase to be able to deserialize it properly
-    public static class UserModel { // Made static
-        public String userId, email, phone, address, userType; // Added 'userType'
+    public static class UserModel {
+        public String userId, email, phone, address, userType;
+        public String signupTimestamp; // ✅ new field
 
-        public UserModel() {} // empty constructor required for Firebase
+        public UserModel() {
+            // empty constructor required for Firebase
+        }
 
         public UserModel(String userId, String email, String phone, String address) {
             this.userId = userId;
             this.email = email;
             this.phone = phone;
             this.address = address;
-            this.userType = "Customer"; // Set default userType here for new signups
+            this.userType = "Customer"; // default
+
+            // ✅ store formatted timestamp
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss", java.util.Locale.getDefault());
+            this.signupTimestamp = sdf.format(new java.util.Date());
         }
     }
 
@@ -95,6 +102,7 @@ public class SignupActivity extends AppCompatActivity {
         // Firebase initialization
         mAuth = FirebaseAuth.getInstance();
         userDatabase = FirebaseDatabase.getInstance().getReference("Users"); // "Users" is good
+        usernamesDatabase = FirebaseDatabase.getInstance().getReference("usernames");
 
         // UI element binding (looks correct)
         progressBar = findViewById(R.id.progressBar);
@@ -330,59 +338,78 @@ public class SignupActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void getUserLocation() {
+        // First try last location
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         updateAddressWithLocation(location);
                     } else {
-                        Toast.makeText(this, "Unable to get location. Try again.", Toast.LENGTH_SHORT).show();
+                        // If no cached location, request a fresh one
+                        requestNewLocation();
                     }
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error getting location: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    requestNewLocation(); // fallback
                 });
     }
+
+    @SuppressLint("MissingPermission")
+    private void requestNewLocation() {
+        com.google.android.gms.location.LocationRequest locationRequest = com.google.android.gms.location.LocationRequest.create()
+                .setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1000)          // 1s interval
+                .setFastestInterval(500)    // 0.5s fastest
+                .setNumUpdates(1);          // only once
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, new com.google.android.gms.location.LocationCallback() {
+            @Override
+            public void onLocationResult(com.google.android.gms.location.LocationResult locationResult) {
+                if (locationResult == null) return;
+                Location freshLocation = locationResult.getLastLocation();
+                if (freshLocation != null) {
+                    updateAddressWithLocation(freshLocation);
+                }
+            }
+        }, getMainLooper());
+    }
+
 
     private void updateAddressWithLocation(Location location) {
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            Log.d(TAG, "Device Location: Lat=" + latitude + ", Lng=" + longitude);
+            Log.d(TAG, "Fresh Location: Lat=" + latitude + ", Lng=" + longitude);
 
-            currentLocationLat = latitude;
-            currentLocationLng = longitude;
-
-            // Run geocoder in background thread
             new Thread(() -> {
                 Geocoder geocoder = new Geocoder(SignupActivity.this, Locale.getDefault());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                     runOnUiThread(() -> {
                         if (addresses != null && !addresses.isEmpty()) {
-                            Address returnedAddress = addresses.get(0);
-                            StringBuilder strReturnedAddress = new StringBuilder();
-                            for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
-                                strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
-                            }
-                            currentLocationString = strReturnedAddress.toString();
-                            etAddress.setText(currentLocationString);
-                            Toast.makeText(SignupActivity.this, "Address found and set!", Toast.LENGTH_SHORT).show();
+                            Address addr = addresses.get(0);
+
+                            // ✅ Use full formatted address
+                            String fullAddress = addr.getAddressLine(0);
+
+                            etAddress.setText(fullAddress);
+                            Toast.makeText(SignupActivity.this, "Address found!", Toast.LENGTH_SHORT).show();
                         } else {
-                            currentLocationString = "Lat: " + latitude + ", Lng: " + longitude;
-                            etAddress.setText(currentLocationString);
-                            Toast.makeText(SignupActivity.this, "Could not find a specific address. Using coordinates.", Toast.LENGTH_LONG).show();
+                            etAddress.setText("Lat: " + latitude + ", Lng: " + longitude);
+                            Toast.makeText(SignupActivity.this, "Only coordinates available.", Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (IOException e) {
                     runOnUiThread(() -> {
-                        currentLocationString = "Lat: " + latitude + ", Lng: " + longitude;
-                        etAddress.setText(currentLocationString);
-                        Toast.makeText(SignupActivity.this, "Failed to get address. Using coordinates.", Toast.LENGTH_LONG).show();
+                        etAddress.setText("Lat: " + latitude + ", Lng: " + longitude);
+                        Toast.makeText(SignupActivity.this, "Geocoder failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     });
                 }
             }).start();
         }
     }
+
+
 
     @SuppressLint("RestrictedApi")
     private void registerUser() {
@@ -409,8 +436,8 @@ public class SignupActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE); // Show progress bar at the start of the async operation
 
         // --- STEP 1: Check if userId (username) already exists in the Realtime Database ---
-        Query userIdQuery = userDatabase.orderByChild("userId").equalTo(userId);
-        userIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        // Query userIdQuery = userDatabase.orderByChild("userId").equalTo(userId);
+        usernamesDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -420,22 +447,22 @@ public class SignupActivity extends AppCompatActivity {
                     etUserId.setError("User ID already exists"); // Set an error on the EditText
                 } else {
                     // --- STEP 2: If userId is unique, proceed with Firebase Authentication (Email uniqueness) ---
+                    // The username is unique, proceed with authentication
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(task -> {
                                 progressBar.setVisibility(View.GONE); // Hide progress bar regardless of auth outcome
                                 if (task.isSuccessful()) {
-                                    // Successfully authenticated a new user
+                                    // User created successfully, now save data
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                     if (firebaseUser != null) {
-                                        String uid = firebaseUser.getUid(); // Get Firebase Auth UID
+                                        String uid = firebaseUser.getUid();
 
-                                        // ✅ CORRECT WAY TO INSTANTIATE UserModel for saving to DB
-                                        // This creates the UserModel object ONLY when needed for saving
+                                        // Create user data model
                                         UserModel newUser = new UserModel(userId, email, phone, address);
-                                        // userType is now set in the UserModel constructor
 
-                                        // Save user details to Realtime Database under their Firebase Auth UID
-                                        userDatabase.child(uid).setValue(newUser)
+                                        // Save to both nodes
+                                        userDatabase.child(uid).setValue(newUser);
+                                        usernamesDatabase.child(userId).setValue(true)
                                                 .addOnCompleteListener(saveTask -> {
                                                     if (saveTask.isSuccessful()) {
                                                         Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();

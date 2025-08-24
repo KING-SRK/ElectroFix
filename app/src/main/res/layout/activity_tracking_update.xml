@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <!-- Text Content -->
+
+    <!-- Right Timeline (Dot + Line) -->
+
+    <LinearLayout
+        android:id="@+id/textContainer"
+        android:layout_width="254dp"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="56dp"
+        android:layout_toStartOf="@id/timelineContainer"
+        android:orientation="vertical"
+        android:paddingEnd="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Confirmed Thu, 14th Aug '25"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tvStepSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Your order has been placed."
+            android:textColor="#444444"
+            android:textSize="14sp" />
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/tvStepDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Thu, 14th Aug '25 - 8:10pm"
+            android:textColor="#777777"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timelineContainer"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentEnd="true">
+
+        <!-- Circle (Dot) -->
+        <View
+            android:id="@+id/dot"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/tracking_dot_active" />
+
+        <!-- Connector Line -->
+        <View
+            android:id="@+id/line"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#4CAF50"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+    <!-- Text Content -->
+    <!-- Right Timeline (Dot + Line) -->
+
+    <LinearLayout
+        android:id="@+id/Container"
+        android:layout_width="273dp"
+        android:layout_height="76dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="59dp"
+        android:layout_toStartOf="@id/timelineContainer"
+        android:orientation="vertical"
+        android:paddingEnd="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/StepTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Confirmed Thu, 14th Aug '25"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/StepSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Your order has been placed."
+            android:textColor="#444444"
+            android:textSize="14sp" />
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/StepDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Thu, 14th Aug '25 - 8:10pm"
+            android:textColor="#777777"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timelinContainer"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentEnd="true">
+        <!-- Circle (Dot) -->
+        <View
+            android:id="@+id/dote"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/tracking_dot_inactive" />
+    </LinearLayout>
+</RelativeLayout>

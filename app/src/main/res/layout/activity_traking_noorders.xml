@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_backgroundColor"
+    tools:context=".TrackingActivity">
+
+    <!-- 🔹 Back button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_back_arrow"
+        android:contentDescription="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- 🔹 State 1: No Orders -->
+    <LinearLayout
+        android:id="@+id/layout_no_orders"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/noOrdersImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/no_orders_illustration"
+            android:contentDescription="No Orders" />
+
+        <TextView
+            android:id="@+id/noOrdersText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No orders yet!"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+    </LinearLayout>
+
+    <!-- 🔹 State 2: Orders Layout -->
+    <ScrollView
+        android:id="@+id/layout_orders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_boking_card"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Service Card -->
+            <LinearLayout
+                android:id="@+id/profileForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_boking_card"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/serviceTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Service Title Here"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColor" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="12dp"
+                    android:background="#2E7D32" />
+
+                <!-- User Info -->
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="User ID :"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                        <TextView
+                            android:id="@+id/tvUserId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Not set"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Name :"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Not set"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Date :"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                        <TextView
+                            android:id="@+id/tvdate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Not set"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColor" />
+                    </TableRow>
+                </TableLayout>
+
+                <!-- Services List -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="General Services"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#007BFF" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="• AC General Cleaning &amp; Servicing" android:textColor="@color/textColor"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="• Indoor Unit Filter Cleaning" android:textColor="@color/textColor"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="• Outdoor Unit Cleaning" android:textColor="@color/textColor"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="• Full System Health Check" android:textColor="@color/textColor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Starts From : ₹500"
+                    android:textColor="#02C009"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:paddingTop="8dp" />
+
+                <!-- Buttons Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:layout_marginTop="12dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btntrack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Track"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="@color/colorAccent"
+                        app:cornerRadius="8dp"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnhelp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Help"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="#007BFF"
+                        app:cornerRadius="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginStart="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

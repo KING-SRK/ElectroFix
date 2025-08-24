@@ -6,6 +6,42 @@
     android:layout_height="match_parent"
     android:background="@color/home_backgroundColor"
     android:padding="0dp">
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/CategoryPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Categories"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"
+        android:letterSpacing="0.05"
+        android:shadowColor="#000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="6"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="-45dp"
+        android:layout_marginEnd="16dp" />
+
 
     <!-- Scrollable Category Buttons -->
     <ScrollView
@@ -13,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/fixed_header"
+        app:layout_constraintTop_toBottomOf="@id/CategoryPage"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -84,40 +120,6 @@
 
             </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/fixed_header"
-        android:layout_width="410dp"
-        android:layout_height="80dp"
-        android:background="@color/home_backgroundColor"
-        android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <!-- Bottom Navigation Bar -->
-        <ProgressBar
-            android:id="@+id/loading_progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:indeterminateTint="@color/skyblue"
-            android:layout_marginBottom="6dp" />
-
-        <ImageView
-            android:id="@+id/electrofix_logo"
-            android:layout_width="200dp"
-            android:layout_height="58dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="14dp"
-            android:contentDescription="ElectroFix Logo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/electrofix_text" />
-        </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/bottom_nav"

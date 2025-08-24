@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -447,12 +449,15 @@ public class MainActivity extends BaseActivity {
         if (btnTracking != null) {
             btnTracking.setOnClickListener(v -> {
                 if (isLoggedIn()) {
-                    startActivity(new Intent(MainActivity.this, TrackingActivity.class));
+                    Intent intent = new Intent(MainActivity.this, TrackingActivity.class);
+                    intent.putExtra("bookingId", "YOUR_BOOKING_ID"); // pass actual bookingId
+                    startActivity(intent);
                 } else {
                     showLoginPrompt("Please login to track your orders.");
                 }
             });
         }
+
         // ✅ Profile (restricted)
         if (customerProfileButton != null) {
             customerProfileButton.setOnClickListener(v -> {
@@ -545,26 +550,36 @@ public class MainActivity extends BaseActivity {
 
     @SuppressLint("MissingPermission")
     private void getUserLocation() {
+        if (!isLocationEnabled()) {
+            // ❌ Remove the toast here
+            // ✅ Just return silently without showing anything
+            return;
+        }
+
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
-                        // REMOVE OR COMMENT OUT THE FOLLOWING LINE:
-                        // Toast.makeText(this,
-                        //         "Lat: " + latitude + " , Lng: " + longitude,
-                        //         Toast.LENGTH_LONG).show();
-                        // If you want to log it for debugging, use Log.d:
-                        // Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+
+                        Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+
                     } else {
+                        // 👉 Optional: only show toast if GPS is ON but still no location
                         Toast.makeText(this,
-                                "Unable to get location. Try again.",
+                                "Unable to fetch location right now. Try again.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
 
-        @Override
+
+    @Override
         public void onRequestPermissionsResult(int requestCode,
                                                @NonNull String[] permissions,
                                                @NonNull int[] grantResults) {

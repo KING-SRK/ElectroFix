@@ -28,8 +28,10 @@ public class CustomerProfileActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference userRef;
+    private TextView tvUserId;
+    private TextView tvAddress;
 
-    // New: LinearLayouts for buttons
+    // LinearLayouts for buttons
     private LinearLayout profileInfoBtn, bookingHistoryBtn, logoutBtn;
 
     @Override
@@ -46,13 +48,28 @@ public class CustomerProfileActivity extends BaseActivity {
         // Firebase Initialization
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        userRef = FirebaseDatabase.getInstance().getReference("Customers").child(currentUser.getUid());
+
+        if (currentUser == null) {
+            // If user is not logged in, redirect to login/main activity
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class)); // or MainActivity.class
+            finish();
+            return;
+        }
+
+        // ⭐ Important: Ensure this path matches where user data is saved (e.g., "Users" or "Customers")
+        // Based on previous discussions, it should likely be "Users"
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
         // UI Elements
-        profileImage = findViewById(R.id.customerProfileImage);
+        profileImage = findViewById(R.id.imgProfile);
         headerName = findViewById(R.id.customerHeaderName);
+        // ⭐ NEW: Bind the new TextViews for User ID and Address in CustomerProfileActivity
+        // Ensure these IDs exist in your activity_customer_profile.xml
+        tvUserId = findViewById(R.id.tvUserId); // Assuming this is the ID for User ID
+        tvAddress = findViewById(R.id.tvAddress); // Assuming this is the ID for Address
 
-        // New: Find LinearLayouts
+        // Find LinearLayouts
         profileInfoBtn = findViewById(R.id.btnProfileInfo);
         bookingHistoryBtn = findViewById(R.id.btnBookingHistory);
         logoutBtn = findViewById(R.id.btnLogout);
@@ -86,7 +103,7 @@ public class CustomerProfileActivity extends BaseActivity {
                         mAuth.signOut();
                         Toast.makeText(CustomerProfileActivity.this, "Logged Out Conformed", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(CustomerProfileActivity.this, MainActivity.class));
-                        finish();
+                        finishAffinity(); // Clears all activities from the task stack
                     })
                     .setNegativeButton("Cancel", null)
                     .create();
@@ -101,11 +118,10 @@ public class CustomerProfileActivity extends BaseActivity {
             dialog.show();
         });
 
-        // Profile Image Click (Pick New Image)
-        profileImage.setOnClickListener(v -> {
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, 100);
-        });
+        // ⭐ Removed direct profileImage.setOnClickListener for gallery.
+        // The flow is now: CustomerProfileActivity -> CustomerProfileInfoActivity -> CustomerEditProfileActivity -> AvatarChooserActivity
+        // If a user wants to change their profile picture, they should do it through the "Edit Profile" flow.
+        // This avoids confusion and keeps the logic centralized.
 
         // Bottom Navigation Clicks
         homeButton.setOnClickListener(v -> {
@@ -114,8 +130,12 @@ public class CustomerProfileActivity extends BaseActivity {
         });
 
         profileButton.setOnClickListener(v -> {
-            startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class));
-            finish();
+            // Already on this page, or reload if needed.
+            // No need to restart the same activity unless there's a specific reason.
+            // finish(); // Remove if you want to keep the current instance.
+            // If you always want a fresh instance, you can use:
+            // startActivity(new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class));
+            // finish();
         });
 
         categoryButton.setOnClickListener(v -> {
@@ -131,41 +151,92 @@ public class CustomerProfileActivity extends BaseActivity {
 
     // Load User Info from Firebase
     private void loadUserInfo() {
+        // currentUser check is already done in onCreate, but good practice to double-check
         if (currentUser != null) {
             userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String name = snapshot.child("name").getValue(String.class);
+                        String fullName = snapshot.child("name").getValue(String.class); // Get full name
+                        // ⭐ Get both image URL and drawable ID
                         String imageUrl = snapshot.child("profileImage").getValue(String.class);
+                        Integer profileDrawableId = snapshot.child("profileImageDrawableId").getValue(Integer.class);
+                        // ⭐ MODIFIED: Fetch the custom user ID using the correct field name 'userId'
+                        String customUserId = snapshot.child("userId").getValue(String.class);
+                        // ⭐ Get the Address from Firebase
+                        String address = snapshot.child("address").getValue(String.class);
 
-                        headerName.setText("Hi, " + getValidText(name, "User"));
+                        // ⭐ Get the User ID from Firebase Authentication (not from database data)
+                        String userId = currentUser.getUid();
 
-                        if (imageUrl != null && !imageUrl.isEmpty()) {
-                            Glide.with(CustomerProfileActivity.this).load(imageUrl).into(profileImage);
+                        // ... existing first name parsing logic for headerName ...
+
+                        // ⭐ Set the User ID and Address
+                        if (tvUserId != null) {
+                            tvUserId.setText(getValidText(customUserId, "Not set"));
+                        }
+                        if (tvAddress != null) { // Null check for safety
+                            tvAddress.setText(getValidText(address, "Not set"));
+                        }
+
+                        // Extract first name logic (already implemented in previous response)
+                        String firstName = "User";
+                        if (fullName != null && !fullName.isEmpty()) {
+                            String[] nameParts = fullName.split(" ");
+                            if (nameParts.length > 0) {
+                                firstName = nameParts[0];
+                            } else {
+                                firstName = fullName;
+                            }
+                        }
+                        headerName.setText("Hi, " + firstName);
+
+                        // ⭐ Load profile image: check drawable ID first, then URL
+                        if (profileDrawableId != null && profileDrawableId != 0) {
+                            // If a default avatar ID is stored, use it
+                            profileImage.setImageResource(profileDrawableId);
+                        } else if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Otherwise, if a URL is stored, use Glide
+                            Glide.with(CustomerProfileActivity.this)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.ic_profile) // Use your preferred placeholder
+                                    .error(R.drawable.ic_profile) // Fallback if Glide fails
+                                    .into(profileImage);
                         } else {
+                            // If neither is set, use a generic default
                             profileImage.setImageResource(R.drawable.ic_profile);
                         }
+                    } else {
+                        // Handle case where user data does not exist (e.g., brand new user)
+                        headerName.setText("Hi, User");
+                        profileImage.setImageResource(R.drawable.ic_profile);
+                        if (tvUserId != null) tvUserId.setText("Not set");
+                        if (tvAddress != null) tvAddress.setText("Not set");
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    Toast.makeText(CustomerProfileActivity.this, "Failed to load data!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerProfileActivity.this, "Failed to load data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    headerName.setText("Hi, User"); // Fallback on error
+                    profileImage.setImageResource(R.drawable.ic_profile);
+                    if (tvUserId != null) tvUserId.setText("Error loading...");
+                    if (tvAddress != null) tvAddress.setText("Error loading...");// Fallback on error
                 }
             });
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            profileImage.setImageURI(selectedImage);
-        }
-    }
+    // ⭐ Removed onActivityResult since profile image picking is now handled by AvatarChooserActivity
+    // and CustomerEditProfileActivity.
+    // If you explicitly need to handle a result here for another purpose, re-add it.
+    // @Override
+    // protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //     super.onActivityResult(requestCode, resultCode, data);
+    //     // ... your existing onActivityResult code if needed for other intents
+    // }
 
+    // Ensure you have this helper method:
     private String getValidText(String text, String defaultText) {
         return (text != null && !text.isEmpty()) ? text : defaultText;
     }

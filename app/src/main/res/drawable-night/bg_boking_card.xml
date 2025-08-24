@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark rounded search/card bar with soft shadow + subtle outline -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="?attr/colorControlHighlight"
+    tools:ignore="MissingDefaultResource">
+
+    <item>
+        <layer-list>
+
+            <!-- Soft outer shadow (bottom-heavy) -->
+            <item android:top="2dp" android:bottom="6dp" android:left="2dp" android:right="2dp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <solid android:color="#151419" />
+                    <size android:height="80dp" android:width="100dp" />
+                    <padding android:left="0dp" android:top="0dp" android:right="0dp" android:bottom="0dp" />
+                    <!-- Blur-like shadow via low-alpha; looks good on dark UI -->
+                    <gradient
+                        android:type="radial"
+                        android:gradientRadius="120dp"
+                        android:centerX="50%"
+                        android:centerY="70%"
+                        android:startColor="#22000000"
+                        android:centerColor="#11000000"
+                        android:endColor="#00000000" />
+                </shape>
+            </item>
+
+            <!-- Main dark body -->
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <solid android:color="#151419" />
+                </shape>
+            </item>
+
+            <!-- Subtle outline to match the screenshot’s thin border -->
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="#2A2F36" />
+                </shape>
+            </item>
+
+            <!-- Inner highlight line (very faint, adds that “polished” edge) -->
+            <item android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="17dp" />
+                    <stroke
+                        android:width="0.5dp"
+                        android:color="#1FFFFFFF" />
+                    <solid android:color="#00000000" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+</ripple>

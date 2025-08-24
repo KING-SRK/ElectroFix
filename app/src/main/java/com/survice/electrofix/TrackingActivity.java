@@ -1,47 +1,146 @@
 package com.survice.electrofix;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
-// No need for LinearLayout, AnimationDrawable, Drawable imports if the problematic code is removed
-// import android.graphics.drawable.AnimationDrawable;
-// import android.graphics.drawable.Drawable;
-// import android.widget.LinearLayout;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class TrackingActivity extends AppCompatActivity {
 
-    private Button btnStartTracking;
-    private ImageButton btnBack;
+    private TextView tvServiceCategory, tvServiceTitle, tvMessage, tvBookingId, tvCreatedAt;
+    private ImageView noOrdersImage,dustbinImage;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
 
-        // REMOVE THE FOLLOWING BLOCK OF CODE FROM HERE!
-        // LinearLayout startJourneyLayout = findViewById(R.id.start_journey_layout);
-        // if (startJourneyLayout != null) {
-        //     Drawable background = startJourneyLayout.getBackground();
-        //     if (background instanceof AnimationDrawable) {
-        //         AnimationDrawable animationDrawable = (AnimationDrawable) background;
-        //         animationDrawable.start();
-        //     }
-        // }
-        // END OF BLOCK TO BE REMOVED
+        // init views
+        tvServiceCategory = findViewById(R.id.tvServiceCategory);
+        tvServiceTitle = findViewById(R.id.tvServiceTitle);
+        tvMessage = findViewById(R.id.tvMessage);
+        tvBookingId = findViewById(R.id.tvBookingId);
+        tvCreatedAt = findViewById(R.id.tvCreatedAt);
+        noOrdersImage = findViewById(R.id.noOrdersImage);
+        dustbinImage = findViewById(R.id.dustbinImage);
 
-        btnStartTracking = findViewById(R.id.btnStartTracking);
-        btnBack = findViewById(R.id.btnBack);
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+        findViewById(R.id.dustbinImage).setOnClickListener(v -> onDeleteClick(v));
+        // Firebase
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        btnBack.setOnClickListener(v -> finish());
-        btnStartTracking.setOnClickListener(v -> {
-            Intent intent = new Intent(TrackingActivity.this, TrackCustomerActivity.class);
-            intent.putExtra("customerLat", 22.5726); // test value, replace with actual
-            intent.putExtra("customerLon", 88.3639); // test value, replace with actual
-            intent.putExtra("repairerId", "REPAIRER_USER_ID"); // replace with actual ID
-            startActivity(intent);
+        String userId = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : null;
+
+        if (userId == null) {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        // Example: bookingId passed from previous activity
+        String bookingId = getIntent().getStringExtra("bookingId");
+        if (bookingId == null) {
+            Toast.makeText(this, "No booking ID found!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        listenBookingUpdates(userId, bookingId);
+    }
+
+    private void listenBookingUpdates(String userId, String bookingId) {
+        DocumentReference bookingRef = db.collection("Bookings")
+                .document(userId)
+                .collection("UserBookings")
+                .document(bookingId);
+
+        bookingRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("TrackingActivity", "Listen failed.", error);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    // ✅ Booking exists → show details, hide placeholder
+                    noOrdersImage.setVisibility(View.GONE);
+
+                    tvServiceCategory.setVisibility(View.VISIBLE);
+                    tvServiceTitle.setVisibility(View.VISIBLE);
+                    tvMessage.setVisibility(View.VISIBLE);
+                    tvCreatedAt.setVisibility(View.VISIBLE);
+                    tvBookingId.setVisibility(View.VISIBLE);
+
+                    String serviceCategory = snapshot.getString("serviceCategory");
+                    String serviceTitle = snapshot.getString("serviceTitle");
+                    String message = snapshot.getString("message");
+                    String status = snapshot.getString("status");
+                    String createdAt = snapshot.getString("createdAt");
+                    String bookingId = snapshot.getString("bookingId");
+
+                    tvServiceCategory.setText(serviceCategory != null ? serviceCategory : "N/A");
+                    tvServiceTitle.setText(serviceTitle != null ? serviceTitle : "N/A");
+                    tvMessage.setText(message != null ? message : "N/A");
+                    tvCreatedAt.setText(createdAt != null ? createdAt : "-");
+                    tvBookingId.setText(bookingId != null ? bookingId : "-");
+
+                } else {
+                    // ❌ No booking found → show placeholder image
+                    noOrdersImage.setVisibility(View.VISIBLE);
+
+                    tvServiceCategory.setVisibility(View.GONE);
+                    tvServiceTitle.setVisibility(View.GONE);
+                    tvMessage.setVisibility(View.GONE);
+                    tvCreatedAt.setVisibility(View.GONE);
+                    tvBookingId.setVisibility(View.GONE);
+                }
+            }
         });
+    }
+
+    public void onDeleteClick(View view) {
+        if (mAuth.getCurrentUser() != null) {
+            String userId = mAuth.getCurrentUser().getUid();
+            String bookingId = getIntent().getStringExtra("bookingId");
+            if (bookingId != null) {
+                deleteBooking(userId, bookingId);
+            } else {
+                Toast.makeText(this, "No booking ID to delete!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void deleteBooking(String userId, String bookingId) {
+        db.collection("Bookings").document(userId).collection("UserBookings").document(bookingId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("TrackingActivity", "DocumentSnapshot successfully deleted!");
+                    Toast.makeText(TrackingActivity.this, "Booking successfully deleted!", Toast.LENGTH_SHORT).show();
+                    // The onSnapshot listener will automatically update the UI to show the "no orders" image.
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("TrackingActivity", "Error deleting document", e);
+                    Toast.makeText(TrackingActivity.this, "Error deleting booking.", Toast.LENGTH_SHORT).show();
+                });
     }
 }

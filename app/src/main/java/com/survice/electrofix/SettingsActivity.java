@@ -32,7 +32,7 @@ public class SettingsActivity extends BaseActivity { // Assuming BaseActivity is
 
     private static final String TAG = "SettingsActivity"; // For logging
 
-    private ImageButton homeButton, customerProfileButton, categoryButton, settingsButton;
+    private ImageButton homeButton, customerProfileButton, categoryButton, settingsButton,btnBack;
     private String currentUserType; // Stores the user type after fetching from DB
     private TextView customerProfileText;
     private Button btnChangePassword, btnDeleteAccount, btnPrivacyPolicy, btnTerms, btnLogout,
@@ -99,6 +99,7 @@ public class SettingsActivity extends BaseActivity { // Assuming BaseActivity is
 
     private void initViews() {
         btnChangePassword = findViewById(R.id.btnChangePassword);
+        btnBack = findViewById(R.id.btnBack);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
         btnPrivacyPolicy = findViewById(R.id.btnPrivacyPolicy);
         btnTerms = findViewById(R.id.btnTerms);
@@ -144,6 +145,11 @@ public class SettingsActivity extends BaseActivity { // Assuming BaseActivity is
     }
 
     private void setupButtonClickListeners() {
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+            // You might want to finish this activity if you don't want it in the back stack
+            // or just let it reload when returning. For now, we'll let it reload.
+        });
         if (customerProfileButton != null) {
             customerProfileButton.setOnClickListener(v -> {
                 if (isLoggedIn()) {
@@ -265,21 +271,20 @@ public class SettingsActivity extends BaseActivity { // Assuming BaseActivity is
             saveSwitchStateToFirebase("smsAlerts", isChecked); // Save to Firebase
         });
 
-       
+        themeSwitch.setOnCheckedChangeListener((btn, isChecked) -> {
+            editor.putBoolean("DarkMode", isChecked).apply();
+            updateSwitchColor(themeSwitch, isChecked);
 
-            themeSwitch.setOnCheckedChangeListener((btn, isChecked) -> {
-                editor.putBoolean("DarkMode", isChecked).apply();
-                updateSwitchColor(themeSwitch, isChecked);
+            // Apply the new night mode setting
+            AppCompatDelegate.setDefaultNightMode(
+                    isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+            );
 
-                // Apply the theme change globally
-                AppCompatDelegate.setDefaultNightMode(isChecked ?
-                        AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-
-                // ✅ This is the correct way to apply the theme change
-                recreate();
-                // Optional: Add this line to remove the screen flashing
-                overridePendingTransition(0, 0);
-            });
+            // ⭐ CRUCIAL: Recreate the activity to apply the theme change immediately.
+            // Because you have android:configChanges="uiMode" in the manifest,
+            // this will be a smooth, non-blinking recreation.
+            recreate();
+        });
 
 
         btnChangeLanguage.setOnClickListener(v -> showLanguageDialog());
@@ -307,7 +312,7 @@ public class SettingsActivity extends BaseActivity { // Assuming BaseActivity is
             editor.clear().apply(); // Clear all shared preferences
             mAuth.signOut(); // Use initialized mAuth
             Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ChoiceActivity.class)); // Assuming ChoiceActivity is your landing page for unauthenticated users
+            startActivity(new Intent(this, MainActivity.class)); // Assuming ChoiceActivity is your landing page for unauthenticated users
             finishAffinity(); // Clears all activities from this task
         });
 

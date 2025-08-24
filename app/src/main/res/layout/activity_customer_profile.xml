@@ -6,16 +6,16 @@
 
     <!-- Header -->
     <TextView
-        android:id="@+id/electroFixText"
+        android:id="@+id/Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="Customer"
+        android:text="Profile"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="@color/yellow"
+        android:textColor="@color/textColor"
         android:fontFamily="sans-serif-black"
         android:letterSpacing="0.05"
         android:shadowColor="#000000"
@@ -35,16 +35,19 @@
         android:padding="20dp"
         android:elevation="12dp">
 
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/customerProfileImage"
+        <!-- Avatar Section -->
+        <RelativeLayout
             android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:src="@drawable/coustomer_profile"
-            android:scaleType="fitCenter"
-            android:padding="15dp" />
+            android:layout_height="120dp">
 
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/avatar_circle_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_default_avatar" />
+        </RelativeLayout>
         <!-- Name -->
         <TextView
             android:id="@+id/customerHeaderName"
@@ -140,10 +143,65 @@
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
 
+
+
+    <LinearLayout
+        android:id="@+id/userIdAddressContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/profileCard"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp"
+    android:paddingHorizontal="20dp"
+    android:paddingBottom="10dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"> <!-- ⭐ Removed problematic layout_marginTop -->
+
+        <TableRow android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User ID :"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvUserId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Not set"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Address :"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Not set"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
     <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_nav"

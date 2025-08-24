@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CategoryActivity extends BaseActivity {
 
-    private ImageButton homeButton, customerProfileButton, categoryButton, settingsButton;
+    private ImageButton homeButton, customerProfileButton, categoryButton, settingsButton, btnBack;
 
     private ImageButton btnAcRepair, btnComputerRepair, btnWashingMachine,
             btnLaptop, btnTv, btnMobilePhone, btnFridge, btnFan, btnWaterPurifier;
@@ -61,6 +61,7 @@ public class CategoryActivity extends BaseActivity {
     }
 
     private void initViews() {
+        btnBack = findViewById(R.id.btnBack);
         homeButton = findViewById(R.id.home_button);
         customerProfileButton = findViewById(R.id.customer_profile_button);// নতুন single profile button
         categoryButton = findViewById(R.id.category_button);
@@ -89,6 +90,11 @@ public class CategoryActivity extends BaseActivity {
     }
 
     private void setupButtonClickListeners() {
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(CategoryActivity.this, MainActivity.class));
+            // You might want to finish this activity if you don't want it in the back stack
+            // or just let it reload when returning. For now, we'll let it reload.
+        });
         // ✅ Profile (restricted) - Now correctly inside the method
         if (customerProfileButton != null) {
             customerProfileButton.setOnClickListener(v -> {
@@ -197,7 +203,11 @@ public class CategoryActivity extends BaseActivity {
     }
 
     private void initCategoryButtons() {
-        btnAcRepair.setOnClickListener(v -> openServiceList("AC Repair"));
+        // ⭐ MODIFIED: This button will now open the new AcServicingActivity
+        btnAcRepair.setOnClickListener(v -> {
+            Intent intent = new Intent(CategoryActivity.this, AcServicingActivity.class);
+            startActivity(intent);
+        });
         btnComputerRepair.setOnClickListener(v -> openServiceList("Computer Repair"));
         btnWashingMachine.setOnClickListener(v -> openServiceList("Washing Machine Repair"));
         btnLaptop.setOnClickListener(v -> openServiceList("Laptop Repair"));
